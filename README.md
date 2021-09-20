@@ -17,11 +17,11 @@ This game is played through the terminal, with each player taking turns to type 
 ### Installing
 
 * Clone this file or
-* Download Battleship-G1.py and Board.py and place them in the same folder.
+* Download BattleshipG1.py and Board.py and place them in the same folder.
 
 ### Executing program
 
-* Navigate to the folder where Battleship-G1.py is located.
+* Navigate to the folder where BattleshipG1.py is located.
 * Run the following command in terminal.
 
 ```
@@ -51,3 +51,4 @@ Inspiration, code snippets, etc.
 * [zenorocha](https://gist.github.com/zenorocha/4526327)
 * https://www.hasbro.com/common/instruct/Battleship.PDF
 * https://github.com/dmoisset/battleship-dojo
+* https://www.sphinx-doc.org/en/master/index.html

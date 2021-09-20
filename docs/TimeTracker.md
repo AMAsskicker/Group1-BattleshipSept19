@@ -15,8 +15,11 @@ We estimated it would take around 20 hours overall, or 5-6 person-hours based on
 
 ### Edina
 
-- 09/16/2021: around 10 hours
-
+- 09/12/2021: around 7 hours throughtout the day
+- 09/16/2021: around 10 hours (worked entire day)
+- 09/17/2021: around 5 hours (throughout the day)
+- 09/18/2021: around 5 hours (worked much of the day)
+- 09/19/2021: around 5 hours
 
 ### George
 
