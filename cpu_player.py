@@ -80,6 +80,6 @@ class CPU_Player :
     :author Michael Talaga
     """
     def add_opponent_coords(self, opp_coords):
-        # @Michael the call would be to append to the list
-        # self.opponent_coords.append(opp_coords)
-        self.opponent_coords = opp_coords
+        
+        self.opponent_coords.append(opp_coords)
+        
