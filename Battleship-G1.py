@@ -4,6 +4,7 @@ from cpu_player import CPU_Player
 # libs
 import string
 import sys
+import random
 
 '''
 Responsible for executing the game.
@@ -74,19 +75,21 @@ def setup_user(board, numberShips):
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'D':
-                        if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 10)):
+                        if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
                             break
                         else:
                             print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
-            shipLenTrack += 1
+            
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
+
+            shipLenTrack += 1
         
     playerCoordinates = board.getCoords() #2d Array of player coordinates 
     pause()
@@ -96,7 +99,57 @@ adding a cpu player to the game
 think we should implement a state machine
 AMA 9-26-2021
 """
-
+def setup_CPU(board, numberShips):
+    """
+    Interacts with player to set up a board with ships for a player
+    :pre board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
+    :post
+    :param board: a newly-instantiated blank board object for creating game data for one player
+    :type board: Board
+    :param numberShips: the number of ships that each player will have for a game
+    :type numberShips: int
+    """
+    
+    for ship in range(numberShips):
+        valid = False
+        orientation = ['L', 'R', 'U', 'D']
+        shipLenTrack = 1
+        while valid != True:
+            
+            orientation = orientation[random.randrange(0,4)] #Choose rand orientation
+                
+            start_x_num = random.randrange(0,10) #choose rand x start point
+                
+            start_y_num = random.randrange(0, 9) #choose rand y start point
+                
+            #Orientation validation
+            match orientation:
+                case 'L':
+                    if (start_x_num - shipLenTrack >= 0):
+                        valid = True
+                case 'R':
+                    if (start_x_num - shipLenTrack <= 10):
+                        valid = True
+                case 'U': 
+                    if (start_y_num - shipLenTrack >= 0):
+                        valid = True
+                    
+                case 'D':
+                    if (start_y_num - shipLenTrack <= 9):
+                        valid = True
+            
+            
+            if board.isShipValid(orientation, start_x_num, start_y_num, ship + 1):
+                board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
+                valid = True
+            else:
+                print("There is already a ship here, please reenter coordinates. ")
+                valid = False
+            
+            shipLenTrack += 1
+    print("CPU Board - Test")
+    board.printBoard()
+    pause()
 
 
 def playGame(board1, board2):
@@ -283,8 +336,9 @@ def run():
         # setup CPU board
 
         # TODO: think need diffent func for cpu setup
-        setup_user(cpu_board, ship_num);
+        setup_CPU(cpu_board, ship_num);
 
+        
 
         """ TODO: Remove when cpu is implemented
         print('\nReady to set up the board for Player 2!\n')
