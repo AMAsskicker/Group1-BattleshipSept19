@@ -23,6 +23,7 @@ def setup_user(board, numberShips):
     :param numberShips: the number of ships that each player will have for a game
     :type numberShips: int
     """
+    board.printBoard() #Print blank board for reference
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
@@ -88,6 +89,7 @@ def setup_user(board, numberShips):
                 valid = False
         
     playerCoordinates = board.getCoords() #2d Array of player coordinates 
+    pause()
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
 adding a cpu player to the game
@@ -240,10 +242,13 @@ def run():
                 print("1 = Easy\n2 = Medium\n3 = Impossible\n")
                 difficulty = input("Difficulty:\n")
                 if difficulty.isnumeric():
+                    difficulty = int(difficulty)
                     if difficulty in range(1, 4):
                         diffSelected = True
                     else:
                         print("Please choose a difficulty.\n")
+            print("Difficulty selected.\n")
+        print("\n---------------Ship Selection--------------\n")
 
         choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
@@ -339,6 +344,17 @@ def print_oreient_prompt():
     print('"R" for right of start (horizontal ship)\n')
     print('"U" for up from start (vertical ship)\n')
     print('"D" for down from start (vertical ship)\n')
+
+def pause():
+    """
+    Pauses game until something is typed
+    """
+    waited = False
+    while not waited:
+        wait = input("Press enter to continue:")
+        if len(wait) >= 1 or wait == "":
+            waited = True
+    return (print("\nContinuing...\n"))
 
 """
 checks python version to see if can runs
