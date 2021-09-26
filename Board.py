@@ -70,6 +70,30 @@ class Board:
     def isShipValid(self, orient, start_x, start_y, length):
         start = 0
         bool = True
+        """ not useable till python 3.10 release, ~oct 4, 2021
+        # changed to match-case from if-else AMA 9-26-2021
+        match orient:
+            case 'L' or 'l':
+                while start < length:
+                    if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":
+                        bool = False
+                    start += 1
+            case 'R' or 'r':
+                while start < length:
+                    if self.waterGrid[start_y][start_x + start] != 'O' and self.waterGrid[start_y][start_x + start] != "*":
+                        bool = False
+                    start += 1
+            case 'U' or 'u':
+                while start < length:
+                    if self.waterGrid[start_y - start][start_x] != 'O' and self.waterGrid[start_y - start][start_x] != "*":
+                        bool = False
+                    start += 1
+            case 'D' or 'd':
+                while start < length:
+                    if self.waterGrid[start_y + start][start_x] != 'O' and self.waterGrid[start_y + start][start_x] != "*":
+                        bool = False
+                    start += 1
+            """
         if orient == ('L' or 'l'):
             while start < length:
                 if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":

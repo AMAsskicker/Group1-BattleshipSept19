@@ -85,6 +85,11 @@ def setup_user(board, numberShips):
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
 
+""" method is not commented good and is hard to follow.  Doesn't lend itself to
+adding a cpu player to the game
+think we should implement a state machine
+AMA 9-26-2021
+"""
 def playGame(board1, board2):
     """
     Asks players to enter the coordinates for shooting at ships,
@@ -100,14 +105,14 @@ def playGame(board1, board2):
     quit = False
     while board1.allsunk == False and board2.allsunk == False and quit == False:
         if printMenu(board1, board2, turn) == 3:
-            quit=True
+            quit = True
         else:
             #check for valid column input
             while True:
-                xhit = input("\nWhat column?\n")
-                if xhit.isalpha():
-                    xcoord = (ord(xhit) % 32) - 1
-                    if xcoord in range (0, 10):
+                x_hit = input("\nWhat column?\n")
+                if x_hit.isalpha():
+                    x_coord = (ord(x_hit) % 32) - 1
+                    if x_coord in range (0, 10):
                         break
                     else:
                         print("Please enter a letter between A-J")
@@ -116,10 +121,10 @@ def playGame(board1, board2):
 
             #check for valid row input
             while True:
-                yhit = input("\nWhat row?\n")
-                if yhit.isnumeric():
-                    ycoord = int(yhit) - 1
-                    if ycoord in range(0, 10):
+                y_hit = input("\nWhat row?\n")
+                if y_hit.isnumeric():
+                    y_coord = int(y_hit) - 1
+                    if y_coord in range(0, 10):
                         break
                     else:
                         print("Please enter a number between 1-9.)")
@@ -127,12 +132,12 @@ def playGame(board1, board2):
                     print("Please enter a valid row. (1-9)")
 
             if turn%2 == 1:
-                boardPlayer2.hit(ycoord,xcoord)
-                boardPlayer1.score(boardPlayer2)
+                board2.hit(y_coord,x_coord)
+                board2.score(boardPlayer2)
             elif turn%2 == 0:
-                boardPlayer1.hit(ycoord,xcoord)
-                boardPlayer1.score(boardPlayer2)
-            turn=turn+1
+                board1.hit(y_coord,x_coord)
+                board1.score(boardPlayer2)
+            turn += 1
 
 def printMenu(board1, board2, turn):
     """
@@ -168,11 +173,24 @@ def printMenu(board1, board2, turn):
             while True:
                 choice = input()
                 if choice.isnumeric():
-                    choice=int(choice)
+                    choice = int(choice)
                     break
                 else:
-                    print("Sorry, invalid choice! Please pick again.\n")
+                    print("Sorry, invalid choice. Please pick again.\n")
                     print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
+            """ not useable till python 3.10 release, ~oct 4, 2021
+            # changed to match-case from if-else AMA 9-26-2021
+            match choice:
+                case 1:
+                    return 1;
+                case 2:
+                    print_rules();
+                case 3:
+                    print("\nGoodbye...")
+                    return 3;
+                case _:
+                    print("Sorry, invalid choice. Please pick again.\n")
+            """
 
             if choice == 1:
                 return(1) # return this choice to playGame and start shootin'
@@ -183,6 +201,7 @@ def printMenu(board1, board2, turn):
                 return(3)
             else:
                 print("Sorry, invalid choice! Please pick again.\n")
+
 
 
 def run():
@@ -204,14 +223,27 @@ def run():
             else:
                 print("Please enter a valid ship number.\n")
 
-        # Create a board object for player 1
+        # player 1 board object
         player1_board = Board()
         print('\nReady to set up the board for Player 1!\n')
+
+
+        """ TODO: remove comment
+        2 line comment below is redundant, can look at the func to see what it does and
+        is in the name
+
         # This step runs the setup method for Player 1. The method modifies
         # the waterGrid 2D array of boardPlayer1.
+        """
         setup_user(player1_board, ship_num)
-        # Create a board object for player 2
-        boardPlayer2 = Board()
+
+        # CPU board object
+        cpu_board = Board()
+        # setup CPU board
+
+        # TODO: think need diffent func for cpu setup
+        setup_user(cpu_board, ship_num);
+
 
         """ TODO: Remove when cpu is implemented
         print('\nReady to set up the board for Player 2!\n')
@@ -221,7 +253,7 @@ def run():
         """
 
         # This now starts the shooting steps, printing printMenu() between each player's shot
-        playGame(player1_board, boardPlayer2)
+        playGame(player1_board, cpu_board)
 
         # Once playGame method ends, give players the option to play again rather than exit program.
         while True:
@@ -236,8 +268,9 @@ def run():
                 print("\nInvalid Input.")
 
 def print_rules():
-    """
+    """ removed from printMenu func for readability
     :author AMA
+    :date sept 24 2021
     """
     print("--------------------------------------------------------------------")
     print("----------------------------------------------------------------------")

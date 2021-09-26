@@ -65,5 +65,3 @@ class CPU_Player :
     """
     def isValid_move (move_2_check):
         return True;
-
-    
