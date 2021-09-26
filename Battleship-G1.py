@@ -26,8 +26,7 @@ def setup_user(board, numberShips):
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-        # @Michel ship number gives us the ship lenght, ship_length_track is redundant - AMA
-        ship_length_track = 1
+        shipLenTrack = 1
         while valid != True:
             #check for valid column input
             while True:
@@ -58,47 +57,41 @@ def setup_user(board, numberShips):
                 orientInput = input()
                 orient = orientInput.upper()
                 if orientInput in orientation:
-                    # replaced if-else with match-case AMA 9-26-2021
-                    match orient:
-                        case 'L':
-                            if ((ship - 1 <= start_x_num) and (start_x_num - ship_length_track >= 0)):
-                                break
-                            else:
-                                print("The ship will not fit here!")
-                        case 'R':
-                            if ((ship + start_x_num <= 10) and (start_x_num - ship_length_track <= 10)):
-                                break
-                            else:
-                                print("The ship will not fit here!")
-                        case 'U':
-                            if ((ship - 1 <= start_y_num) and (start_y_num - ship_length_track >= 0)):
-                                break
-                            else:
-                                print("The ship will not fit here!")
-                        case 'D':
-                            if ((ship + start_y_num <= 9) and (start_y_num + ship_length_track <= 10)):
-                                break
-                            else:
-                                print("The ship will not fit here!")
+                    if orient == 'L':
+                        if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    elif orient == 'R':
+                        if ((ship + start_x_num <= 10) and (start_x_num - shipLenTrack <= 10)):
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    elif orient == 'U':
+                        if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
+                            break
+                        else:
+                            print("The ship will not fit here!")
+                    elif orient == 'D':
+                        if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 10)):
+                            break
+                        else:
+                            print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
-            # ship_length_track redundant, see instantiation comment - AMA
-            ship_length_track += 1
+            shipLenTrack += 1
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
-
-    coordinates = board.getCoords()
-    for each in coordinates:
-        print(each)
-
+        
+    playerCoordinates = board.getCoords() #2d Array of player coordinates 
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
 adding a cpu player to the game
-think we should implement a state machine, sending email to TA for approval 9-26-2021
+think we should implement a state machine
 AMA 9-26-2021
 """
 
@@ -193,6 +186,7 @@ def printMenu(board1, board2, turn):
                 else:
                     print("Sorry, invalid choice. Please pick again.\n")
                     print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
+            # """ not useable till python 3.10 release, ~oct 4, 2021
             # changed to match-case from if-else AMA 9-26-2021
             match choice:
                 case 1:
@@ -204,14 +198,40 @@ def printMenu(board1, board2, turn):
                     return 3;
                 case _:
                     print("Sorry, invalid choice. Please pick again.\n")
+            # """
+
+            # if choice == 1:
+            #     return(1) # return this choice to playGame and start shootin'
+            # elif choice == 2:
+            #     print_rules()
+            # elif choice == 3:
+            #     print("\nGoodbye...")
+            #     return(3)
+            # else:
+            #     print("Sorry, invalid choice! Please pick again.\n")
+
+
 
 def run():
     """ Starts and ends the game, calling methods as appropriate.
     """
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over
     while stopgame == 0:
-        choice = 0  # bool for marking acceptable choice for numberShips
+        
         print('\n*** WELCOME TO BATTLESHIP!! ***\n')
+        isCPU, firstSelection = False, False
+        print("Would you like to play against another player?\n")
+        while not firstSelection:
+            selection = input("Enter '1' to play against a player and '2' for CPU.\n")
+            if selection.isnumeric():
+                if selection == 1:
+                    firstSelection = True
+                elif selection == 2:
+                    firstSelection, isCPU = True, True
+                else:
+                    print("Please enter a 1 or 2.\n")
+
+        choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
             print('How many ships per player for this game?\n')
             numberShips = input('Enter a number from 1 to 6:\n')
@@ -238,6 +258,7 @@ def run():
         """
         setup_user(player1_board, ship_num)
 
+        #if isCPU:
         # CPU board object
         cpu_board = Board()
         # setup CPU board
