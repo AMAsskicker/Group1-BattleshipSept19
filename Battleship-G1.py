@@ -199,6 +199,31 @@ def run():
 
         print('\n *** WELCOME TO BATTLESHIP!! ***\n')
         print()
+        
+        isCPU, firstSelection = False, False
+        print("Would you like to play against another player or a CPU?\n")
+        while not firstSelection:
+            selection = input("Enter '1' for another player and '2' for the CPU\n")
+            if selection.isnumeric():
+                if selection == 1:
+                    firstSelection = True
+                elif selection == 2:
+                    isCPU = True
+                    firstSelection = True
+                else:
+                    print("Please enter a '1' or '2'\n")
+        
+        secondSelection = False
+        while (isCPU and not secondSelection):
+            print("Please enter your CPU difficulty.\n")
+            print("1 = easy mode\n2 = medium\n3 = impossible\n")
+            difficulty = input("Your choice:\n")
+            if difficulty.isnumeric():
+                if difficulty in range(1, 4):
+                    secondSelection = True
+                else:
+                    print("Please choose one of the difficulties.\n")
+
 
         choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
