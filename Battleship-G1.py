@@ -26,6 +26,7 @@ def setup_user(board, numberShips):
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+        ship_length_track = 1
         while valid != True:
             #check for valid column input
             while True:
@@ -57,22 +58,22 @@ def setup_user(board, numberShips):
                 orient = orientInput.upper()
                 if orientInput in orientation:
                     if orient == 'L':
-                        if ship - 1 <= start_x_num:
+                        if ((ship - 1 <= start_x_num) and (start_x_num - ship_length_track >= 0)):
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'R':
-                        if ship + start_x_num <= 10:
+                        if ((ship + start_x_num <= 10) and (start_x_num - ship_length_track <= 10)):
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'U':
-                        if ship - 1 <= start_y_num:
+                        if ((ship - 1 <= start_y_num) and (start_y_num - ship_length_track >= 0)):
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'D':
-                        if ship + start_y_num <= 9:
+                        if ((ship + start_y_num <= 9) and (start_y_num + ship_length_track <= 10)):
                             break
                         else:
                             print("The ship will not fit here!")
