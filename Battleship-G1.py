@@ -224,12 +224,14 @@ def run():
         while not firstSelection:
             selection = input("Enter '1' to play against a player and '2' for CPU.\n")
             if selection.isnumeric():
-                if selection == 1:
+                if selection == '1':
                     firstSelection = True
-                elif selection == 2:
+                elif selection == '2':
                     firstSelection, isCPU = True, True
                 else:
                     print("Please enter a 1 or 2.\n")
+            else:
+                print("Please enter number.\n")
 
         if isCPU:
             diffSelected = False
