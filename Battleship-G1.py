@@ -1,8 +1,9 @@
 # Import class methods needed for the program
 from Board import *
 from cpu_player import CPU_Player
+# libs
 import string
-
+import sys
 
 '''
 Responsible for executing the game.
@@ -178,7 +179,7 @@ def printMenu(board1, board2, turn):
                 else:
                     print("Sorry, invalid choice. Please pick again.\n")
                     print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
-            """ not useable till python 3.10 release, ~oct 4, 2021
+            # """ not useable till python 3.10 release, ~oct 4, 2021
             # changed to match-case from if-else AMA 9-26-2021
             match choice:
                 case 1:
@@ -190,17 +191,17 @@ def printMenu(board1, board2, turn):
                     return 3;
                 case _:
                     print("Sorry, invalid choice. Please pick again.\n")
-            """
+            # """
 
-            if choice == 1:
-                return(1) # return this choice to playGame and start shootin'
-            elif choice == 2:
-                print_rules()
-            elif choice == 3:
-                print("\nGoodbye...")
-                return(3)
-            else:
-                print("Sorry, invalid choice! Please pick again.\n")
+            # if choice == 1:
+            #     return(1) # return this choice to playGame and start shootin'
+            # elif choice == 2:
+            #     print_rules()
+            # elif choice == 3:
+            #     print("\nGoodbye...")
+            #     return(3)
+            # else:
+            #     print("Sorry, invalid choice! Please pick again.\n")
 
 
 
@@ -304,5 +305,11 @@ def print_oreient_prompt():
     print('"U" for up from start (vertical ship)\n')
     print('"D" for down from start (vertical ship)\n')
 
-#runs game
-run()
+#checks python version to see if can runs
+req_version = (3,10)
+curr_version = sys.version_info
+if curr_version >= req_version:
+    #runs game
+    run()
+else:
+    print("Please update your python version to 3.10 or greater")
