@@ -27,7 +27,10 @@ class CPU_Player :
         self.current_move = (f, f);
         # track the totoal moves made, for parsing previous moves
         self.total_moves = 0;
-        
+        #Difficulty for CPU with 1 as default for easy (2 for med, 3 for hard)
+        self.difficulty = 1;
+        #0-100 indicating % chance of CPU guessing opponent's ship (ex. 10% for easy, 30% for medium, 100% for hard)
+        self.cheat_percentage = 0
         print("cpu created")
 
     """ called when it is cpu turn in game
@@ -82,4 +85,17 @@ class CPU_Player :
     def add_opponent_coords(self, opp_coords):
         
         self.opponent_coords.append(opp_coords)
+
+    """ Sets difficulty for CPU
+    :pre
+    :post
+    :param dif: integer from 1-3
+    :author Michael Talaga
+    """  
+    def set_difficulty(self, dif):
+        self.difficulty = dif
+        if dif == 2:
+            self.cheat_percentage = 30
+        elif dif == 3:
+            self.cheat_percentage = 100
         
