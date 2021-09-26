@@ -71,28 +71,25 @@ class Board:
         start = 0
         bool = True
         orient = orient.upper();
+        while start < length:
         # changed to match-case from if-else AMA 9-26-2021
-        match orient:
-            case 'L':
-                while start < length:
+            match orient:
+            # TODO: should we start the bool as false and then change to true?
+            # will be less in the if stnmt, i think
+            # AMA
+                case 'L':
                     if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":
                         bool = False
-                    start += 1
-            case 'R':
-                while start < length:
+                case 'R':
                     if self.waterGrid[start_y][start_x + start] != 'O' and self.waterGrid[start_y][start_x + start] != "*":
                         bool = False
-                    start += 1
-            case 'U':
-                while start < length:
+                case 'U':
                     if self.waterGrid[start_y - start][start_x] != 'O' and self.waterGrid[start_y - start][start_x] != "*":
                         bool = False
-                    start += 1
-            case 'D':
-                while start < length:
+                case 'D':
                     if self.waterGrid[start_y + start][start_x] != 'O' and self.waterGrid[start_y + start][start_x] != "*":
                         bool = False
-                    start += 1
+            start += 1
         return bool
 
     def createShip(self, start_x, start_y, orient, length, shipnumber):
