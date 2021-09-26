@@ -16,7 +16,7 @@ class CPU_Player :
     # list of tuples of previous moves: (x, y)
     previous_moves = []
     #Keep coordinates for player 1
-    self.opponent_coords = []
+    opponent_coords = []
     
     """ defalut constructor
     :pre
