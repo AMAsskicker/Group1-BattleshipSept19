@@ -81,7 +81,7 @@ def setup_user(board, numberShips):
                                 print("The ship will not fit here!") 
                 else:
                     print("Invalid direction for ship.")
-
+            ship_length_track += 1
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
