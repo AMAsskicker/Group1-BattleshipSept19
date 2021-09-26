@@ -23,6 +23,8 @@ class CPU_Player :
         self.current_move = (f, f);
         # track the totoal moves made, for parsing previous moves
         self.total_moves = 0;
+        #Keep coordinates for player 1
+        self.opponent_coords = []
         print("cpu created")
 
     """ called when it is cpu turn in game
@@ -65,3 +67,12 @@ class CPU_Player :
     """
     def isValid_move (move_2_check):
         return True;
+
+
+    """ Adds player 1 coordinates to array to allow for guessing
+    :pre
+    :post
+    :param opp_coords: 2d array of coords
+    """
+    def add_opponent_coords(self, opp_coords):
+        self.opponent_coords = opp_coords
