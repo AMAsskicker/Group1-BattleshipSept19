@@ -12,7 +12,7 @@ by: Adam Abernaty (AMA)
 AMA note: no author or createion date when forked
 '''
 
-def setup(board, numberShips):
+def setup_user(board, numberShips):
     """
     Interacts with player to set up a board with ships for a player
     :pre board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
@@ -85,24 +85,23 @@ def setup(board, numberShips):
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
 
-def playGame(boardPlayer1, boardPlayer2):
+def playGame(board1, board2):
     """
     Asks players to enter the coordinates for shooting at ships,
     and then calls the board.hits method to check hits and if sunk, and
     calls the the board.score method to keep track of remaining ships.
 
-    :param boardPlayer1: the Board object created for Player 1 by setup method
-    :type boardPlayer1: Board
-    :param boardPlayer2: the Board object created for Player 2 by setup method
-    :type boardPlayer2: Board
+    :param board1: the Board object created for Player 1 by setup method
+    :type board1: Board
+    :param board2: the Board object created for Player 2 by setup method
+    :type board2: Board
     """
     turn = 1
     quit = False
-    while boardPlayer1.allsunk == False and boardPlayer2.allsunk == False and quit == False:
-        if printMenu(boardPlayer1,boardPlayer2,turn) == 3:
+    while board1.allsunk == False and board2.allsunk == False and quit == False:
+        if printMenu(board1, board2, turn) == 3:
             quit=True
         else:
-
             #check for valid column input
             while True:
                 xhit = input("\nWhat column?\n")
@@ -135,7 +134,7 @@ def playGame(boardPlayer1, boardPlayer2):
                 boardPlayer1.score(boardPlayer2)
             turn=turn+1
 
-def printMenu(board1, board2,turn):
+def printMenu(board1, board2, turn):
     """
     Print menu items and boards for the players.
     :param board1: board from player 1 passed in from playGame method
@@ -156,14 +155,15 @@ def printMenu(board1, board2,turn):
         board1.printOpp()
         print("\nPLAYER BOARD:")
         board2.printBoard()
+        print("\n")
     while choice != 3:
-            print("Please select a menu option:\n")
+            print("\nPlease select a menu option (1-3):")
             # Added by Edina.
             # Edina note: probably need to add in option to hide boards,
             # to prepare for next player.I don't think we can make a call
             # to terminal to hide stuff, so maybe print a long vertical
             # line of stars, to hide boards.
-            print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
+            print("1) Take a Shot!\n2) Read rules \n3) Quit game")
 
             while True:
                 choice = input()
@@ -205,20 +205,23 @@ def run():
                 print("Please enter a valid ship number.\n")
 
         # Create a board object for player 1
-        boardPlayer1 = Board()
+        player1_board = Board()
         print('\nReady to set up the board for Player 1!\n')
         # This step runs the setup method for Player 1. The method modifies
         # the waterGrid 2D array of boardPlayer1.
-        setup(boardPlayer1, ship_num)
+        setup_user(player1_board, ship_num)
         # Create a board object for player 2
         boardPlayer2 = Board()
+
+        """ TODO: Remove when cpu is implemented
         print('\nReady to set up the board for Player 2!\n')
         # This step runs the setup method for Player 2. The method modifies
         # the waterGrid 2D array of boardPlayer2.
         setup(boardPlayer2, ship_num)
+        """
 
         # This now starts the shooting steps, printing printMenu() between each player's shot
-        playGame(boardPlayer1, boardPlayer2)
+        playGame(player1_board, boardPlayer2)
 
         # Once playGame method ends, give players the option to play again rather than exit program.
         while True:

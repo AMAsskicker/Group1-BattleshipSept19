@@ -12,9 +12,9 @@ class Board:
         self.shiplengths=[]
         self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
         self.oppGrid = [['*' for col in range(10)] for row in range(9)] # initialize board to be all '*'
-        self.spots=0 # TODO: FIGURE OUT WHAT THIS DOES
-        self.points=0
-        self.allsunk=False
+        self.spots = 0 # TODO: FIGURE OUT WHAT THIS DOES
+        self.points = 0
+        self.allsunk = False
 
     def printBoard(self):
         """
