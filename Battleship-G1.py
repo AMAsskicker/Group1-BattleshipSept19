@@ -231,6 +231,18 @@ def run():
                 else:
                     print("Please enter a 1 or 2.\n")
 
+        if isCPU:
+            diffSelected = False
+            print("Choose your CPU difficulty.\n")
+            while not diffSelected:  
+                print("1 = Easy\n2 = Medium\n3 = Impossible\n")
+                difficulty = input("Difficulty:\n")
+                if difficulty.isnumeric():
+                    if difficulty in range(1, 4):
+                        diffSelected = True
+                    else:
+                        print("Please choose a difficulty.\n")
+
         choice = 0  # bool for marking acceptable choice for numberShips
         while choice == 0:
             print('How many ships per player for this game?\n')
