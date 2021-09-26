@@ -39,10 +39,10 @@ def setup(board, numberShips):
 
             #check for valid row input
             while True:
-                start_ = input("\nWhat is the starting row of ship " + str(ship + 1) + "? (1-9)\n")
+                start_y = input("\nWhat is the starting row of ship " + str(ship + 1) + "? (1-9)\n")
                 if start_y.isnumeric():
-                    start_y_num = int(start_) - 1
-                    if start__num in range(0,9):
+                    start_y_num = int(start_y) - 1
+                    if start_y_num in range(0,9):
                         break
                     else:
                         print("That's not a valid option! Please enter a number from 1 through 9.")
@@ -51,16 +51,12 @@ def setup(board, numberShips):
 
             #check for valid orientation
             while True:
-                print('What is the orientation of this ship? Enter\n')
-                print('"L" for left of start (horizontal ship)\n')
-                print('"R" for right of start (horizontal ship)\n')
-                print('"U" for up from start (vertical ship)\n')
-                print('"D" for down from start (vertical ship)\n')
+                print_oreient_prompt()
                 orientInput = input()
                 orient = orientInput.upper()
                 if orientInput in orientation:
                     if orient == 'L':
-                        if i-1 <= start_x_num:
+                        if ship - 1 <= start_x_num:
                             break
                         else:
                             print("The ship will not fit here!")
@@ -70,20 +66,20 @@ def setup(board, numberShips):
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'U':
-                        if ship - 1 <= start__num:
+                        if ship - 1 <= start_y_num:
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'D':
-                        if ship + start__num <= 9:
+                        if ship + start_y_num <= 9:
                             break
                         else:
                             print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
 
-            if board.isShipValid(orient, start_x_num, start__num, ship + 1):
-                board.createShip(start_x_num, start__num, orient, ship + 1, ship + 1)
+            if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
+                board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
@@ -261,6 +257,16 @@ def print_rules():
     print("at,each shot must be updated to indicate a hit or miss.\n")
     print("4) Once a ship has been hit in every space it occupies, it is sunk.\n")
     print("5) As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken.\"\n ")
+
+def print_oreient_prompt():
+    """ print the user instruciton for ship direction
+    :author AMA
+    """
+    print('What is the orientation of this ship? Enter\n')
+    print('"L" for left of start (horizontal ship)\n')
+    print('"R" for right of start (horizontal ship)\n')
+    print('"U" for up from start (vertical ship)\n')
+    print('"D" for down from start (vertical ship)\n')
 
 #runs game
 run()
