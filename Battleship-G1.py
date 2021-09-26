@@ -57,6 +57,7 @@ def setup_user(board, numberShips):
                 orientInput = input()
                 orient = orientInput.upper()
                 if orientInput in orientation:
+<<<<<<< HEAD
                     if orient == 'L':
                         if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
                             break
@@ -77,6 +78,30 @@ def setup_user(board, numberShips):
                             break
                         else:
                             print("The ship will not fit here!")
+=======
+                    # replaced if-else with match-case AMA 9-26-2021
+                    match orient: 
+                        case 'L':
+                            if ((ship - 1 <= start_x_num) and (start_x_num - ship_length_track >= 0)):
+                                break
+                            else:
+                                print("The ship will not fit here!")                            
+                        case 'R':
+                            if ((ship + start_x_num <= 10) and (start_x_num - ship_length_track <= 10)):
+                                break
+                            else:
+                                print("The ship will not fit here!")                            
+                        case 'U':
+                            if ((ship - 1 <= start_y_num) and (start_y_num - ship_length_track >= 0)):
+                                break
+                            else:
+                                print("The ship will not fit here!") 
+                        case 'D':
+                            if ((ship + start_y_num <= 9) and (start_y_num + ship_length_track <= 10)):
+                                break
+                            else:
+                                print("The ship will not fit here!") 
+>>>>>>> a4c5091e71088c304291344e6bb21f98a4407884
                 else:
                     print("Invalid direction for ship.")
             shipLenTrack += 1
@@ -189,7 +214,6 @@ def printMenu(board1, board2, turn):
                 else:
                     print("Sorry, invalid choice. Please pick again.\n")
                     print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
-            # """ not useable till python 3.10 release, ~oct 4, 2021
             # changed to match-case from if-else AMA 9-26-2021
             match choice:
                 case 1:
@@ -201,19 +225,6 @@ def printMenu(board1, board2, turn):
                     return 3;
                 case _:
                     print("Sorry, invalid choice. Please pick again.\n")
-            # """
-
-            # if choice == 1:
-            #     return(1) # return this choice to playGame and start shootin'
-            # elif choice == 2:
-            #     print_rules()
-            # elif choice == 3:
-            #     print("\nGoodbye...")
-            #     return(3)
-            # else:
-            #     print("Sorry, invalid choice! Please pick again.\n")
-
-
 
 def run():
     """ Starts and ends the game, calling methods as appropriate.
