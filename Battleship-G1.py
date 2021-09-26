@@ -1,14 +1,20 @@
 # Import class methods needed for the program
 from Board import *
+from cpu_player import CPU_Player
 import string
 
 
 '''
 Responsible for executing the game.
+
+edited: sept 24 2021
+by: Adam Abernaty (AMA)
+AMA note: no author or createion date when forked
 '''
 
 def setup(board, numberShips):
-    """ Interacts with player to set up a board with ships for a player. Pre - board object
+    """
+    Interacts with player to set up a board with ships for a player. Pre - board object
     must have correct properties; numberShips must be in the proper range, 1 to 6. Post - the
     input board object is modified according to user input
 
@@ -19,6 +25,7 @@ def setup(board, numberShips):
     """
     for i in range(numberShips):
         valid = False
+        orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
         while valid != True:
             #check for valid column input
             while True:
@@ -42,8 +49,6 @@ def setup(board, numberShips):
                         print("That's not a valid option! Please enter a number from 1 through 9.")
                 else:
                     print("That's not a valid option! Please enter a number from 1 through 9.")
-
-            orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
 
             #check for valid orientation
             while True:
@@ -86,7 +91,8 @@ def setup(board, numberShips):
                 valid = False
 
 def playGame(boardPlayer1, boardPlayer2):
-    """Asks players to enter the coordinates for shooting at ships,
+    """
+    Asks players to enter the coordinates for shooting at ships,
     and then calls the board.hits method to check hits and if sunk, and
     calls the the board.score method to keep track of remaining ships.
 
@@ -135,7 +141,8 @@ def playGame(boardPlayer1, boardPlayer2):
             turn=turn+1
 
 def printMenu(board1, board2,turn):
-    """Print menu items and boards for the players.
+    """
+    Print menu items and boards for the players.
     :param board1: board from player 1 passed in from playGame method
     :type board1: Board
     :param board2: board for player 2 passed in from playGame method
@@ -175,14 +182,7 @@ def printMenu(board1, board2,turn):
             if choice == 1:
                 return(1) # return this choice to playGame and start shootin'
             elif choice == 2:
-                print("-----------------------------------------------------------------------------------------------------------------------------------------------Rules of Battleship-----------------------------------------------------------------------------------------------------------------------------------------------\n")
-                print("Overview:\nBattleship is a two player game where both players secretly place 1 to 6 ships on a 9x10 grid. Taking turns each player announces where on the opponents grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the oponents ships wins\n ")
-                print("1)Ship size will be dependent on number of ships chosen. If one ship is chosen each player will be given a 1x1 ship . If two ships are chosen each player will be given a 1x1 and a 1x2 ship and so on.\n")
-                print("2)After the ships have been chosen, players will be able to place and orient their ships, you may place your ship anywhere within the board and orient it up, down, left or right. You may not orient it diagonally or intersect another ship.\n")
-                print("3)Taking turns, the users pick a space on the opponent's board to fire at,each shot must be updated to indicate a hit or miss.\n")
-                print("4)Once a ship has been hit in every space it occupies, it is sunk.\n")
-                print(
-                    "5)As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken. \"\n ")
+                print_rules()
             elif choice == 3:
                 print("\nGoodbye...")
                 return(3)
@@ -191,12 +191,10 @@ def printMenu(board1, board2,turn):
 
 
 def run():
-    """Starts and ends the game, calling methods as appropriate.
+    """ Starts and ends the game, calling methods as appropriate.
     """
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over
-
     while stopgame == 0:
-
         print('\n *** WELCOME TO BATTLESHIP!! ***\n')
         print()
 
@@ -215,18 +213,13 @@ def run():
 
         # Create a board object for player 1
         boardPlayer1 = Board()
-
         print('\nReady to set up the board for Player 1!\n')
-
         # This step runs the setup method for Player 1. The method modifies
         # the waterGrid 2D array of boardPlayer1.
         setup(boardPlayer1, ship_num)
-
         # Create a board object for player 2
         boardPlayer2 = Board()
-
         print('\nReady to set up the board for Player 2!\n')
-
         # This step runs the setup method for Player 2. The method modifies
         # the waterGrid 2D array of boardPlayer2.
         setup(boardPlayer2, ship_num)
@@ -245,6 +238,32 @@ def run():
                 break
             else:
                 print("\nInvalid Input.")
+
+def print_rules():
+    """
+    :author AMA
+    """
+    print("--------------------------------------------------------------------")
+    print("----------------------------------------------------------------------")
+    print("-----Rules of Battleship---------------------------------------------")
+    print("---------------------------------------------------------------------")
+    print("-----------------------------\n")
+    print("Overview:\nBattleship is a two player game where both players secretly ")
+    print("place 1 to 6 ships on a 9x10 grid. Taking turns each player announces ")
+    print(" where on the opponents grid they wish to fire. The opponent must ")
+    print("announce whether or not one of the ships was hit. The first player to ")
+    print("sink all of the oponents ships wins\n ")
+    print("1) Ship size will be dependent on number of ships chosen. If one ship ")
+    print("is chosen each player will be given a 1x1 ship . If two ships are ")
+    print("chosen each player will be given a 1x1 and a 1x2 ship and so on.\n")
+    print("2) After the ships have been chosen, players will be able to place and ")
+    print("orient their ships, you may place your ship anywhere within the board ")
+    print("and orient it up, down, left or right. You may not orient it diagonally ")
+    print("or intersect another ship.\n")
+    print("3) Taking turns, the users pick a space on the opponent's board to fire ")
+    print("at,each shot must be updated to indicate a hit or miss.\n")
+    print("4) Once a ship has been hit in every space it occupies, it is sunk.\n")
+    print("5) As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken.\"\n ")
 
 #runs game
 run()
