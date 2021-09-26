@@ -305,11 +305,15 @@ def print_oreient_prompt():
     print('"U" for up from start (vertical ship)\n')
     print('"D" for down from start (vertical ship)\n')
 
-#checks python version to see if can runs
+"""
+checks python version to see if can runs
+:author AMA
+:date 9-26-2021
+"""
 req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
-    #runs game
     run()
 else:
+    # prompt user to update python
     print("Please update your python version to 3.10 or greater")
