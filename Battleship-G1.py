@@ -26,6 +26,8 @@ def setup_user(board, numberShips):
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
+        # @Michael - the ship # gives us the lenght, therfore ship_length_track is redundant 
+        # AMA
         ship_length_track = 1
         while valid != True:
             #check for valid column input
@@ -81,6 +83,7 @@ def setup_user(board, numberShips):
                                 print("The ship will not fit here!") 
                 else:
                     print("Invalid direction for ship.")
+            #redundant, see instantiation comment - AMA
             ship_length_track += 1
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
@@ -91,7 +94,7 @@ def setup_user(board, numberShips):
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
 adding a cpu player to the game
-think we should implement a state machine
+think we should implement a state machine, sending email to TA for approval 9-26-2021
 AMA 9-26-2021
 """
 def playGame(board1, board2):
