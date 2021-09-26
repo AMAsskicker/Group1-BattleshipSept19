@@ -69,30 +69,30 @@ class Board:
 
     def isShipValid(self, orient, start_x, start_y, length):
         start = 0
-        bool=True
+        bool = True
         if orient == ('L' or 'l'):
             while start < length:
-                if self.waterGrid[start_y][start_x-start] != 'O' and self.waterGrid[start_y][start_x-start] != "*":
-                    bool=False
-                start=start+1
+                if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":
+                    bool = False
+                start += 1
         elif orient == ('R' or 'r'):
             while start < length:
-                if self.waterGrid[start_y][start_x+start] != 'O' and self.waterGrid[start_y][start_x+start] != "*":
-                    bool=False
-                start=start+1
+                if self.waterGrid[start_y][start_x + start] != 'O' and self.waterGrid[start_y][start_x + start] != "*":
+                    bool = False
+                start += 1
         elif orient == ('U' or 'u'):
             while start < length:
-                if self.waterGrid[start_y-start][start_x] != 'O' and self.waterGrid[start_y-start][start_x] != "*":
-                    bool=False
-                start=start+1
+                if self.waterGrid[start_y - start][start_x] != 'O' and self.waterGrid[start_y - start][start_x] != "*":
+                    bool = False
+                start += 1
         elif orient == ('D' or 'd'):
             while start < length:
-                if self.waterGrid[start_y+start][start_x] != 'O' and self.waterGrid[start_y+start][start_x] != "*":
-                    bool=False
-                start=start+1
+                if self.waterGrid[start_y + start][start_x] != 'O' and self.waterGrid[start_y + start][start_x] != "*":
+                    bool = False
+                start += 1
         return bool
 
-    def createShip(self, start_x, start_y, orient, length,shipnumber):
+    def createShip(self, start_x, start_y, orient, length, shipnumber):
         """
         Creates a ship object to place on a game board.
         :param start_x: the column index in 2D array for start position for placing a ship
@@ -111,30 +111,30 @@ class Board:
         self.shiplengths.append(length)
         if orient == ('L'):
             while start < length:
-                self.waterGrid[start_y][start_x-start] = shipnumber
-                shipcoords.append((start_y,start_x-start))
-                start=start+1
-                self.spots=self.spots+1
+                self.waterGrid[start_y][start_x - start] = shipnumber
+                shipcoords.append((start_y, start_x - start))
+                start += 1
+                self.spots += 1
         elif orient == 'R':
             while start < length:
-                self.waterGrid[start_y][start_x+start] = shipnumber
-                shipcoords.append((start_y,start_x+start))
-                start=start+1
-                self.spots=self.spots+1
+                self.waterGrid[start_y][start_x + start] = shipnumber
+                shipcoords.append((start_y,start_x + start))
+                start += 1
+                self.spots += 1
         elif orient == 'U':
             while start < length:
-                self.waterGrid[start_y-start][start_x] = shipnumber
-                shipcoords.append((start_y-start,start_x))
-                start=start+1
-                self.spots=self.spots+1
+                self.waterGrid[start_y - start][start_x] = shipnumber
+                shipcoords.append((start_y - start,start_x))
+                start += 1
+                self.spots += 1
         elif orient == 'D':
             while start < length:
-                self.waterGrid[start_y+start][start_x] = shipnumber
-                shipcoords.append((start_y+start,start_x))
-                start=start+1
-                self.spots=self.spots+1
+                self.waterGrid[start_y + start][start_x] = shipnumber
+                shipcoords.append((start_y + start,start_x))
+                start += 1
+                self.spots += 1
         self.shipObjects.append(shipcoords)
-        self.points=self.points+1
+        self.points += 1
 
     def hit(self, y, x):
         """
@@ -146,18 +146,18 @@ class Board:
         :type x: int
         """
         row = len(self.shipObjects)
-        temp=self.spots
+        temp = self.spots
         for z in range(row):
             for w in range(len(self.shipObjects[z])):
                 if self.shipObjects[z][w] == (y,x):
                     self.waterGrid[y][x] = "x"
                     self.oppGrid[y][x] = "x"
-                    self.spots=self.spots-1
-                    self.shiplengths[z]=self.shiplengths[z]-1
+                    self.spots -= 1
+                    self.shiplengths[z] -= 1
                     print("\nHIT!\n")
                     if self.shiplengths[z] == 0:
                         print("Ship is sunk!")
-                        self.points=self.points-1
+                        self.points -= 1
                 else:
                     print("\nMISS!\n")
         if temp == self.spots:
