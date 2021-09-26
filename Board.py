@@ -70,50 +70,29 @@ class Board:
     def isShipValid(self, orient, start_x, start_y, length):
         start = 0
         bool = True
-        """ not useable till python 3.10 release, ~oct 4, 2021
+        orient = orient.upper();
         # changed to match-case from if-else AMA 9-26-2021
         match orient:
-            case 'L' or 'l':
+            case 'L':
                 while start < length:
                     if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":
                         bool = False
                     start += 1
-            case 'R' or 'r':
+            case 'R':
                 while start < length:
                     if self.waterGrid[start_y][start_x + start] != 'O' and self.waterGrid[start_y][start_x + start] != "*":
                         bool = False
                     start += 1
-            case 'U' or 'u':
+            case 'U':
                 while start < length:
                     if self.waterGrid[start_y - start][start_x] != 'O' and self.waterGrid[start_y - start][start_x] != "*":
                         bool = False
                     start += 1
-            case 'D' or 'd':
+            case 'D':
                 while start < length:
                     if self.waterGrid[start_y + start][start_x] != 'O' and self.waterGrid[start_y + start][start_x] != "*":
                         bool = False
                     start += 1
-            """
-        if orient == ('L' or 'l'):
-            while start < length:
-                if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":
-                    bool = False
-                start += 1
-        elif orient == ('R' or 'r'):
-            while start < length:
-                if self.waterGrid[start_y][start_x + start] != 'O' and self.waterGrid[start_y][start_x + start] != "*":
-                    bool = False
-                start += 1
-        elif orient == ('U' or 'u'):
-            while start < length:
-                if self.waterGrid[start_y - start][start_x] != 'O' and self.waterGrid[start_y - start][start_x] != "*":
-                    bool = False
-                start += 1
-        elif orient == ('D' or 'd'):
-            while start < length:
-                if self.waterGrid[start_y + start][start_x] != 'O' and self.waterGrid[start_y + start][start_x] != "*":
-                    bool = False
-                start += 1
         return bool
 
     def createShip(self, start_x, start_y, orient, length, shipnumber):
@@ -133,30 +112,23 @@ class Board:
         start = 0
         shipcoords=[]
         self.shiplengths.append(length)
-        if orient == ('L'):
-            while start < length:
-                self.waterGrid[start_y][start_x - start] = shipnumber
-                shipcoords.append((start_y, start_x - start))
-                start += 1
-                self.spots += 1
-        elif orient == 'R':
-            while start < length:
-                self.waterGrid[start_y][start_x + start] = shipnumber
-                shipcoords.append((start_y,start_x + start))
-                start += 1
-                self.spots += 1
-        elif orient == 'U':
-            while start < length:
-                self.waterGrid[start_y - start][start_x] = shipnumber
-                shipcoords.append((start_y - start,start_x))
-                start += 1
-                self.spots += 1
-        elif orient == 'D':
-            while start < length:
-                self.waterGrid[start_y + start][start_x] = shipnumber
-                shipcoords.append((start_y + start,start_x))
-                start += 1
-                self.spots += 1
+        orient = orient.upper();
+        while start < length:
+            match orient:
+                case 'L':
+                    self.waterGrid[start_y][start_x - start] = shipnumber
+                    shipcoords.append((start_y, start_x - start))
+                case 'R':
+                    self.waterGrid[start_y][start_x + start] = shipnumber
+                    shipcoords.append((start_y,start_x + start))
+                case 'U':
+                    self.waterGrid[start_y - start][start_x] = shipnumber
+                    shipcoords.append((start_y - start,start_x))
+                case 'D':
+                    self.waterGrid[start_y + start][start_x] = shipnumber
+                    shipcoords.append((start_y + start,start_x))
+            start += 1;
+            self.spots += 1;
         self.shipObjects.append(shipcoords)
         self.points += 1
 
