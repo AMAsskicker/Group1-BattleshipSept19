@@ -131,13 +131,14 @@ def playGame(board1, board2):
                         print("Please enter a number between 1-9.)")
                 else:
                     print("Please enter a valid row. (1-9)")
-
+                    # TODO: been trying to correct some miss match in boards below.
+                    # think ist close but needs testing here
             if turn%2 == 1:
                 board2.hit(y_coord,x_coord)
-                board2.score(boardPlayer2)
+                board2.score(board2)
             elif turn%2 == 0:
                 board1.hit(y_coord,x_coord)
-                board1.score(boardPlayer2)
+                board1.score(board1)
             turn += 1
 
 def printMenu(board1, board2, turn):
