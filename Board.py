@@ -171,3 +171,7 @@ class Board:
         elif opp.points == 0:
             print("Player 1 Won!")
             opp.allsunk=True
+
+    def getCoords(self):
+        
+        return self.shipObjects
