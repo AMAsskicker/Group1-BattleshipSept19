@@ -26,7 +26,7 @@ def setup_user(board, numberShips):
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-        ship_length_track = 1
+        shipLenTrack = 1
         while valid != True:
             #check for valid column input
             while True:
@@ -58,40 +58,48 @@ def setup_user(board, numberShips):
                 orient = orientInput.upper()
                 if orientInput in orientation:
                     if orient == 'L':
-                        if ((ship - 1 <= start_x_num) and (start_x_num - ship_length_track >= 0)):
+                        if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'R':
-                        if ((ship + start_x_num <= 10) and (start_x_num - ship_length_track <= 10)):
+                        if ((ship + start_x_num <= 10) and (start_x_num - shipLenTrack <= 10)):
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'U':
-                        if ((ship - 1 <= start_y_num) and (start_y_num - ship_length_track >= 0)):
+                        if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
                             break
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'D':
-                        if ((ship + start_y_num <= 9) and (start_y_num + ship_length_track <= 10)):
+                        if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 10)):
                             break
                         else:
                             print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
-            ship_length_track += 1
+            shipLenTrack += 1
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
+        
+    coordinates = board.getCoords()
+    for each in coordinates:
+        print(each)
+        
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
 adding a cpu player to the game
 think we should implement a state machine
 AMA 9-26-2021
 """
+
+
+
 def playGame(board1, board2):
     """
     Asks players to enter the coordinates for shooting at ships,
