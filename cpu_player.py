@@ -12,8 +12,12 @@ cpu player for battleship
 import random
 
 class CPU_Player :
+    # MARK: Properties
     # list of tuples of previous moves: (x, y)
     previous_moves = []
+    #Keep coordinates for player 1
+    self.opponent_coords = []
+    
     """ defalut constructor
     :pre
     :post
@@ -23,8 +27,7 @@ class CPU_Player :
         self.current_move = (f, f);
         # track the totoal moves made, for parsing previous moves
         self.total_moves = 0;
-        #Keep coordinates for player 1
-        self.opponent_coords = []
+        
         print("cpu created")
 
     """ called when it is cpu turn in game
@@ -58,8 +61,9 @@ class CPU_Player :
 
     """ checks previous move for a hit
     """
-    def check_previous ():
+    def check_previous (self):
         return True;
+    
     """ checks if a move has been made to space passed
     :pre
     :post
@@ -73,6 +77,9 @@ class CPU_Player :
     :pre
     :post
     :param opp_coords: 2d array of coords
+    :author Michael Talaga
     """
     def add_opponent_coords(self, opp_coords):
+        # @Michael the call would be to append to the list
+        # self.opponent_coords.append(opp_coords)
         self.opponent_coords = opp_coords
