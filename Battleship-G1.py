@@ -60,26 +60,27 @@ def setup_user(board, numberShips):
                 orientInput = input()
                 orient = orientInput.upper()
                 if orientInput in orientation:
-                    if orient == 'L':
-                        if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
-                            break
-                        else:
-                            print("The ship will not fit here!")
-                    elif orient == 'R':
-                        if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
-                            break
-                        else:
-                            print("The ship will not fit here!")
-                    elif orient == 'U':
-                        if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
-                            break
-                        else:
-                            print("The ship will not fit here!")
-                    elif orient == 'D':
-                        if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
-                            break
-                        else:
-                            print("The ship will not fit here!")
+                    match orient:
+                        case 'L':
+                            if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
+                                break
+                            else:
+                                print("The ship will not fit here!")
+                        case 'R':
+                            if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
+                                break
+                            else:
+                                print("The ship will not fit here!")
+                        case 'U':
+                            if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
+                                break
+                            else:
+                                print("The ship will not fit here!")
+                        case 'D':
+                            if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
+                                break
+                            else:
+                                print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
 
@@ -92,9 +93,6 @@ def setup_user(board, numberShips):
                 valid = False
 
         shipLenTrack += 1
-
-
-
     playerCoordinates = board.getCoords() #2d Array of player coordinates
     pause()
 
@@ -172,12 +170,13 @@ def playGame_new(board1, board2):
 
         match game_state:
             case "start":
-
                 state = "set_ships"
-
             case "set_ships":
+                state = "player1"
             case "player1":
+                state = "player2"
             case "player2":
+                state = "end_game"
             case "end_game":
                 isWinner = True;
     #TODO: FINISH PROTO
@@ -185,8 +184,6 @@ def playGame_new(board1, board2):
     ## TODO: will move this to run and implement state machine there,
     # will proto here to keep project working
     # AMA 9-27-2021
-
-
 
  # playGame func will go away when state machine implemented - AMAs
 def playGame(board1, board2):
@@ -367,7 +364,7 @@ def run():
             print('\nReady to set up the board for Player 2!\n')
             player2_board = Board()
             setup_user(player2_board, ship_num)
-            #playGame(player1_board, player2_board)
+            playGame(player1_board, player2_board)
 
         """ TODO: Include a different playGame function for CPU? Like playCPU?
         MT
