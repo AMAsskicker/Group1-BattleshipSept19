@@ -25,10 +25,11 @@ def setup_user(board, numberShips):
     :type numberShips: int
     """
     board.printBoard() #Print blank board for reference
+    shipLenTrack = 1
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-        shipLenTrack = 1
+        
         while valid != True:
             #check for valid column input
             while True:
@@ -65,7 +66,7 @@ def setup_user(board, numberShips):
                         else:
                             print("The ship will not fit here!")
                     elif orient == 'R':
-                        if ((ship + start_x_num <= 10) and (start_x_num - shipLenTrack <= 10)):
+                        if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
                             break
                         else:
                             print("The ship will not fit here!")
@@ -85,11 +86,14 @@ def setup_user(board, numberShips):
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
+                
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
 
-            shipLenTrack += 1
+        shipLenTrack += 1
+
+        
         
     playerCoordinates = board.getCoords() #2d Array of player coordinates 
     pause()
@@ -110,45 +114,49 @@ def setup_CPU(board, numberShips):
     :type numberShips: int
     """
     
+    shipLenTrack = 1
+    orientationArray = ['L', 'R', 'U', 'D']
     for ship in range(numberShips):
-        valid = False
-        orientation = ['L', 'R', 'U', 'D']
-        shipLenTrack = 1
-        while valid != True:
-            
-            orientation = orientation[random.randrange(0,4)] #Choose rand orientation
+        valid, oriented = False, False
+        
+        while not valid:
+           
+            orientation = orientationArray[random.randrange(0,4)] #Choose rand orientation
                 
             start_x_num = random.randrange(0,10) #choose rand x start point
                 
             start_y_num = random.randrange(0, 9) #choose rand y start point
                 
             #Orientation validation
+            
             match orientation:
                 case 'L':
                     if (start_x_num - shipLenTrack >= 0):
-                        valid = True
+                        oriented = True
                 case 'R':
-                    if (start_x_num - shipLenTrack <= 10):
-                        valid = True
+                    if (start_x_num + shipLenTrack <= 10):
+                        oriented = True
                 case 'U': 
                     if (start_y_num - shipLenTrack >= 0):
-                        valid = True
-                    
+                        oriented = True 
                 case 'D':
-                    if (start_y_num - shipLenTrack <= 9):
-                        valid = True
+                    if (start_y_num + shipLenTrack <= 9):
+                        oriented = True
             
             
-            if board.isShipValid(orientation, start_x_num, start_y_num, ship + 1):
+            if ((oriented) and (board.isShipValid(orientation, start_x_num, start_y_num, ship + 1))):
                 board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
                 valid = True
             else:
-                print("There is already a ship here, please reenter coordinates. ")
+                print("Calculating")
                 valid = False
+
+        shipLenTrack += 1
             
-            shipLenTrack += 1
-    print("CPU Board - Test")
-    board.printBoard()
+        
+
+    print("CPU has made selections\n")
+    #board.printBoard() #Test for CPU board
     pause()
 
 
@@ -290,7 +298,7 @@ def run():
 
         if isCPU:
             diffSelected = False
-            print("Choose your CPU difficulty.\n")
+            print("\nChoose your CPU difficulty.\n")
             while not diffSelected:  
                 print("1 = Easy\n2 = Medium\n3 = Impossible\n")
                 difficulty = input("Difficulty:\n")
@@ -330,13 +338,16 @@ def run():
         """
         setup_user(player1_board, ship_num)
 
-        #if isCPU:
-        # CPU board object
-        cpu_board = Board()
-        # setup CPU board
+        if isCPU:
+            # CPU board object
+            cpu_board = Board()
+            # setup CPU board
 
         # TODO: think need diffent func for cpu setup
-        setup_CPU(cpu_board, ship_num);
+            setup_CPU(cpu_board, ship_num);
+        else:
+            player2_board = Board()
+            setup_user(player2_board, ship_num)
 
         
 
