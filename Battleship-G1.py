@@ -156,6 +156,39 @@ adding a cpu player to the game
 think we should implement a state machine, emailed GTA about changing to state machine
 AMA 9-26-2021
 """
+def playGame_new(board1, board2):
+    """
+    main gameplay state machine
+    approval from TA recived
+    :pre
+    :post
+    :param board_: board to use for play, print etc.
+    :autor AMA
+    :date sept 27 2021
+    """
+    isWinner = False;
+    game_state = "start"
+    while not isWinner:
+
+        match game_state:
+            case "start":
+
+                state = "set_ships"
+
+            case "set_ships":
+            case "player1":
+            case "player2":
+            case "end_game":
+                isWinner = True;
+    #TODO: FINISH PROTO
+
+    ## TODO: will move this to run and implement state machine there,
+    # will proto here to keep project working
+    # AMA 9-27-2021
+
+
+
+ # playGame func will go away when state machine implemented - AMAs
 def playGame(board1, board2):
     """
     Asks players to enter the coordinates for shooting at ships,
