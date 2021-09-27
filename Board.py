@@ -71,6 +71,7 @@ class Board:
         start = 0
         bool = True
         orient = orient.upper();
+        checkArray = ['O', '*', '1', '2', '3', '4', '5'] # Added a check array to shorten if statements MT
         while start < length:
         # changed to match-case from if-else AMA 9-26-2021
             match orient:
@@ -78,18 +79,20 @@ class Board:
             # will be less in the if stnmt, i think
             # AMA
                 case 'L':
-                    if self.waterGrid[start_y][start_x - start] != 'O' and self.waterGrid[start_y][start_x - start] != "*":
+                    if self.waterGrid[start_y][start_x - start] not in checkArray:
                         bool = False
                 case 'R':
-                    if self.waterGrid[start_y][start_x + start] != 'O' and self.waterGrid[start_y][start_x + start] != "*":
+                    if self.waterGrid[start_y][start_x + start]not in checkArray:
                         bool = False
                 case 'U':
-                    if self.waterGrid[start_y - start][start_x] != 'O' and self.waterGrid[start_y - start][start_x] != "*":
+                    if self.waterGrid[start_y - start][start_x] not in checkArray:
                         bool = False
                 case 'D':
-                    if self.waterGrid[start_y + start][start_x] != 'O' and self.waterGrid[start_y + start][start_x] != "*":
+                    if self.waterGrid[start_y + start][start_x] not in checkArray:
                         bool = False
             start += 1
+
+        
         return bool
 
     def createShip(self, start_x, start_y, orient, length, shipnumber):
@@ -172,6 +175,8 @@ class Board:
             print("Player 1 Won!")
             opp.allsunk=True
 
-    def getCoords(self):
-        
+    def getCoords(self): 
+        """
+        Returns player coordinates
+        """
         return self.shipObjects
