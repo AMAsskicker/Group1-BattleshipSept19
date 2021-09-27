@@ -344,11 +344,16 @@ def run():
 
         # TODO: think need diffent func for cpu setup
             setup_CPU(cpu_board, ship_num);
+            playGame(player1_board, cpu_board) 
         else:
+            print('\nReady to set up the board for Player 2!\n')
             player2_board = Board()
             setup_user(player2_board, ship_num)
+            #playGame(player1_board, player2_board)
 
-        
+        """ TODO: Include a different playGame function for CPU? Like playCPU?
+        MT
+        """
 
         """ TODO: Remove when cpu is implemented
         print('\nReady to set up the board for Player 2!\n')
@@ -358,7 +363,8 @@ def run():
         """
 
         # This now starts the shooting steps, printing printMenu() between each player's shot
-        playGame(player1_board, cpu_board)
+        
+        #playGame(player1_board, cpu_board) This can be deleted
 
         # Once playGame method ends, give players the option to play again rather than exit program.
         while True:
