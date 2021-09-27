@@ -11,7 +11,7 @@ Responsible for executing the game.
 
 edited: sept 24 2021
 by: Adam Abernaty (AMA)
-AMA note: no author or createion date when forked
+AMA note: no author or createion date when forked ~sept 21 2021
 '''
 
 def setup_user(board, numberShips):
@@ -29,7 +29,7 @@ def setup_user(board, numberShips):
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-        
+
         while valid != True:
             #check for valid column input
             while True:
@@ -82,27 +82,22 @@ def setup_user(board, numberShips):
                             print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
-            
+
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
-                
+
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
 
         shipLenTrack += 1
 
-        
-        
-    playerCoordinates = board.getCoords() #2d Array of player coordinates 
+
+
+    playerCoordinates = board.getCoords() #2d Array of player coordinates
     pause()
 
-""" method is not commented good and is hard to follow.  Doesn't lend itself to
-adding a cpu player to the game
-think we should implement a state machine
-AMA 9-26-2021
-"""
 def setup_CPU(board, numberShips):
     """
     Generates CPU board
@@ -112,23 +107,24 @@ def setup_CPU(board, numberShips):
     :type board: Board
     :param numberShips: the number of ships that each player will have for a game
     :type numberShips: int
+    :author ...
     """
-    
+
     shipLenTrack = 1
     orientationArray = ['L', 'R', 'U', 'D']
     for ship in range(numberShips):
         valid, oriented = False, False
-        
+
         while not valid:
-           
+
             orientation = orientationArray[random.randrange(0,4)] #Choose rand orientation
-                
+
             start_x_num = random.randrange(0,10) #choose rand x start point
-                
+
             start_y_num = random.randrange(0, 9) #choose rand y start point
-                
+
             #Orientation validation
-            
+
             match orientation:
                 case 'L':
                     if (start_x_num - shipLenTrack >= 0):
@@ -136,13 +132,13 @@ def setup_CPU(board, numberShips):
                 case 'R':
                     if (start_x_num + shipLenTrack <= 10):
                         oriented = True
-                case 'U': 
+                case 'U':
                     if (start_y_num - shipLenTrack >= 0):
-                        oriented = True 
+                        oriented = True
                 case 'D':
                     if (start_y_num + shipLenTrack <= 9):
                         oriented = True
-            
+
             if ((oriented) and (board.isShipValid(orientation, start_x_num, start_y_num, ship + 1))):
                 board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
                 valid = True
@@ -151,14 +147,15 @@ def setup_CPU(board, numberShips):
                 valid = False
 
         shipLenTrack += 1
-            
-        
-
     print("CPU has made selections\n")
     #board.printBoard() #Test for CPU board
     pause()
 
-
+""" method is not commented good and is hard to follow.  Doesn't lend itself to
+adding a cpu player to the game
+think we should implement a state machine, emailed GTA about changing to state machine
+AMA 9-26-2021
+"""
 def playGame(board1, board2):
     """
     Asks players to enter the coordinates for shooting at ships,
@@ -260,26 +257,14 @@ def printMenu(board1, board2, turn):
                     return 3;
                 case _:
                     print("Sorry, invalid choice. Please pick again.\n")
-            # """
-
-            # if choice == 1:
-            #     return(1) # return this choice to playGame and start shootin'
-            # elif choice == 2:
-            #     print_rules()
-            # elif choice == 3:
-            #     print("\nGoodbye...")
-            #     return(3)
-            # else:
-            #     print("Sorry, invalid choice! Please pick again.\n")
-
-
 
 def run():
     """ Starts and ends the game, calling methods as appropriate.
+    :author unknown
     """
     stopgame = 0  # variable for giving option to quit game or play again, once a game is over
     while stopgame == 0:
-        
+
         print('\n*** WELCOME TO BATTLESHIP!! ***\n')
         isCPU, firstSelection = False, False
         print("Would you like to play against another player?\n")
@@ -298,7 +283,7 @@ def run():
         if isCPU:
             diffSelected = False
             print("\nChoose your CPU difficulty.\n")
-            while not diffSelected:  
+            while not diffSelected:
                 print("1 = Easy\n2 = Medium\n3 = Impossible\n")
                 difficulty = input("Difficulty:\n")
                 if difficulty.isnumeric():
@@ -344,7 +329,7 @@ def run():
 
         # TODO: think need diffent func for cpu setup
             setup_CPU(cpu_board, ship_num);
-            playGame(player1_board, cpu_board) 
+            playGame(player1_board, cpu_board)
         else:
             print('\nReady to set up the board for Player 2!\n')
             player2_board = Board()
@@ -363,7 +348,7 @@ def run():
         """
 
         # This now starts the shooting steps, printing printMenu() between each player's shot
-        
+
         #playGame(player1_board, cpu_board) This can be deleted
 
         # Once playGame method ends, give players the option to play again rather than exit program.
@@ -408,6 +393,7 @@ def print_rules():
 def print_oreient_prompt():
     """ print the user instruciton for ship direction
     :author AMA
+    :date sept 24 2021
     """
     print('What is the orientation of this ship? Enter\n')
     print('"L" for left of start (horizontal ship)\n')
@@ -418,6 +404,7 @@ def print_oreient_prompt():
 def pause():
     """
     Pauses game until something is typed
+    :author ...
     """
     waited = False
     while not waited:
