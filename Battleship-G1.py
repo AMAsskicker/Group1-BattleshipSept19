@@ -105,10 +105,10 @@ AMA 9-26-2021
 """
 def setup_CPU(board, numberShips):
     """
-    Interacts with player to set up a board with ships for a player
+    Generates CPU board
     :pre board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
     :post
-    :param board: a newly-instantiated blank board object for creating game data for one player
+    :param board: a newly-instantiated blank board object for creating game data for CPU
     :type board: Board
     :param numberShips: the number of ships that each player will have for a game
     :type numberShips: int
@@ -142,7 +142,6 @@ def setup_CPU(board, numberShips):
                 case 'D':
                     if (start_y_num + shipLenTrack <= 9):
                         oriented = True
-            
             
             if ((oriented) and (board.isShipValid(orientation, start_x_num, start_y_num, ship + 1))):
                 board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
