@@ -94,8 +94,10 @@ class CPU_Player :
     """  
     def set_difficulty(self, dif):
         self.difficulty = dif
+	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
+	#Will likely change this to a boolean to indicate if the CPU will cheat or not for the hard difficulty
         if dif == 2:
-            self.cheat_percentage = 30
+            self.cheat_percentage = 15
         elif dif == 3:
             self.cheat_percentage = 100
         
