@@ -98,14 +98,14 @@ def setup_user(board, numberShips):
 
 def setup_CPU(board, numberShips):
     """
-    Generates CPU board
-    :pre board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
-    :post
+    Generates CPU board (Designed like setup_user seen above but uses random for placement of ship)
+    :pre board object must have correct properties; numberShips must be in the proper range, 1 to 6
+    :post Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it
     :param board: a newly-instantiated blank board object for creating game data for CPU
     :type board: Board
     :param numberShips: the number of ships that each player will have for a game
     :type numberShips: int
-    :author ...
+    :author Michael Talaga
     """
 
     shipLenTrack = 1
@@ -310,6 +310,9 @@ def run():
             else:
                 print("Please enter number.\n")
 
+	"""
+	isCPU check added by Michael Talaga that allows user to choose CPU difficulty
+	"""
         if isCPU:
             diffSelected = False
             print("\nChoose your CPU difficulty.\n")
@@ -434,7 +437,7 @@ def print_oreient_prompt():
 def pause():
     """
     Pauses game until something is typed
-    :author ...
+    :author Michael 
     """
     waited = False
     while not waited:
