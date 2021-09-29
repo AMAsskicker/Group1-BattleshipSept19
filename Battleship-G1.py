@@ -477,7 +477,7 @@ def pause():
     """
     waited = False
     while not waited:
-        wait = input("Press enter to continue:")
+        wait = input("Press enter to continue...")
         if len(wait) >= 1 or wait == "":
             waited = True
     return (print("\nContinuing...\n"))
