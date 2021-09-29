@@ -310,9 +310,7 @@ def run():
             else:
                 print("Please enter number.\n")
 
-	"""
-	isCPU check added by Michael Talaga that allows user to choose CPU difficulty
-	"""
+	    #isCPU check added by Michael Talaga that allows user to choose CPU difficulty
         if isCPU:
             diffSelected = False
             print("\nChoose your CPU difficulty.\n")
@@ -441,7 +439,7 @@ def pause():
     """
     waited = False
     while not waited:
-        wait = input("Press enter to continue:")
+        wait = input("Press enter to continue...")
         if len(wait) >= 1 or wait == "":
             waited = True
     return (print("\nContinuing...\n"))
