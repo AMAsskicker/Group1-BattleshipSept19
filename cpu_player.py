@@ -14,6 +14,7 @@ import random
 class CPU_Player :
     # MARK: Properties
     # list of tuples of previous moves: (x, y)
+    # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
     previous_moves = []
     #Keep coordinates for player 1
     opponent_coords = []
@@ -36,8 +37,10 @@ class CPU_Player :
     :author AMA & ...
     :pre
     :post
+    :param cpu_board: Board object to use for making move
+    :return coords: list/tuple of move to make
     """
-    def make_move (self):
+    def make_move (self, cpu_board):
         # check previous for a hits
 
         #author MT, if statement checks if cheat mode is activated
@@ -70,17 +73,25 @@ class CPU_Player :
         # increment move
         self.total_moves += 1;
 
-    """ checks previous move for a hit
+    """
+    checks previous move for a hit
+    :author
+    :pre
+    :post
+    :return :True if previous move was a hit, false else
     """
     def check_previous (self):
         return True;
 
-    """ checks if a move has been made to space passed
+    """
+    checks if a move has been made to space passed
+    :author
     :pre
     :post
-    :param move_2_check: tuple, x,y fomat to check
+    :param game_board: Board object to check move against
+    :param move_2_check: tuple/list, x,y fomat to check
     """
-    def isValid_move (move_2_check):
+    def isValid_move (game_board, move_2_check):
         return True;
 
 
@@ -114,7 +125,9 @@ class CPU_Player :
     :author
     :pre
     :post
+    :param board: Board obj to set ships in
     :return :True ships are set, false else
     """
     def set_ships(self, board):
+
         return False

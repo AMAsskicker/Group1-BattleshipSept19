@@ -92,7 +92,7 @@ class Board:
                         bool = False
             start += 1
 
-        
+
         return bool
 
     def createShip(self, start_x, start_y, orient, length, shipnumber):
@@ -175,7 +175,7 @@ class Board:
             print("Player 1 Won!")
             opp.allsunk=True
 
-    def getCoords(self): 
+    def getCoords(self):
         """
         Returns player coordinates
         """
