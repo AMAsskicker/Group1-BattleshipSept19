@@ -154,7 +154,7 @@ adding a cpu player to the game
 think we should implement a state machine, emailed GTA about changing to state machine
 AMA 9-26-2021
 """
-def playGame_new(board1, board2):
+def playGame_new():
     """
     main gameplay state machine
     approval from TA recived
@@ -201,14 +201,20 @@ def playGame_new(board1, board2):
                     who_won = "user_exit"
                     game_state = end_game
                 else:
-
+                    # TODO: MODIFIY BOARD.PY FUNC TO ACCEPT LIST/TUPLE OF X,Y
+                    coord_list = get_move_coord()
+                    # player1_board.hit(get_move_coord())
+                    player1_board.hit(coord_list[0],coord_list[1])
                 if player1_board.allsunk:
                     who_won = "player1"
                     game_state = "end_game"
-                state = "player2"
+                else:
+                    state = "player2"
             case "player2":
+                # TODO: TEST PLAYER1, THEN USE IF ELSE FOR CPU OR PLAYER2
                 state = "end_game"
             case "end_game":
+                announce_winner(who_won)
                 isWinner = True;
     #TODO: FINISH PROTO
 
@@ -267,6 +273,7 @@ def playGame(board1, board2):
 def printMenu(board1, board2, turn):
     """
     Print menu items and boards for the players.
+    :edit AMA changed if else to match to use state machine
     :param board1: board from player 1 passed in from playGame method
     :type board1: Board
     :param board2: board for player 2 passed in from playGame method
@@ -275,17 +282,18 @@ def printMenu(board1, board2, turn):
     :type turn: int
     """
     choice = 0
-    if turn % 2 == 1:
-        print("OPPONENT BOARD:")
-        board2.printOpp()
-        print("\nPLAYER BOARD:")
-        board1.printBoard()
-    elif turn % 2 == 0:
-        print("OPPONENT BOARD:")
-        board1.printOpp()
-        print("\nPLAYER BOARD:")
-        board2.printBoard()
-        print("\n")
+    match turn:
+        case "player1":
+            print("OPPONENT BOARD:")
+            board2.printOpp()
+            print("\nPLAYER BOARD:")
+            board1.printBoard()
+        case "player2":
+            print("OPPONENT BOARD:")
+            board1.printOpp()
+            print("\nPLAYER BOARD:")
+            board2.printBoard()
+    print("\n")
     while choice != 3:
             print("\nPlease select a menu option (1-3):")
             # Added by Edina.
@@ -507,9 +515,50 @@ def get_num_ships():
     return num_ships
 
 def get_move_coord():
-    coords = []
-    
+    """
+    prompts user for row col of move
+    :author code already in file just moved
+    :date
+    :pre
+    :return list of [row, col]
+    """
+    # coords = []
+    #check for valid column input
+    while True:
+        x_hit = input("\nWhat column?\n")
+        if x_hit.isalpha():
+            x_coord = (ord(x_hit) % 32) - 1
+            if x_coord in range (0, 10):
+                break
+            else:
+                print("Please enter a letter between A-J")
+        else:
+            print("Please enter a valid column. (A-J)")
+
+    #check for valid row input
+    while True:
+        y_hit = input("\nWhat row?\n")
+        if y_hit.isnumeric():
+            y_coord = int(y_hit) - 1
+            if y_coord in range(0, 10):
+                break
+            else:
+                print("Please enter a number between 1-9.)")
+        else:
+            print("Please enter a valid row. (1-9)")
+            # TODO: been trying to correct some miss match in boards below.
+            # think ist close but needs testing here
+    coords = [x_coord, y_coord]
     return coords
+
+def announce_winner(who_2_announce):
+    """
+    outputs the winner
+    :author
+    :pre
+    :post
+    """
+    print(who_2_announce)
 
 """
 checks python version to see if can runs
