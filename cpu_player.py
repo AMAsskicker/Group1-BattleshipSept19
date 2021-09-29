@@ -39,14 +39,14 @@ class CPU_Player :
     """
     def make_move (self):
         # check previous for a hits
-        
+
         #author MT, if statement checks if cheat mode is activated
         if self.cheat:
             #Guess from opponent array
             #Remove guess from array
             print("Move made")
-        
-        
+
+
         if check_previous():
             #check above
             #check below
@@ -95,14 +95,13 @@ class CPU_Player :
         self.opponent_coords.append(opp_coords)
 
     """ Sets difficulty for CPU
-    :pre 
-    :post 
+    :pre
+    :post
     :param dif: integer from 1-3
     :author Michael Talaga
     """
     def set_difficulty(self, dif):
         self.difficulty = dif
-<<<<<<< HEAD
 	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
 	#Will likely change this to a boolean to indicate if the CPU will cheat or not for the hard difficulty
         if dif == 2:
@@ -119,17 +118,3 @@ class CPU_Player :
     """
     def set_ships(self, board):
         return False
-||||||| 51dad42
-	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
-	#Will likely change this to a boolean to indicate if the CPU will cheat or not for the hard difficulty
-        if dif == 2:
-            self.cheat_percentage = 15
-        elif dif == 3:
-            self.cheat_percentage = 100
-        
-=======
-        if dif == 3:
-            self.cheat = True
-            
-        
->>>>>>> 85ba1710f97791c954692182ca73fc156452987f
