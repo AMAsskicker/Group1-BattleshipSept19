@@ -87,14 +87,15 @@ def setup_user(board, numberShips):
             if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
                 board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
                 valid = True
-
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
 
         shipLenTrack += 1
     playerCoordinates = board.getCoords() #2d Array of player coordinates
-    pause()
+    # cna move pause to state machine, believe is for between turns? - AMA
+    # pause()
+    return valid
 
 def setup_CPU(board, numberShips):
     """
@@ -176,22 +177,37 @@ def playGame_new():
             case "start":
                 print('\n*** WELCOME TO BATTLESHIP!! ***\n')
                 if is_cpu():
-                    one_human = True;
+                    one_human = True
                 game_state = "set_ships"
             case "set_ships":
                 total_ships = get_num_ships()
-                setup_user(player1_board, total_ships)
+                print("\n TIME FOR PLAYER 1 TO PLACE THEIR SHIPS \n")
+                if setup_user(player1_board, total_ships):
+                    print("\n PLAYER 1 HAS SETUP THEIR SHIPS \n")
+                    pause()
+                else:
+                    print("\n SHIP PLACE ERROR \n")
+                    game_state = "end_game"
+                    who_won = "ship_error"
                 if one_human:
                     cpu_obj.set_ships(second_board, total_ships)
                     print("CPU Ships Placed")
                 else:
-                    setup_user(second_board, total_ships)
+                    print("\n TIME FOR PLAYER 2 TO PLACE THEIR SHIPS \n")
+                    if setup_user(second_board, total_ships):
+                        print("\n PLAYER 2 HAS SETUP THEIR SHIPS \n")
+                        pause()
+                    else:
+                        print("\n SHIP PLACE ERROR \n")
+                        game_state = "end_game"
+                        who_won = "ship_error"
                 game_state = "player1"
             case "player1":
                 selection_p1 = printMenu(player1_board, second_board, game_state)
                 if selection_p1 == 3:
                     who_won = "user_exit"
                     game_state = "end_game"
+                    continue
                 else:
                     coord_list = get_move_coord()
                     # player1_board.hit(get_move_coord())
@@ -304,14 +320,14 @@ def printMenu(board1, board2, turn):
     choice = 0
     match turn:
         case "player1":
-            print("OPPONENT BOARD:")
+            print("MOVES MADE ?? OPPONET BOARD:")
             board2.printOpp()
-            print("\nPLAYER BOARD:")
+            print("\nPLAYER 1 BOARD:")
             board1.printBoard()
         case "player2":
             print("OPPONENT BOARD:")
             board1.printOpp()
-            print("\nPLAYER BOARD:")
+            print("\nPLAYER 2/CPU BOARD:")
             board2.printBoard()
     print("\n")
     while choice != 3:
@@ -511,7 +527,7 @@ def is_cpu():
     """
 # @Michael do you want to move your cpu code in run down to here?
 # Plan is to remove run as it is now and use the state machine I am working on
-    return Fasle;
+    return False;
 
 def get_num_ships():
     """
@@ -526,14 +542,14 @@ def get_num_ships():
         print('How many ships per player for this game?\n')
         num_ships = input('Enter a number from 1 to 6:\n')
         if num_ships.isnumeric():
-            ship_num = int(numberShips)
+            ship_num = int(num_ships)
             if ship_num in range(1, 7):
                 choice_made = True
             else:
                 print("Please enter a number between 1 and 6!\n")
         else:
             print("Please enter a valid ship number.\n")
-    return num_ships
+    return int(num_ships)
 
 def get_move_coord():
     """
@@ -610,6 +626,7 @@ checks python version to see if can runs
 req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
+    # playGame_new()
     # if version is compatable, start the game
     run()
 else:
