@@ -24,8 +24,8 @@ class CPU_Player :
     :post
     """
     def __init__ (self):
-        self.previous_move.append((f, f));
-        self.current_move = (f, f);
+        self.previous_moves.append((99, 99));
+        self.current_move = (99, 99);
         # track the totoal moves made, for parsing previous moves
         self.total_moves = 0;
         #Difficulty for CPU with 1 as default for easy (2 for med, 3 for hard)
