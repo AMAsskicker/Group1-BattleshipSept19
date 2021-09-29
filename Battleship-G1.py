@@ -158,22 +158,44 @@ def playGame_new(board1, board2):
     """
     main gameplay state machine
     approval from TA recived
+    :autor AMA
+    :date sept 27 2021
     :pre
     :post
     :param board_: board to use for play, print etc.
-    :autor AMA
-    :date sept 27 2021
     """
+    ## TODO: will move this to run and implement state machine there,
+    # will proto here to keep project working
+    # AMA 9-27-2021
+
     isWinner = False;
+    one_human = False;
     game_state = "start"
     while not isWinner:
-
+        # may put if stmt around below to save object creation - AMA
+        cpu_obj = CPU_Player()
         match game_state:
             case "start":
+                # welcome banner
+                player1_board = Board()
+                second_board = Board()
+                if is_cpu():
+                    one_human = True;
                 state = "set_ships"
             case "set_ships":
+                total_ships = get_num_ships()
+                # set player 1 Ships
+                setup_user(player1_board, total_ships)
+                # set player 2 or cpu ships
+                if one_human:
+                    # set cpu Ships
+                    cpu_obj.set_ships(second_board, total_ships)
+                    # TODO: message ships set
+                else:
+                    setup_user(second_board, total_ships)
                 state = "player1"
             case "player1":
+                
                 state = "player2"
             case "player2":
                 state = "end_game"
@@ -181,9 +203,6 @@ def playGame_new(board1, board2):
                 isWinner = True;
     #TODO: FINISH PROTO
 
-    ## TODO: will move this to run and implement state machine there,
-    # will proto here to keep project working
-    # AMA 9-27-2021
 
  # playGame func will go away when state machine implemented - AMAs
 def playGame(board1, board2):
@@ -310,9 +329,9 @@ def run():
             else:
                 print("Please enter number.\n")
 
-	"""
-	isCPU check added by Michael Talaga that allows user to choose CPU difficulty
-	"""
+	# """
+	# isCPU check added by Michael Talaga that allows user to choose CPU difficulty
+	# """
         if isCPU:
             diffSelected = False
             print("\nChoose your CPU difficulty.\n")
@@ -437,7 +456,7 @@ def print_oreient_prompt():
 def pause():
     """
     Pauses game until something is typed
-    :author Michael 
+    :author Michael
     """
     waited = False
     while not waited:
@@ -445,6 +464,38 @@ def pause():
         if len(wait) >= 1 or wait == "":
             waited = True
     return (print("\nContinuing...\n"))
+
+def is_cpu():
+    """
+    ask if using cpu as second player
+    :author
+    :pre
+    :post
+    :return :True if using cpu, false else
+    """
+    return Fasle;
+
+def get_num_ships():
+    """
+    prompts user for number of ships to use in the game
+    :author AMA
+    :date sept 28 2021
+    :pre
+    :return number of ships in the game
+    """
+    choice_made = False
+    while not choice_made:
+        print('How many ships per player for this game?\n')
+        num_ships = input('Enter a number from 1 to 6:\n')
+        if num_ships.isnumeric():
+            ship_num = int(numberShips)
+            if ship_num in range(1, 7):
+                choice_made = True
+            else:
+                print("Please enter a number between 1 and 6!\n")
+        else:
+            print("Please enter a valid ship number.\n")
+    return num_ships
 
 """
 checks python version to see if can runs

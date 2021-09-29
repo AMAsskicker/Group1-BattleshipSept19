@@ -17,7 +17,7 @@ class CPU_Player :
     previous_moves = []
     #Keep coordinates for player 1
     opponent_coords = []
-    
+
     """ defalut constructor
     :pre
     :post
@@ -34,6 +34,7 @@ class CPU_Player :
         print("cpu created")
 
     """ called when it is cpu turn in game
+    :author AMA & ...
     :pre
     :post
     """
@@ -66,7 +67,7 @@ class CPU_Player :
     """
     def check_previous (self):
         return True;
-    
+
     """ checks if a move has been made to space passed
     :pre
     :post
@@ -83,7 +84,7 @@ class CPU_Player :
     :author Michael Talaga
     """
     def add_opponent_coords(self, opp_coords):
-        
+
         self.opponent_coords.append(opp_coords)
 
     """ Sets difficulty for CPU
@@ -91,7 +92,7 @@ class CPU_Player :
     :post
     :param dif: integer from 1-3
     :author Michael Talaga
-    """  
+    """
     def set_difficulty(self, dif):
         self.difficulty = dif
 	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
@@ -100,4 +101,13 @@ class CPU_Player :
             self.cheat_percentage = 15
         elif dif == 3:
             self.cheat_percentage = 100
-        
+
+    """
+    sets ships at the start of the game
+    :author
+    :pre
+    :post
+    :return :True ships are set, false else
+    """
+    def set_ships(self, board):
+        return False
