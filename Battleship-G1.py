@@ -149,11 +149,6 @@ def setup_CPU(board, numberShips):
     #board.printBoard() #Test for CPU board
     pause()
 
-""" method is not commented good and is hard to follow.  Doesn't lend itself to
-adding a cpu player to the game
-think we should implement a state machine, emailed GTA about changing to state machine
-AMA 9-26-2021
-"""
 def playGame_new():
     """
     main gameplay state machine
@@ -239,7 +234,11 @@ def playGame_new():
                     run_game = False
     #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
-
+""" method is not commented good and is hard to follow.  Doesn't lend itself to
+adding a cpu player to the game
+think we should implement a state machine, emailed GTA about changing to state machine
+AMA 9-26-2021
+"""
  # playGame func will go away when state machine implemented - AMAs
 def playGame(board1, board2):
     """
