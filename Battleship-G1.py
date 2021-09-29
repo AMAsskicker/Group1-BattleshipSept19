@@ -193,10 +193,9 @@ def playGame_new():
                     who_won = "user_exit"
                     game_state = "end_game"
                 else:
-                    # TODO: MODIFIY BOARD.PY FUNC TO ACCEPT LIST/TUPLE OF X,Y
                     coord_list = get_move_coord()
                     # player1_board.hit(get_move_coord())
-                    player1_board.hit(coord_list[0],coord_list[1])
+                    player1_board.hit(coord_list)
                 player1_board.score(second_board)
                 if player1_board.allsunk:
                     who_won = "player1"
@@ -207,7 +206,7 @@ def playGame_new():
                 # TODO: TEST PLAYER1, THEN USE IF ELSE FOR CPU OR PLAYER2
                 if one_human:
                     cpu_move = cpu_obj.make_move(second_board)
-                    second_board.hit(cpu_move[0], cpu_move[1], game_state)
+                    second_board.hit(cpu_move)
                     print("CPU has made a move")
                 else:
                     selection_p2 = printMenu(player1_board, second_board, game_state)
@@ -216,7 +215,7 @@ def playGame_new():
                         game_state = "end_game"
                     else:
                         coord_list = get_move_coord()
-                        second_board.hit(coord_list[0], coord_list[1], game_state)
+                        second_board.hit(coord_list)
                     second_board.score(player1_board)
                 if second_board.allsunk:
                     if one_human:

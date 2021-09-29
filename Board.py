@@ -3,6 +3,8 @@ class Board:
     and changing or checking the characteristics of the boards and displaying them.
     """
 
+    # TODO: THEY HAVE THE BOARD GOING [Y][X], DO WE WANT TO CHANGE TO [X][Y] WHICH
+    #       IS USED MORE OFFTEN IN 2D COORD SYSTEMS? - AMA
     def __init__(self):
         """Constructor method
         """
@@ -132,22 +134,20 @@ class Board:
         self.shipObjects.append(shipcoords)
         self.points += 1
 
-    def hit(self, y, x):
+    def hit(self, coord_list):
         """
         Determines whether entered coordinates hit a ship, and gives
         feedback on whether ship is hit and if a ship is sunk.
-        :param y: the row for the shot location
-        :type y: int
-        :param x: the column for the shot location
-        :type x: int
+        :edit AMA remove x, y params and mad a list of [x,y]
+        :param coord_list: list of x and y coord to test
         """
         row = len(self.shipObjects)
         temp = self.spots
         for z in range(row):
             for w in range(len(self.shipObjects[z])):
-                if self.shipObjects[z][w] == (y,x):
-                    self.waterGrid[y][x] = "x"
-                    self.oppGrid[y][x] = "x"
+                if self.shipObjects[z][w] == (coord_list[1],coord_list[0]):
+                    self.waterGrid[coord_list[1]][coord_list[0]] = "x"
+                    self.oppGrid[coord_list[1]][coord_list[0]] = "x"
                     self.spots -= 1
                     self.shiplengths[z] -= 1
                     print("\nHIT!\n")
@@ -157,7 +157,7 @@ class Board:
                 else:
                     print("\nMISS!\n")
         if temp == self.spots:
-            self.oppGrid[y][x] = "m"
+            self.oppGrid[coord_list[1]][coord_list[0]] = "m"
 
     def score(self, opp):
         """
