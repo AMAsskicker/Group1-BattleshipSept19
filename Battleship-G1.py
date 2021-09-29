@@ -171,6 +171,7 @@ def playGame_new(board1, board2):
     isWinner = False;
     one_human = False;
     game_state = "start"
+    who_won = "none"
     while not isWinner:
         # may put if stmt around below to save object creation - AMA
         cpu_obj = CPU_Player()
@@ -195,7 +196,15 @@ def playGame_new(board1, board2):
                     setup_user(second_board, total_ships)
                 state = "player1"
             case "player1":
-                
+                selection = printMenu(player1_board, second_board, state)
+                if selection == 3:
+                    who_won = "user_exit"
+                    game_state = end_game
+                else:
+
+                if player1_board.allsunk:
+                    who_won = "player1"
+                    game_state = "end_game"
                 state = "player2"
             case "player2":
                 state = "end_game"
@@ -496,6 +505,11 @@ def get_num_ships():
         else:
             print("Please enter a valid ship number.\n")
     return num_ships
+
+def get_move_coord():
+    coords = []
+    
+    return coords
 
 """
 checks python version to see if can runs
