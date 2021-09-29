@@ -168,55 +168,76 @@ def playGame_new():
     # will proto here to keep project working
     # AMA 9-27-2021
 
-    isWinner = False;
-    one_human = False;
+    run_game = True
+    one_human = False
     game_state = "start"
     who_won = "none"
-    while not isWinner:
-        # may put if stmt around below to save object creation - AMA
-        cpu_obj = CPU_Player()
+    player1_board = Board()
+    second_board = Board()
+    # may put if stmt around below to save object creation - AMA
+    cpu_obj = CPU_Player()
+    while run_game:
         match game_state:
             case "start":
-                # welcome banner
-                player1_board = Board()
-                second_board = Board()
+                print('\n*** WELCOME TO BATTLESHIP!! ***\n')
                 if is_cpu():
                     one_human = True;
-                state = "set_ships"
+                game_state = "set_ships"
             case "set_ships":
                 total_ships = get_num_ships()
-                # set player 1 Ships
                 setup_user(player1_board, total_ships)
-                # set player 2 or cpu ships
                 if one_human:
-                    # set cpu Ships
                     cpu_obj.set_ships(second_board, total_ships)
-                    # TODO: message ships set
+                    print("CPU Ships Placed")
                 else:
                     setup_user(second_board, total_ships)
-                state = "player1"
+                game_state = "player1"
             case "player1":
-                selection = printMenu(player1_board, second_board, state)
-                if selection == 3:
+                selection_p1 = printMenu(player1_board, second_board, game_state)
+                if selection_p1 == 3:
                     who_won = "user_exit"
-                    game_state = end_game
+                    game_state = "end_game"
                 else:
                     # TODO: MODIFIY BOARD.PY FUNC TO ACCEPT LIST/TUPLE OF X,Y
                     coord_list = get_move_coord()
                     # player1_board.hit(get_move_coord())
                     player1_board.hit(coord_list[0],coord_list[1])
+                player1_board.score(second_board)
                 if player1_board.allsunk:
                     who_won = "player1"
                     game_state = "end_game"
                 else:
-                    state = "player2"
+                    game_state = "player2"
             case "player2":
                 # TODO: TEST PLAYER1, THEN USE IF ELSE FOR CPU OR PLAYER2
-                state = "end_game"
+                if one_human:
+                    cpu_move = cpu_obj.make_move(second_board)
+                    second_board.hit(cpu_move[0], cpu_move[1], game_state)
+                    print("CPU has made a move")
+                else:
+                    selection_p2 = printMenu(player1_board, second_board, game_state)
+                    if selection_p2 == 3:
+                        who_won = "user_exit"
+                        game_state = "end_game"
+                    else:
+                        coord_list = get_move_coord()
+                        second_board.hit(coord_list[0], coord_list[1], game_state)
+                    second_board.score(player1_board)
+                if second_board.allsunk:
+                    if one_human:
+                        who_won = "cpu"
+                    else:
+                        who_won = "player2"
+                    game_state = "end_game"
+                else:
+                    game_state = "player1"
             case "end_game":
                 announce_winner(who_won)
-                isWinner = True;
-    #TODO: FINISH PROTO
+                if play_again():
+                    game_state = "start"
+                else:
+                    run_game = False
+    #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
 
  # playGame func will go away when state machine implemented - AMAs
@@ -328,14 +349,15 @@ def run():
     """ Starts and ends the game, calling methods as appropriate.
     :author unknown
     """
-    stopgame = 0  # variable for giving option to quit game or play again, once a game is over
+    # variable for giving option to quit game or play again, once a game is over
+    stopgame = 0
     while stopgame == 0:
 
         print('\n*** WELCOME TO BATTLESHIP!! ***\n')
         isCPU, firstSelection = False, False
         print("Would you like to play against another player?\n")
         while not firstSelection:
-            selection = input("Enter '1' to play against a player and '2' for CPU.\n")
+            selection = input("Enter '1' to play against a player or '2' to play against a CPU.\n")
             if selection.isnumeric():
                 if selection == '1':
                     firstSelection = True
@@ -381,7 +403,6 @@ def run():
         player1_board = Board()
         print('\nReady to set up the board for Player 1!\n')
 
-
         """ TODO: remove comment
         2 line comment below is redundant, can look at the func to see what it does and
         is in the name
@@ -395,7 +416,6 @@ def run():
             # CPU board object
             cpu_board = Board()
             # setup CPU board
-
         # TODO: think need diffent func for cpu setup
             setup_CPU(cpu_board, ship_num);
             playGame(player1_board, cpu_board)
@@ -490,12 +510,14 @@ def is_cpu():
     :post
     :return :True if using cpu, false else
     """
+# @Michael do you want to move your cpu code in run down to here?
+# Plan is to remove run as it is now and use the state machine I am working on
     return Fasle;
 
 def get_num_ships():
     """
     prompts user for number of ships to use in the game
-    :author AMA
+    :author AMA, code was already in program, moved and slight changes
     :date sept 28 2021
     :pre
     :return number of ships in the game
@@ -560,6 +582,27 @@ def announce_winner(who_2_announce):
     """
     print(who_2_announce)
 
+def play_again():
+    """
+    asks player if they would like to play another game
+    :author AMA, some code already in project just removed
+    :date 9-29-2021
+    :pre
+    :return :True if player wants to play another game, false else
+    """
+    selection = False
+    while True:
+        print("\nWould you like to play another game?\n")
+        endgame = input('Enter "Y" for YES, "N" for NO: ')
+        if endgame == 'Y' or endgame == 'y':
+            selection = True
+            break
+        elif endgame == "N" or endgame == "n":
+            break
+        else:
+            print("\nInvalid Input.")
+    return selection
+
 """
 checks python version to see if can runs
 :author AMA
@@ -568,6 +611,7 @@ checks python version to see if can runs
 req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
+    # if version is compatable, start the game
     run()
 else:
     # prompt user to update python
