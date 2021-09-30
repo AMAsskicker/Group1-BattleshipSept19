@@ -30,21 +30,25 @@ def setup_user(board, numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
 
-        while valid != True:
+        while not valid:
             #check for valid column input
             while True:
-                start_x = input("\nWhat is the starting column of ship " + str(ship + 1) + "? (A-J)\n")
-                start_x_num = (ord(start_x) % 32) - 1
-                if len(start_x) == 1:
-                    if start_x.isalpha() and start_x_num in range(0,10):
-                        break
-                    print("That's not a valid option. Please enter a letter between A through J.")
-                else:
-                    print("Please enter only one character.")
+                start_x = input("\n What is the starting column of ship " + str(ship + 1) + "? (A-J)\n")
+                try:
+                    start_x_num = (ord(start_x) % 32) - 1
+                    if len(start_x) == 1:
+                        if start_x.isalpha() and start_x_num in range(0,10):
+                            break
+                        print("That's not a valid option. Please enter a letter between A through J.")
+                    else:
+                        print("Please enter only one character.")
+                except (ValueError, TypeError):
+                    print("Please enter a letter between A-J")
+
 
             #check for valid row input
             while True:
-                start_y = input("\nWhat is the starting row of ship " + str(ship + 1) + "? (1-9)\n")
+                start_y = input("\n What is the starting row of ship " + str(ship + 1) + "? (1-9)\n")
                 if start_y.isnumeric():
                     start_y_num = int(start_y) - 1
                     if start_y_num in range(0,9):
@@ -229,6 +233,7 @@ def playGame_new():
                     if selection_p2 == 3:
                         who_won = "user_exit"
                         game_state = "end_game"
+                        continue
                     else:
                         coord_list = get_move_coord()
                         second_board.hit(coord_list)
@@ -243,10 +248,23 @@ def playGame_new():
                     game_state = "player1"
             case "end_game":
                 announce_winner(who_won)
+
                 if play_again():
                     game_state = "start"
+                    if (player1_board.erase() and
+                    second_board.erase()):
+                        print("\n GAME BOARDS ERASED \n")
+                    else:
+                        print("\n BOARD ERASE ERROR \n")
+                        del player1_board
+                        del second_board
+                        del cpu_obj
+                        break
                 else:
                     run_game = False
+                    del player1_board
+                    del second_board
+                    del cpu_obj
     #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
@@ -276,10 +294,11 @@ def playGame(board1, board2):
             while True:
                 x_hit = input("\nWhat column?\n")
                 if x_hit.isalpha():
-                    x_coord = (ord(x_hit) % 32) - 1
-                    if x_coord in range (0, 10):
-                        break
-                    else:
+                    try:
+                        x_coord = (ord(x_hit) % 32) - 1
+                        if x_coord in range (0, 10):
+                            break
+                    except (ValueError, TypeError):
                         print("Please enter a letter between A-J")
                 else:
                     print("Please enter a valid column. (A-J)")
@@ -554,7 +573,7 @@ def get_num_ships():
 def get_move_coord():
     """
     prompts user for row col of move
-    :author code already in file just moved
+    :author code already in file just moved, AMA added try except
     :date
     :pre
     :return list of [row, col]
@@ -562,14 +581,17 @@ def get_move_coord():
     # coords = []
     #check for valid column input
     while True:
-        x_hit = input("\nWhat column?\n")
-        if x_hit.isalpha():
-            x_coord = (ord(x_hit) % 32) - 1
-            if x_coord in range (0, 10):
-                break
+        try:
+            x_hit = input("\nWhat column?\n")
+            if x_hit.isalpha():
+                x_coord = (ord(x_hit) % 32) - 1
+                if x_coord in range (0, 10):
+                    break
+                else:
+                    print("Please enter a letter between A-J")
             else:
-                print("Please enter a letter between A-J")
-        else:
+                print("Please enter a valid column. (A-J)")
+        except (ValueError, TypeError):
             print("Please enter a valid column. (A-J)")
 
     #check for valid row input
@@ -626,9 +648,9 @@ checks python version to see if can runs
 req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
-    # playGame_new()
+    playGame_new()
     # if version is compatable, start the game
-    run()
+    # run()
 else:
     # prompt user to update python
     print("Please update your python version to 3.10 or greater")
