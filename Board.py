@@ -2,7 +2,7 @@
 Board.py
 """
 
-from ship import Ship
+# from ship import Ship
 
 class Board:
     """Class for creating components of active player and opponent game boards
