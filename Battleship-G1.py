@@ -29,7 +29,6 @@ def setup_user(board, numberShips):
     for ship in range(numberShips):
         valid = False
         orientation = {'L', 'R', 'U', 'D', 'l', 'r', 'u', 'd'}
-
         while not valid:
             #check for valid column input
             while True:
@@ -37,34 +36,30 @@ def setup_user(board, numberShips):
                 try:
                     start_x_num = (ord(start_x) % 32) - 1
                     if len(start_x) == 1:
-                        if start_x.isalpha() and start_x_num in range(0,10):
+                        if start_x.isalpha() and start_x_num in range(0, 10):
                             break
                         print("That's not a valid option. Please enter a letter between A through J.")
                     else:
                         print("Please enter only one character.")
                 except (ValueError, TypeError):
                     print("Please enter a letter between A-J")
-
-
             #check for valid row input
             while True:
                 start_y = input("\n What is the starting row of ship " + str(ship + 1) + "? (1-9)\n")
                 if start_y.isnumeric():
                     start_y_num = int(start_y) - 1
-                    if start_y_num in range(0,9):
+                    if start_y_num in range(0, 9):
                         break
                     else:
                         print("That's not a valid option! Please enter a number from 1 through 9.")
                 else:
                     print("That's not a valid option! Please enter a number from 1 through 9.")
-
             #check for valid orientation
             while True:
                 print_oreient_prompt()
                 orientInput = input()
-                orient = orientInput.upper()
-                if orientInput in orientation:
-                    match orient:
+                if orientInput.upper() in orientation:
+                    match orientInput.upper():
                         case 'L':
                             if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
                                 break
@@ -88,8 +83,8 @@ def setup_user(board, numberShips):
                 else:
                     print("Invalid direction for ship.")
 
-            if board.isShipValid(orient, start_x_num, start_y_num, ship + 1):
-                board.createShip(start_x_num, start_y_num, orient, ship + 1, ship + 1)
+            if board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
+                board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
@@ -172,14 +167,14 @@ def playGame_new():
     one_human = False
     game_state = "start"
     who_won = "none"
-    player1_board = Board()
-    second_board = Board()
-    # may put if stmt around below to save object creation - AMA
-    cpu_obj = CPU_Player()
+    # STATE MACHINE
     while run_game:
         match game_state:
             case "start":
                 print('\n*** WELCOME TO BATTLESHIP!! ***\n')
+                player1_board = Board()
+                second_board = Board()
+                cpu_obj = CPU_Player()
                 if is_cpu():
                     one_human = True
                 game_state = "set_ships"
@@ -207,15 +202,12 @@ def playGame_new():
                         who_won = "ship_error"
                 game_state = "player1"
             case "player1":
-                selection_p1 = printMenu(player1_board, second_board, game_state)
-                if selection_p1 == 3:
+                if printMenu(player1_board, second_board, game_state) == 3:
                     who_won = "user_exit"
                     game_state = "end_game"
                     continue
                 else:
-                    coord_list = get_move_coord()
-                    # player1_board.hit(get_move_coord())
-                    player1_board.hit(coord_list)
+                    player1_board.hit(get_move_coord())
                 player1_board.score(second_board)
                 if player1_board.allsunk:
                     who_won = "player1"
@@ -223,20 +215,17 @@ def playGame_new():
                 else:
                     game_state = "player2"
             case "player2":
-                # TODO: TEST PLAYER1, THEN USE IF ELSE FOR CPU OR PLAYER2
                 if one_human:
                     cpu_move = cpu_obj.make_move(second_board)
                     second_board.hit(cpu_move)
-                    print("CPU has made a move")
+                    print("CPU HAS MADE A MOVE")
                 else:
-                    selection_p2 = printMenu(player1_board, second_board, game_state)
-                    if selection_p2 == 3:
+                    if printMenu(player1_board, second_board, game_state) == 3:
                         who_won = "user_exit"
                         game_state = "end_game"
                         continue
                     else:
-                        coord_list = get_move_coord()
-                        second_board.hit(coord_list)
+                        second_board.hit(get_move_coord())
                     second_board.score(player1_board)
                 if second_board.allsunk:
                     if one_human:
@@ -248,23 +237,16 @@ def playGame_new():
                     game_state = "player1"
             case "end_game":
                 announce_winner(who_won)
-
                 if play_again():
-                    game_state = "start"
-                    if (player1_board.erase() and
-                    second_board.erase()):
-                        print("\n GAME BOARDS ERASED \n")
-                    else:
-                        print("\n BOARD ERASE ERROR \n")
-                        del player1_board
-                        del second_board
-                        del cpu_obj
-                        break
+                    del player1_board, second_board, cpu_obj
+                    try:
+                        print(cpu_obj.difficulty)
+                    except (NameError):
+                        game_state = "start"
+                        who_won = "none"
                 else:
+                    del player1_board, second_board, cpu_obj
                     run_game = False
-                    del player1_board
-                    del second_board
-                    del cpu_obj
     #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
@@ -305,17 +287,18 @@ def playGame(board1, board2):
 
             #check for valid row input
             while True:
-                y_hit = input("\nWhat row?\n")
-                if y_hit.isnumeric():
-                    y_coord = int(y_hit) - 1
-                    if y_coord in range(0, 10):
-                        break
+                try:
+                    y_hit = input("\nWhat row?\n")
+                    if y_hit.isnumeric():
+                        y_coord = int(y_hit) - 1
+                        if y_coord in range(0, 10):
+                            break
+                        else:
+                            print("Please enter a number between 1-9.)")
                     else:
-                        print("Please enter a number between 1-9.)")
-                else:
+                        print("Please enter a valid row. (1-9)")
+                except (ValueError, TypeError):
                     print("Please enter a valid row. (1-9)")
-                    # TODO: been trying to correct some miss match in boards below.
-                    # think ist close but needs testing here
             coords = [x_coord, y_coord]
             if turn%2 == 1:
                 board2.hit(coords)
@@ -337,6 +320,9 @@ def printMenu(board1, board2, turn):
     :type turn: int
     """
     choice = 0
+    # TODO: NEED TO FIX BOARD PRINTING BELOW:
+    # MOVES MADE BY OPPONET SHOULD BE IN BOARD WITH SHIPS IF GOING TO DISPLAY BOTH boards
+    # AMA WILL FIX
     match turn:
         case "player1":
             print("MOVES MADE ?? OPPONET BOARD:")
@@ -559,14 +545,17 @@ def get_num_ships():
     choice_made = False
     while not choice_made:
         print('How many ships per player for this game?\n')
-        num_ships = input('Enter a number from 1 to 6:\n')
-        if num_ships.isnumeric():
-            ship_num = int(num_ships)
-            if ship_num in range(1, 7):
-                choice_made = True
+        try:
+            num_ships = input('Enter a number from 1 to 6:\n')
+            if num_ships.isnumeric():
+                ship_num = int(num_ships)
+                if ship_num in range(1, 7):
+                    choice_made = True
+                else:
+                    print("Please enter a number between 1 and 6!\n")
             else:
-                print("Please enter a number between 1 and 6!\n")
-        else:
+                print("Please enter a valid ship number.\n")
+        except(ValueError, TypeError):
             print("Please enter a valid ship number.\n")
     return int(num_ships)
 
@@ -596,17 +585,20 @@ def get_move_coord():
 
     #check for valid row input
     while True:
-        y_hit = input("\nWhat row?\n")
-        if y_hit.isnumeric():
-            y_coord = int(y_hit) - 1
-            if y_coord in range(0, 10):
-                break
+        try:
+            y_hit = input("\nWhat row?\n")
+            if y_hit.isnumeric():
+                y_coord = int(y_hit) - 1
+                if y_coord in range(0, 10):
+                    break
+                else:
+                    print("Please enter a number between 1-9.)")
             else:
-                print("Please enter a number between 1-9.)")
-        else:
+                print("Please enter a valid row. (1-9)")
+                # TODO: been trying to correct some miss match in boards below.
+                # think ist close but needs testing here
+        except (ValueError, TypeError):
             print("Please enter a valid row. (1-9)")
-            # TODO: been trying to correct some miss match in boards below.
-            # think ist close but needs testing here
     coords = [x_coord, y_coord]
     return coords
 
@@ -616,6 +608,8 @@ def announce_winner(who_2_announce):
     :author
     :pre
     :post
+    :param who_2_announce: who won: player1, player2, cpu, user_exit
+    :type :who_2_announce string
     """
     print(who_2_announce)
 
@@ -630,13 +624,16 @@ def play_again():
     selection = False
     while True:
         print("\nWould you like to play another game?\n")
-        endgame = input('Enter "Y" for YES, "N" for NO: ')
-        if endgame == 'Y' or endgame == 'y':
-            selection = True
-            break
-        elif endgame == "N" or endgame == "n":
-            break
-        else:
+        try:
+            endgame = input('Enter "Y" for YES, "N" for NO: ')
+            if endgame == 'Y' or endgame == 'y':
+                selection = True
+                break
+            elif endgame == "N" or endgame == "n":
+                break
+            else:
+                print("\nInvalid Input.")
+        except(ValueError, TypeError):
             print("\nInvalid Input.")
     return selection
 
