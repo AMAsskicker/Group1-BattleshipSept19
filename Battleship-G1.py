@@ -1,6 +1,7 @@
 # Import class methods needed for the program
 from Board import *
 from cpu_player import CPU_Player
+from user_input import User_Input
 # libs
 import string
 import sys
@@ -56,7 +57,7 @@ def setup_user(board, numberShips):
                     print("That's not a valid option! Please enter a number from 1 through 9.")
             #check for valid orientation
             while True:
-                print_oreient_prompt()
+                print_oreient_prompt_inst()
                 orientInput = input()
                 if orientInput.upper() in orientation:
                     match orientInput.upper():
@@ -92,7 +93,7 @@ def setup_user(board, numberShips):
 
         shipLenTrack += 1
     playerCoordinates = board.getCoords() #2d Array of player coordinates
-    # cna move pause to state machine, believe is for between turns? - AMA
+    # can move pause to state machine, believe is for between turns? - AMA
     # pause()
     return valid
 
@@ -178,7 +179,7 @@ def playGame_new():
                     one_human = True
                 game_state = "set_ships"
             case "set_ships":
-                total_ships = get_num_ships()
+                total_ships = user_input.get_num_ships()
                 print("\n TIME FOR PLAYER 1 TO PLACE THEIR SHIPS \n")
                 if setup_user(player1_board, total_ships):
                     print("\n PLAYER 1 HAS SETUP THEIR SHIPS \n")
@@ -188,6 +189,7 @@ def playGame_new():
                     game_state = "end_game"
                     who_won = "ship_error"
                 if one_human:
+                    print("\n CPU PLACING SHIPS \n")
                     cpu_obj.set_ships(second_board, total_ships)
                     print("CPU Ships Placed")
                 else:
@@ -206,7 +208,8 @@ def playGame_new():
                     game_state = "end_game"
                     continue
                 else:
-                    player1_board.hit(get_move_coord())
+                    # is error in *.hit() func.  is comparing against its own ships -AMA
+                    player1_board.hit(user_input.get_move_coord())
                 player1_board.score(second_board)
                 if player1_board.allsunk:
                     who_won = "player1"
@@ -224,20 +227,21 @@ def playGame_new():
                         game_state = "end_game"
                         continue
                     else:
-                        second_board.hit(get_move_coord())
+                        second_board.hit(user_input.get_move_coord())
                 second_board.score(player1_board)
                 if second_board.allsunk:
-                    if one_human:
-                        who_won = "cpu"
-                    else:
-                        who_won = "player2"
+                    who_won = "cpu" if one_human else "player2"
+                    # if one_human:
+                    #     who_won = "cpu"
+                    # else:
+                    #     who_won = "player2"
                     game_state = "end_game"
                 else:
                     game_state = "player1"
                     # pause()
             case "end_game":
                 announce_winner(who_won)
-                if play_again():
+                if user_input.play_again():
                     del player1_board, second_board, cpu_obj
                     try:
                         print(cpu_obj.difficulty)
@@ -499,7 +503,7 @@ def print_rules():
     print("4) Once a ship has been hit in every space it occupies, it is sunk.\n")
     print("5) As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken.\"\n ")
 
-def print_oreient_prompt():
+def print_oreient_prompt_inst():
     """ print the user instruciton for ship direction
     :author AMA
     :date sept 24 2021
@@ -531,123 +535,120 @@ def is_cpu():
     :return :True if using cpu, false else
     """
 # @Michael do you want to move your cpu code in run down to here?
-# Plan is to remove run as it is now and use the state machine I am working on
+# Plan is to remove run as it is now and use the state machine I am working on -AMA
     return False;
 
-def get_num_ships():
-    """
-    prompts user for number of ships to use in the game
-    :author AMA, code was already in program, moved and slight changes
-    :date sept 28 2021
-    :pre
-    :return number of ships in the game
-    """
-    choice_made = False
-    while not choice_made:
-        print('How many ships per player for this game?\n')
-        try:
-            num_ships = input('Enter a number from 1 to 6:\n')
-            if num_ships.isnumeric():
-                ship_num = int(num_ships)
-                if ship_num in range(1, 7):
-                    choice_made = True
-                else:
-                    print("Please enter a number between 1 and 6!\n")
-            else:
-                print("Please enter a valid ship number.\n")
-        except(ValueError, TypeError):
-            print("Please enter a valid ship number.\n")
-    return int(num_ships)
+# def get_num_ships():
+#     """
+#     prompts user for number of ships to use in the game
+#     :author AMA, code was already in program, moved and slight changes
+#     :date sept 28 2021
+#     :pre
+#     :return number of ships in the game
+#     """
+#     choice_made = False
+#     while not choice_made:
+#         print('How many ships per player for this game?\n')
+#         try:
+#             num_ships = input('Enter a number from 1 to 6:\n')
+#             if num_ships.isnumeric():
+#                 ship_num = int(num_ships)
+#                 if ship_num in range(1, 7):
+#                     choice_made = True
+#                 else:
+#                     print("Please enter a number between 1 and 6!\n")
+#             else:
+#                 print("Please enter a valid ship number.\n")
+#         except (ValueError, TypeError):
+#             print("Please enter a valid ship number.\n")
+#     return int(num_ships)
+#
+# def get_move_coord():
+#     """
+#     prompts user for row col of move
+#     :author code already in file just moved, AMA added try except
+#     :date
+#     :pre
+#     :return list of [row, col]
+#     """
+#     #check for valid column input
+#     while True:
+#         try:
+#             x_hit = input("\nWhat column?\n")
+#             if x_hit.isalpha():
+#                 x_coord = (ord(x_hit) % 32) - 1
+#                 if x_coord in range (0, 10):
+#                     break
+#                 else:
+#                     print("Please enter a letter between A-J")
+#             else:
+#                 print("Please enter a valid column. (A-J)")
+#         except (ValueError, TypeError):
+#             print("Please enter a valid column. (A-J)")
+#     #check for valid row input
+#     while True:
+#         try:
+#             y_hit = input("\nWhat row?\n")
+#             if y_hit.isnumeric():
+#                 y_coord = int(y_hit) - 1
+#                 if y_coord in range(0, 10):
+#                     break
+#                 else:
+#                     print("Please enter a number between 1-9.)")
+#             else:
+#                 print("Please enter a valid row. (1-9)")
+#         except (ValueError, TypeError):
+#             print("Please enter a valid row. (1-9)")
+#     coords = [x_coord, y_coord]
+#     return coords
 
-def get_move_coord():
-    """
-    prompts user for row col of move
-    :author code already in file just moved, AMA added try except
-    :date
-    :pre
-    :return list of [row, col]
-    """
-    # coords = []
-    #check for valid column input
-    while True:
-        try:
-            x_hit = input("\nWhat column?\n")
-            if x_hit.isalpha():
-                x_coord = (ord(x_hit) % 32) - 1
-                if x_coord in range (0, 10):
-                    break
-                else:
-                    print("Please enter a letter between A-J")
-            else:
-                print("Please enter a valid column. (A-J)")
-        except (ValueError, TypeError):
-            print("Please enter a valid column. (A-J)")
-
-    #check for valid row input
-    while True:
-        try:
-            y_hit = input("\nWhat row?\n")
-            if y_hit.isnumeric():
-                y_coord = int(y_hit) - 1
-                if y_coord in range(0, 10):
-                    break
-                else:
-                    print("Please enter a number between 1-9.)")
-            else:
-                print("Please enter a valid row. (1-9)")
-                # TODO: been trying to correct some miss match in boards below.
-                # think ist close but needs testing here
-        except (ValueError, TypeError):
-            print("Please enter a valid row. (1-9)")
-    coords = [x_coord, y_coord]
-    return coords
-
-def announce_winner(who_2_announce):
+def announce_winner(who_2_announce: string):
     """
     outputs the winner
     :author
     :pre
     :post
     :param who_2_announce: who won: player1, player2, cpu, user_exit
-    :type :who_2_announce string
     """
     print(who_2_announce)
 
-def play_again():
-    """
-    asks player if they would like to play another game
-    :author AMA, some code already in project just removed
-    :date 9-29-2021
-    :pre
-    :return :True if player wants to play another game, false else
-    """
-    selection = False
-    while True:
-        print("\nWould you like to play another game?\n")
-        try:
-            endgame = input('Enter "Y" for YES, "N" for NO: ')
-            if endgame == 'Y' or endgame == 'y':
-                selection = True
-                break
-            elif endgame == "N" or endgame == "n":
-                break
-            else:
-                print("\nInvalid Input.")
-        except(ValueError, TypeError):
-            print("\nInvalid Input.")
-    return selection
+# def play_again():
+#     """
+#     asks player if they would like to play another game
+#     :author AMA, some code already in project just removed
+#     :date 9-29-2021
+#     :pre
+#     :return :True if player wants to play another game, false else
+#     """
+#     selection = False
+#     while True:
+#         print("\nWould you like to play another game?\n")
+#         try:
+#             endgame = input('Enter "Y" for YES, "N" for NO: ')
+#             if endgame == 'Y' or endgame == 'y':
+#                 selection = True
+#                 break
+#             elif endgame == "N" or endgame == "n":
+#                 break
+#             else:
+#                 print("\nInvalid Input.")
+#         except (ValueError, TypeError):
+#             print("\nInvalid Input.")
+#     return selection
 
 """
-checks python version to see if can runs
+checks python version to see if can run game
 :author AMA
 :date 9-26-2021
 """
 req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
+    user_input = User_Input()
     playGame_new()
     # if version is compatable, start the game
     # run()
+    del user_input
 else:
     # prompt user to update python
     print("Please update your python version to 3.10 or greater")
