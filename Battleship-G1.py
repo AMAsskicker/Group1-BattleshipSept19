@@ -527,16 +527,27 @@ def pause():
     return (print("\nContinuing...\n"))
 
 def is_cpu():
+# finished this function -MXO
     """
     ask if using cpu as second player
-    :author
+    :author MXO
     :pre
     :post
     :return :True if using cpu, false else
     """
+    playCPU = ' '
+    while True:
+        playCPU = input("Play against CPU? Y/N: ")
+        if playCPU == 'Y' or playCPU == 'y': 
+            return True
+        elif playCPU == 'N' or playCPU == 'n':
+            return False
+        else:
+            print("\nInvalid Input")
+
+
 # @Michael do you want to move your cpu code in run down to here?
 # Plan is to remove run as it is now and use the state machine I am working on -AMA
-    return False;
 
 # def get_num_ships():
 #     """
