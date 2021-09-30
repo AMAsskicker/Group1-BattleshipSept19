@@ -180,20 +180,4 @@ class Board:
         Returns player coordinates
         """
         return self.shipObjects
-
-    def erase(self):
-        """
-        erases the board for a new game
-        :author Adam Abernathy
-        :date sept 29 2021
-        :pre
-        :post
-        :return True: if operation complete
-        """
-        # TODO: DEVELOPE CHECK, PATTERN MATCHING TO REURN BOOL
-        # is_erased = False
-        # initialize board to be all 'O'
-        self.waterGrid = [['O' for col in range(10)] for row in range(9)]
-        # initialize board to be all '*'
-        self.oppGrid = [['*' for col in range(10)] for row in range(9)]
-        # return is_erased
+        
