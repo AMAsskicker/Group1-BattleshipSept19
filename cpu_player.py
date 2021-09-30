@@ -19,11 +19,11 @@ class CPU_Player :
     #Keep coordinates for player 1
     opponent_coords = []
 
-    """ defalut constructor
-    :pre
-    :post
-    """
     def __init__ (self):
+        """ defalut constructor
+        :pre
+        :post
+        """
         self.previous_moves.append((99, 99));
         self.current_move = (99, 99);
         # track the totoal moves made, for parsing previous moves
@@ -33,14 +33,14 @@ class CPU_Player :
         self.cheat = False
         print("cpu created")
 
-    """ called when it is cpu turn in game
-    :author AMA & ...
-    :pre
-    :post
-    :param cpu_board: Board object to use for making move
-    :return coords: list/tuple of move to make
-    """
     def make_move (self, cpu_board):
+        """ called when it is cpu turn in game
+        :author AMA & MT & ...
+        :pre
+        :post
+        :param cpu_board: Board object to use for making move
+        :return coords: list/tuple of move to make
+        """
         # check previous for a hits
 
         #author MT, if statement checks if cheat mode is activated
@@ -51,10 +51,12 @@ class CPU_Player :
 
 
         if check_previous():
+            # can prob do all these checks with one function
             #check above
             #check below
             #check left
             #check right
+
             # TODO: remove later
             print("previous checked")
 
@@ -73,45 +75,46 @@ class CPU_Player :
         # increment move
         self.total_moves += 1;
 
-    """
-    checks previous move for a hit
-    :author
-    :pre
-    :post
-    :return :True if previous move was a hit, false else
-    """
+
     def check_previous (self):
-        return True;
+        """
+        checks previous move for a hit
+        :author
+        :pre
+        :post
+        :return :True if previous move was a hit, false else
+        """
+        boologna = True
+        return boologna;
 
-    """
-    checks if a move has been made to space passed
-    :author
-    :pre
-    :post
-    :param game_board: Board object to check move against
-    :param move_2_check: tuple/list, x,y fomat to check
-    """
-    def isValid_move (game_board, move_2_check):
-        return True;
+    def isValid_move (self, game_board, move_2_check):
+        """
+        checks if a move has been made to space passed
+        :author
+        :pre
+        :post
+        :param game_board: Board object to check move against
+        :param move_2_check: tuple/list, x,y fomat to check
+        """
+        boolieve_it_or_not = True
+        return boolieve_it_or_not
 
-
-    """ Adds player 1 coordinates to array to allow for guessing
-    :pre
-    :post
-    :param opp_coords: 2d array of coords
-    :author Michael Talaga
-    """
     def add_opponent_coords(self, opp_coords):
-
+        """ Adds player 1 coordinates to array to allow for guessing
+        :pre
+        :post
+        :param opp_coords: 2d array of coords
+        :author Michael Talaga
+        """
         self.opponent_coords.append(opp_coords)
 
-    """ Sets difficulty for CPU
-    :pre
-    :post
-    :param dif: integer from 1-3
-    :author Michael Talaga
-    """
     def set_difficulty(self, dif):
+        """ Sets difficulty for CPU
+        :pre
+        :post
+        :param dif: integer from 1-3
+        :author Michael Talaga
+        """
         self.difficulty = dif
 	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
 	#Will likely change this to a boolean to indicate if the CPU will cheat or not for the hard difficulty
@@ -120,14 +123,14 @@ class CPU_Player :
         elif dif == 3:
             self.cheat_percentage = 100
 
-    """
-    sets ships at the start of the game
-    :author
-    :pre
-    :post
-    :param board: Board obj to set ships in
-    :return :True ships are set, false else
-    """
     def set_ships(self, board):
-
-        return False
+        """
+        sets ships at the start of the game
+        :author
+        :pre
+        :post
+        :param board: Board obj to set ships in
+        :return :True ships are set, false else
+        """
+        boollon = False
+        return boollon
