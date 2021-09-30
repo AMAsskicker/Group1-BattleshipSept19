@@ -4,15 +4,15 @@ cpu_player.py
 created: sept 25 2021
 by: Adam Abernathy
 
-description:
-cpu player for battleship
-
 """
 
+from Board import Board
 import random
 
+""" description:
+cpu player for battleship
+"""
 class CPU_Player :
-    # MARK: Properties
     # list of tuples of previous moves: (x, y)
     # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
     previous_moves = []
@@ -33,7 +33,7 @@ class CPU_Player :
         self.cheat = False
         print("cpu created")
 
-    def make_move (self, cpu_board):
+    def make_move (self, cpu_board: Board):
         """ called when it is cpu turn in game
         :author AMA & MT & ...
         :pre
@@ -87,17 +87,17 @@ class CPU_Player :
         boologna = True
         return boologna;
 
-    def isValid_move (self, game_board, move_2_check):
+    def isValid_move (self, game_board: Board, move_2_check: [int]):
         """
         checks if a move has been made to space passed
         :author
         :pre
         :post
         :param game_board: Board object to check move against
-        :param move_2_check: tuple/list, x,y fomat to check
+        :param move_2_check: list, x,y fomat to check
         """
-        boolieve_it_or_not = True
-        return boolieve_it_or_not
+        booliever = True
+        return booliever
 
     def add_opponent_coords(self, opp_coords):
         """ Adds player 1 coordinates to array to allow for guessing
@@ -123,7 +123,7 @@ class CPU_Player :
         elif dif == 3:
             self.cheat_percentage = 100
 
-    def set_ships(self, board):
+    def set_ships(self, board: Board):
         """
         sets ships at the start of the game
         :author
