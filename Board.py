@@ -1,3 +1,9 @@
+"""
+Board.py
+"""
+
+from ship import Ship
+
 class Board:
     """Class for creating components of active player and opponent game boards
     and changing or checking the characteristics of the boards and displaying them.
@@ -10,6 +16,7 @@ class Board:
         """
         # this is a list of ship objects. They will be checked to determine which
         # ship is hit, and update ship coord, sunk variables
+        # TODO: make shipObjects a list of SHIPS -ama
         self.shipObjects = []
         self.shiplengths=[]
         self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
@@ -134,17 +141,20 @@ class Board:
         self.shipObjects.append(shipcoords)
         self.points += 1
 
-    def hit(self, coord_list):
+    def hit(self, coord_list: [int]):
         """
         Determines whether entered coordinates hit a ship, and gives
         feedback on whether ship is hit and if a ship is sunk.
-        :edit AMA remove x, y params and mad a list of [x,y]
+        :edit AMA remove x, y params and made a list of [x,y], add param
         :param coord_list: list of x and y coord to test
+        :param compare_board
         """
         row = len(self.shipObjects)
         temp = self.spots
         for z in range(row):
             for w in range(len(self.shipObjects[z])):
+                # TODO: is comparing moove to its own ship placement, not opponents
+                # AMA will fix
                 if self.shipObjects[z][w] == (coord_list[1],coord_list[0]):
                     self.waterGrid[coord_list[1]][coord_list[0]] = "x"
                     self.oppGrid[coord_list[1]][coord_list[0]] = "x"
@@ -180,4 +190,3 @@ class Board:
         Returns player coordinates
         """
         return self.shipObjects
-        
