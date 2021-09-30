@@ -157,7 +157,6 @@ def playGame_new():
     :date sept 27 2021
     :pre
     :post
-    :param board_: board to use for play, print etc.
     """
     ## TODO: will move this to run and implement state machine there,
     # will proto here to keep project working
@@ -214,6 +213,7 @@ def playGame_new():
                     game_state = "end_game"
                 else:
                     game_state = "player2"
+                    # pause()
             case "player2":
                 if one_human:
                     cpu_move = cpu_obj.make_move(second_board)
@@ -235,6 +235,7 @@ def playGame_new():
                     game_state = "end_game"
                 else:
                     game_state = "player1"
+                    # pause()
             case "end_game":
                 announce_winner(who_won)
                 if play_again():
