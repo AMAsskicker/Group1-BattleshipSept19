@@ -216,8 +216,7 @@ def playGame_new():
                     # pause()
             case "player2":
                 if one_human:
-                    cpu_move = cpu_obj.make_move(second_board)
-                    second_board.hit(cpu_move)
+                    second_board.hit(cpu_obj.make_move(second_board))
                     print("CPU HAS MADE A MOVE")
                 else:
                     if printMenu(player1_board, second_board, game_state) == 3:
@@ -226,7 +225,7 @@ def playGame_new():
                         continue
                     else:
                         second_board.hit(get_move_coord())
-                    second_board.score(player1_board)
+                second_board.score(player1_board)
                 if second_board.allsunk:
                     if one_human:
                         who_won = "cpu"
