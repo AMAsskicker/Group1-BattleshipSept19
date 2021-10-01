@@ -21,7 +21,7 @@ class CPU_Player :
         """
         # list of tuples of previous moves: (x, y)
         # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
-        sefl.previous_moves = []
+        self.previous_moves = []
         #Keep coordinates for player 1
         self.opponent_coords = []
         self.previous_moves.append((99, 99));
