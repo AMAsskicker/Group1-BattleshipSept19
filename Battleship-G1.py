@@ -83,18 +83,14 @@ def setup_user(setup_board: Board, numberShips):
                                 print("The ship will not fit here!")
                 else:
                     print("Invalid direction for ship.")
-
             if setup_board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
                 setup_board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
-
         shipLenTrack += 1
-    playerCoordinates = setup_board.getCoords() #2d Array of player coordinates
-    # can move pause to state machine, believe is for between turns? - AMA
-    # pause()
+    # playerCoordinates = setup_board.getCoords() #2d Array of player coordinates
     return valid
 
 def setup_CPU(board, numberShips):
@@ -159,10 +155,10 @@ def playGame_new():
     :pre
     :post
     """
-    ## TODO: will move this to run and implement state machine there,
-    # will proto here to keep project working
-    # AMA 9-27-2021
-
+## TODO: will move this to run and implement state machine there,
+# will proto here to keep project working
+# AMA 9-27-2021
+# is working, needs testing -AMA 9-30-2021
     run_game = True
     one_human = False
     game_state = "start"
@@ -173,7 +169,7 @@ def playGame_new():
             case "start":
                 print('\n*** WELCOME TO BATTLESHIP!! ***\n')
                 player1_board = Board()
-                # second_board = Board()
+                second_board = Board()
                 cpu_obj = CPU_Player()
                 if is_cpu():
                     one_human = True
@@ -188,7 +184,6 @@ def playGame_new():
                     print("\n SHIP PLACE ERROR \n")
                     game_state = "end_game"
                     who_won = "ship_error"
-                second_board = Board()
                 if one_human:
                     print("\n CPU PLACING SHIPS \n")
                     cpu_obj.set_ships(second_board, total_ships)
@@ -209,7 +204,6 @@ def playGame_new():
                     game_state = "end_game"
                     continue
                 else:
-                    # is error in *.hit() func.  is comparing against its own ships -AMA
                     player1_board.hit(user_input.get_move_coord(), second_board)
                 player1_board.score(second_board)
                 if player1_board.allsunk:
@@ -252,66 +246,65 @@ def playGame_new():
                 else:
                     del player1_board, second_board, cpu_obj
                     run_game = False
-    #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
+#TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
 """ method is not commented good and is hard to follow.  Doesn't lend itself to
 adding a cpu player to the game
 think we should implement a state machine, emailed GTA about changing to state machine
 AMA 9-26-2021
 """
- # playGame func will go away when state machine implemented - AMAs
-def playGame(board1, board2):
-    """
-    Asks players to enter the coordinates for shooting at ships,
-    and then calls the board.hits method to check hits and if sunk, and
-    calls the the board.score method to keep track of remaining ships.
-
-    :param board1: the Board object created for Player 1 by setup method
-    :type board1: Board
-    :param board2: the Board object created for Player 2 by setup method
-    :type board2: Board
-    """
-    turn = 1
-    quit = False
-    while board1.allsunk == False and board2.allsunk == False and quit == False:
-        if printMenu(board1, board2, turn) == 3:
-            quit = True
-        else:
-            #check for valid column input
-            while True:
-                x_hit = input("\nWhat column?\n")
-                if x_hit.isalpha():
-                    try:
-                        x_coord = (ord(x_hit) % 32) - 1
-                        if x_coord in range (0, 10):
-                            break
-                    except (ValueError, TypeError):
-                        print("Please enter a letter between A-J")
-                else:
-                    print("Please enter a valid column. (A-J)")
-
-            #check for valid row input
-            while True:
-                try:
-                    y_hit = input("\nWhat row?\n")
-                    if y_hit.isnumeric():
-                        y_coord = int(y_hit) - 1
-                        if y_coord in range(0, 10):
-                            break
-                        else:
-                            print("Please enter a number between 1-9.)")
-                    else:
-                        print("Please enter a valid row. (1-9)")
-                except (ValueError, TypeError):
-                    print("Please enter a valid row. (1-9)")
-            coords = [x_coord, y_coord]
-            if turn%2 == 1:
-                board2.hit(coords)
-                board2.score(board2)
-            elif turn%2 == 0:
-                board1.hit(coords)
-                board1.score(board1)
-            turn += 1
+#  # playGame func will go away when state machine implemented - AMAs
+# def playGame(board1, board2):
+#     """
+#     Asks players to enter the coordinates for shooting at ships,
+#     and then calls the board.hits method to check hits and if sunk, and
+#     calls the the board.score method to keep track of remaining ships.
+#
+#     :param board1: the Board object created for Player 1 by setup method
+#     :type board1: Board
+#     :param board2: the Board object created for Player 2 by setup method
+#     :type board2: Board
+#     """
+#     turn = 1
+#     quit = False
+#     while board1.allsunk == False and board2.allsunk == False and quit == False:
+#         if printMenu(board1, board2, turn) == 3:
+#             quit = True
+#         else:
+#             #check for valid column input
+#             while True:
+#                 x_hit = input("\nWhat column?\n")
+#                 if x_hit.isalpha():
+#                     try:
+#                         x_coord = (ord(x_hit) % 32) - 1
+#                         if x_coord in range (0, 10):
+#                             break
+#                     except (ValueError, TypeError):
+#                         print("Please enter a letter between A-J")
+#                 else:
+#                     print("Please enter a valid column. (A-J)")
+#             #check for valid row input
+#             while True:
+#                 try:
+#                     y_hit = input("\nWhat row?\n")
+#                     if y_hit.isnumeric():
+#                         y_coord = int(y_hit) - 1
+#                         if y_coord in range(0, 10):
+#                             break
+#                         else:
+#                             print("Please enter a number between 1-9.)")
+#                     else:
+#                         print("Please enter a valid row. (1-9)")
+#                 except (ValueError, TypeError):
+#                     print("Please enter a valid row. (1-9)")
+#             coords = [x_coord, y_coord]
+#             if turn%2 == 1:
+#                 board2.hit(coords)
+#                 board2.score(board2)
+#             elif turn%2 == 0:
+#                 board1.hit(coords)
+#                 board1.score(board1)
+#             # turn += 1
 
 def printMenu(board1, board2, turn):
     """
@@ -325,9 +318,6 @@ def printMenu(board1, board2, turn):
     :type turn: int
     """
     choice = 0
-    # TODO: NEED TO FIX BOARD PRINTING BELOW:
-    # MOVES MADE BY OPPONET SHOULD BE IN BOARD WITH SHIPS IF GOING TO DISPLAY BOTH boards
-    # AMA WILL FIX
     match turn:
         case "player1":
             print("MOVES MADE ?? OPPONET BOARD:")
@@ -356,7 +346,6 @@ def printMenu(board1, board2, turn):
                 else:
                     print("Sorry, invalid choice. Please pick again.\n")
                     print("\n1) Take a Shot!\n2) Read rules \n3) Quit game")
-            # """ not useable till python 3.10 release, ~oct 4, 2021
             # changed to match-case from if-else AMA 9-26-2021
             match choice:
                 case 1:
@@ -549,70 +538,6 @@ def is_cpu():
 # @Michael do you want to move your cpu code in run down to here?
 # Plan is to remove run as it is now and use the state machine I am working on -AMA
 
-# def get_num_ships():
-#     """
-#     prompts user for number of ships to use in the game
-#     :author AMA, code was already in program, moved and slight changes
-#     :date sept 28 2021
-#     :pre
-#     :return number of ships in the game
-#     """
-#     choice_made = False
-#     while not choice_made:
-#         print('How many ships per player for this game?\n')
-#         try:
-#             num_ships = input('Enter a number from 1 to 6:\n')
-#             if num_ships.isnumeric():
-#                 ship_num = int(num_ships)
-#                 if ship_num in range(1, 7):
-#                     choice_made = True
-#                 else:
-#                     print("Please enter a number between 1 and 6!\n")
-#             else:
-#                 print("Please enter a valid ship number.\n")
-#         except (ValueError, TypeError):
-#             print("Please enter a valid ship number.\n")
-#     return int(num_ships)
-#
-# def get_move_coord():
-#     """
-#     prompts user for row col of move
-#     :author code already in file just moved, AMA added try except
-#     :date
-#     :pre
-#     :return list of [row, col]
-#     """
-#     #check for valid column input
-#     while True:
-#         try:
-#             x_hit = input("\nWhat column?\n")
-#             if x_hit.isalpha():
-#                 x_coord = (ord(x_hit) % 32) - 1
-#                 if x_coord in range (0, 10):
-#                     break
-#                 else:
-#                     print("Please enter a letter between A-J")
-#             else:
-#                 print("Please enter a valid column. (A-J)")
-#         except (ValueError, TypeError):
-#             print("Please enter a valid column. (A-J)")
-#     #check for valid row input
-#     while True:
-#         try:
-#             y_hit = input("\nWhat row?\n")
-#             if y_hit.isnumeric():
-#                 y_coord = int(y_hit) - 1
-#                 if y_coord in range(0, 10):
-#                     break
-#                 else:
-#                     print("Please enter a number between 1-9.)")
-#             else:
-#                 print("Please enter a valid row. (1-9)")
-#         except (ValueError, TypeError):
-#             print("Please enter a valid row. (1-9)")
-#     coords = [x_coord, y_coord]
-#     return coords
-
 def announce_winner(who_2_announce: string):
     """
     outputs the winner
@@ -621,31 +546,8 @@ def announce_winner(who_2_announce: string):
     :post
     :param who_2_announce: who won: player1, player2, cpu, user_exit
     """
+    print("W")
     print(who_2_announce)
-
-# def play_again():
-#     """
-#     asks player if they would like to play another game
-#     :author AMA, some code already in project just removed
-#     :date 9-29-2021
-#     :pre
-#     :return :True if player wants to play another game, false else
-#     """
-#     selection = False
-#     while True:
-#         print("\nWould you like to play another game?\n")
-#         try:
-#             endgame = input('Enter "Y" for YES, "N" for NO: ')
-#             if endgame == 'Y' or endgame == 'y':
-#                 selection = True
-#                 break
-#             elif endgame == "N" or endgame == "n":
-#                 break
-#             else:
-#                 print("\nInvalid Input.")
-#         except (ValueError, TypeError):
-#             print("\nInvalid Input.")
-#     return selection
 
 """
 checks python version to see if can run game
