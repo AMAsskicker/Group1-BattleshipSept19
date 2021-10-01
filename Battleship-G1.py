@@ -2,6 +2,7 @@
 from Board import *
 from cpu_player import CPU_Player
 from user_input import User_Input
+from os import system, name
 # libs
 import string
 import sys
@@ -559,7 +560,13 @@ def clear_screen():
     :post
     :return
     """
-    print("CLEAR SCREEN CALLED")
+    #this clears the terminal window right to the point to not show the other players board -MXO
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
+    
+    print("\n")
 
 """
 checks python version to see if can run game
