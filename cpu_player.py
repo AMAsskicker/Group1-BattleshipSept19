@@ -11,19 +11,19 @@ import random
 
 """ description:
 cpu player for battleship
+cpu to play against user, contains all the actions of a cpu in the game
 """
 class CPU_Player :
-    # list of tuples of previous moves: (x, y)
-    # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
-    previous_moves = []
-    #Keep coordinates for player 1
-    opponent_coords = []
-
     def __init__ (self):
         """ defalut constructor
         :pre
         :post
         """
+        # list of tuples of previous moves: (x, y)
+        # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
+        sefl.previous_moves = []
+        #Keep coordinates for player 1
+        self.opponent_coords = []
         self.previous_moves.append((99, 99));
         self.current_move = (99, 99);
         # track the totoal moves made, for parsing previous moves
