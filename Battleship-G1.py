@@ -15,7 +15,7 @@ by: Adam Abernaty (AMA)
 AMA note: no author or createion date when forked ~sept 21 2021
 '''
 
-def setup_user(board, numberShips):
+def setup_user(setup_board: Board, numberShips):
     """
     Interacts with player to set up a board with ships for a player
     :pre board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
@@ -25,7 +25,7 @@ def setup_user(board, numberShips):
     :param numberShips: the number of ships that each player will have for a game
     :type numberShips: int
     """
-    board.printBoard() #Print blank board for reference
+    setup_board.printBoard() #Print blank board for reference
     shipLenTrack = 1
     for ship in range(numberShips):
         valid = False
@@ -84,15 +84,15 @@ def setup_user(board, numberShips):
                 else:
                     print("Invalid direction for ship.")
 
-            if board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
-                board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
+            if setup_board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
+                setup_board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
                 valid = True
             else:
                 print("There is already a ship here, please reenter coordinates. ")
                 valid = False
 
         shipLenTrack += 1
-    playerCoordinates = board.getCoords() #2d Array of player coordinates
+    playerCoordinates = setup_board.getCoords() #2d Array of player coordinates
     # can move pause to state machine, believe is for between turns? - AMA
     # pause()
     return valid
@@ -173,7 +173,7 @@ def playGame_new():
             case "start":
                 print('\n*** WELCOME TO BATTLESHIP!! ***\n')
                 player1_board = Board()
-                second_board = Board()
+                # second_board = Board()
                 cpu_obj = CPU_Player()
                 if is_cpu():
                     one_human = True
@@ -188,6 +188,7 @@ def playGame_new():
                     print("\n SHIP PLACE ERROR \n")
                     game_state = "end_game"
                     who_won = "ship_error"
+                second_board = Board()
                 if one_human:
                     print("\n CPU PLACING SHIPS \n")
                     cpu_obj.set_ships(second_board, total_ships)
@@ -222,7 +223,7 @@ def playGame_new():
                     second_board.hit(cpu_obj.make_move(second_board), player1_board)
                     print("CPU HAS MADE A MOVE")
                 else:
-                    if printMenu(player1_board, second_board, game_state) == 3:
+                    if printMenu(second_board, player1_board, game_state) == 3:
                         who_won = "user_exit"
                         game_state = "end_game"
                         continue

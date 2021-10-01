@@ -8,10 +8,7 @@ class Board:
     """Class for creating components of active player and opponent game boards
     and changing or checking the characteristics of the boards and displaying them.
     """
-    # this is a list of ship objects. They will be checked to determine which
-    # ship is hit, and update ship coord, sunk variables
-    # TODO: make shipObject
-    shipObjects = []
+
     # TODO: THEY HAVE THE BOARD GOING [Y][X], DO WE WANT TO CHANGE TO [X][Y] WHICH
     #       IS USED MORE OFFTEN IN 2D COORD SYSTEMS? - AMA
     def __init__(self):
@@ -22,6 +19,11 @@ class Board:
         # TODO: make shipObjects a list of SHIPS -ama
         # self.shipObjects = []
         # self.shiplengths=[] # will probably remove after full ship class implement -AMA
+
+        # this is a list of ship objects. They will be checked to determine which
+        # ship is hit, and update ship coord, sunk variables
+        # TODO: make shipObject
+        self.shipObjects = []
         self.waterGrid = [[' ' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
         self.oppGrid = [['*' for col in range(10)] for row in range(9)] # initialize board to be all '*'
         # self.spots = 0 # TODO: FIGURE OUT WHAT THIS DOES, will probably remove -AMA
@@ -148,9 +150,11 @@ class Board:
             # start += 1;
             # self.spots += 1;
         # self.shipObjects.append(shipcoords)
+        # TODO:  try except here -AMA
         self.shipObjects.append(temp_ship)
         self.points += 1
-        del temp_ship
+        # TODO: POTENTIAL TRY EXECPT TO CHECK DELETE
+        # del temp_ship
 
     def hit(self, coord_list: [int], compare_board):
         """
@@ -178,12 +182,13 @@ class Board:
                             self.points -= 1
                             self.allsunk = True if self.points == 0 else False
 
-                        # return True
+                        return True
                         break
-        self.oppGrid[coord_list[1]][coord_list[0]] = "M"
-        print("\n MISS! \n")
+                else:
+                    self.oppGrid[coord_list[1]][coord_list[0]] = "M"
+                    print("\n MISS! \n")
 
-        # return False
+        return False
 
         # row = len(self.shipObjects)
         # temp = self.spots

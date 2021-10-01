@@ -13,13 +13,14 @@ ship object for battleship
 """
 class Ship :
     """docstring for Ship."""
-    coord_list = [] # list of [x: int,y: int,current: chr]
+
 
     def __init__(self, ship_num: int, direction):
         """ default constructor
         """
         self.ship_num = ship_num
         self.direction = direction
+        self.coord_list = [] # list of [x: int,y: int,current: chr]
 
     def add_coord(self, coords: [int, int], current_value: chr):
         """
