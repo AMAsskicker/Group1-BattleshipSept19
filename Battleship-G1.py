@@ -554,8 +554,8 @@ def announce_winner(who_2_announce: string):
 
 def clear_screen():
     """
-    outputs XX empty lines to clear the screen and not expose one players ships to the other
-    :author
+    clears terminal/screen window to not show other players board
+    :author MXO
     :pre
     :post
     :return
