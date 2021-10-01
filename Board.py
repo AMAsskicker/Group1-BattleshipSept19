@@ -2,7 +2,7 @@
 Board.py
 """
 
-# from ship import Ship
+from ship import Ship
 
 class Board:
     """Class for creating components of active player and opponent game boards
@@ -18,10 +18,10 @@ class Board:
         # ship is hit, and update ship coord, sunk variables
         # TODO: make shipObjects a list of SHIPS -ama
         self.shipObjects = []
-        self.shiplengths=[]
+        self.shiplengths=[] # will probably remove after full ship class implement -AMA
         self.waterGrid = [['O' for col in range(10)] for row in range(9)] # initialize board to be all 'O'
         self.oppGrid = [['*' for col in range(10)] for row in range(9)] # initialize board to be all '*'
-        self.spots = 0 # TODO: FIGURE OUT WHAT THIS DOES
+        self.spots = 0 # TODO: FIGURE OUT WHAT THIS DOES, will probably remove -AMA
         self.points = 0
         self.allsunk = False
 
@@ -100,8 +100,6 @@ class Board:
                     if self.waterGrid[start_y + start][start_x] not in checkArray:
                         bool = False
             start += 1
-
-
         return bool
 
     def createShip(self, start_x, start_y, orient, length, shipnumber):
@@ -118,6 +116,9 @@ class Board:
         :param shipnumber: the number label used as a symbol to indicate a ship
         :type shipnumber: int
         """
+        # making ship class obj
+        # temp_ship = Ship(shipnumber, orient)
+
         start = 0
         shipcoords=[]
         self.shiplengths.append(length)
@@ -127,28 +128,53 @@ class Board:
                 case 'L':
                     self.waterGrid[start_y][start_x - start] = shipnumber
                     shipcoords.append((start_y, start_x - start))
+                    # temp_ship.add_coord([start_x - start, start_y], shipnumber)
                 case 'R':
                     self.waterGrid[start_y][start_x + start] = shipnumber
                     shipcoords.append((start_y,start_x + start))
+                    # temp_ship.add_coord([start_x + start, start_y], shipnumber)
                 case 'U':
                     self.waterGrid[start_y - start][start_x] = shipnumber
                     shipcoords.append((start_y - start,start_x))
+                    # temp_ship.add_coord([start_x, start_y - start], shipnumber)
                 case 'D':
                     self.waterGrid[start_y + start][start_x] = shipnumber
                     shipcoords.append((start_y + start,start_x))
+                    # temp_ship.add_coord([start_x, start_y + start], shipnumber)
             start += 1;
             self.spots += 1;
         self.shipObjects.append(shipcoords)
+        # self.shipObjects.append(temp_ship)
         self.points += 1
 
-    def hit(self, coord_list: [int]):
+    def hit(self, coord_list: [int], compare_board):
         """
         Determines whether entered coordinates hit a ship, and gives
         feedback on whether ship is hit and if a ship is sunk.
-        :edit AMA remove x, y params and made a list of [x,y], add param
-        :param coord_list: list of x and y coord to test
-        :param compare_board
+        :edit AMA reimpmiment with ship object, some code reused
+        :param coord_list: [X,Y]
+        :param compare_board:
+        :type compare_board: Board
+        :return True: if move is a hit, false else
         """
+        # TODO: NEEDS TESTING
+        # for ship in compare_board.shipObjects:
+        #     control = compare_board.shipObjects[ship].ship_num
+        #     for square in range(control):
+        #         if compare_board.shipObjects[ship].get_coord(square) == coord_list:
+        #             if compare_board.shipObjects[ship].get_current(coord_list) == control:
+        #                 compare_board.shipObjects[ship].change_current(coord_list, 'X')
+        #                 self.oppGrid[coord_list[1]][coord_list[0]] = 'X'
+        #                 print("\n HIT! \n")
+        #                 if compare_board.shipObjects[ship].is_sunk():
+        #                     print("Ship is sunk!")
+        #                     self.points -= 1
+        #                 return True
+        #             else:
+        #                 self.oppGrid[coord_list[1]][coord_list[0]] = "M"
+        #                 print("\n MISS! \n")
+        # return False
+
         row = len(self.shipObjects)
         temp = self.spots
         for z in range(row):
@@ -169,21 +195,22 @@ class Board:
         if temp == self.spots:
             self.oppGrid[coord_list[1]][coord_list[0]] = "m"
 
-    def score(self, opp):
+    def score(self, opponent_board):
         """
         Keeps track of the ships remaining for each player, and
         determines when all ships are sunk for a player, and which player won
-        :param opp: the opponent's Board object, so it can be compared to self
-        :type opp: a Board object
+        :param opponent_board: the opponent's Board object, so it can be compared to self
+        :type opponent_board: Board
         """
         print("Player 1 Ships Remaining: " + str(self.points))
-        print("Player 2 Ships Remaining: " + str(opp.points))
-        if self.points == 0:
-            print("Player 2 Won!")
-            self.allsunk=True
-        elif opp.points == 0:
-            print("Player 1 Won!")
-            opp.allsunk=True
+        print("Player 2 Ships Remaining: " + str(opponent_board.points))
+        #  MOVING TO STATE MACHINE -AMA
+        # if self.points == 0:
+        #     print("Player 2 Won!")
+        #     self.allsunk=True
+        # elif opp.points == 0:
+        #     print("Player 1 Won!")
+        #     opp.allsunk=True
 
     def getCoords(self):
         """
