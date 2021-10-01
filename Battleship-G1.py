@@ -223,7 +223,7 @@ def playGame_new():
                     second_board.hit(cpu_obj.make_move(second_board), player1_board)
                     print("CPU HAS MADE A MOVE")
                 else:
-                    if printMenu(second_board, player1_board, game_state) == 3:
+                    if printMenu(player1_board, second_board, game_state) == 3:
                         who_won = "user_exit"
                         game_state = "end_game"
                         continue
