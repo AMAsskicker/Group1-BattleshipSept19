@@ -143,6 +143,7 @@ class Board:
         :return True: if move is a hit, false else
         """
 # TODO: WORKING,  NEEDS LOTS of TESTING -AMA
+# TODO: HAVE ERROR WHERE CAN MAKE MOVE TO SAME SPOT OVER AND OVER -AMA WILL FIX
         for ship in range(len(compare_board.shipObjects)):
             control = compare_board.shipObjects[ship].get_num()
             for square in range(control):
