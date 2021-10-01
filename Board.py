@@ -176,6 +176,7 @@ class Board:
                     if compare_board.shipObjects[ship].get_current(coord_list) == control:
                         compare_board.shipObjects[ship].change_current(coord_list, 'X')
                         self.oppGrid[coord_list[1]][coord_list[0]] = 'X'
+                        compare_board.waterGrid[coord_list[1]][coord_list[0]] = 'X'
                         print("\n HIT! \n")
                         if compare_board.shipObjects[ship].is_sunk(0):
                             print("Ship is sunk!")
@@ -183,10 +184,11 @@ class Board:
                             self.allsunk = True if self.points == 0 else False
 
                         return True
-                        break
-                else:
-                    self.oppGrid[coord_list[1]][coord_list[0]] = "M"
-                    print("\n MISS! \n")
+                        # break
+                # else:
+        self.oppGrid[coord_list[1]][coord_list[0]] = 'M'
+        compare_board.waterGrid[coord_list[1]][coord_list[0]] = 'M'
+        print("\n MISS! \n")
 
         return False
 
