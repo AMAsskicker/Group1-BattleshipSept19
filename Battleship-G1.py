@@ -209,7 +209,7 @@ def playGame_new():
                     continue
                 else:
                     # is error in *.hit() func.  is comparing against its own ships -AMA
-                    player1_board.hit(user_input.get_move_coord())
+                    player1_board.hit(user_input.get_move_coord(), second_board)
                 player1_board.score(second_board)
                 if player1_board.allsunk:
                     who_won = "player1"
@@ -219,7 +219,7 @@ def playGame_new():
                     # pause()
             case "player2":
                 if one_human:
-                    second_board.hit(cpu_obj.make_move(second_board))
+                    second_board.hit(cpu_obj.make_move(second_board), player1_board)
                     print("CPU HAS MADE A MOVE")
                 else:
                     if printMenu(player1_board, second_board, game_state) == 3:
@@ -227,7 +227,7 @@ def playGame_new():
                         game_state = "end_game"
                         continue
                     else:
-                        second_board.hit(user_input.get_move_coord())
+                        second_board.hit(user_input.get_move_coord(), player1_board)
                 second_board.score(player1_board)
                 if second_board.allsunk:
                     who_won = "cpu" if one_human else "player2"
@@ -330,12 +330,12 @@ def printMenu(board1, board2, turn):
     match turn:
         case "player1":
             print("MOVES MADE ?? OPPONET BOARD:")
-            board2.printOpp()
+            board1.printOpp()
             print("\nPLAYER 1 BOARD:")
             board1.printBoard()
         case "player2":
             print("OPPONENT BOARD:")
-            board1.printOpp()
+            board2.printOpp()
             print("\nPLAYER 2/CPU BOARD:")
             board2.printBoard()
     print("\n")
@@ -347,7 +347,6 @@ def printMenu(board1, board2, turn):
             # to terminal to hide stuff, so maybe print a long vertical
             # line of stars, to hide boards.
             print("1) Take a Shot!\n2) Read rules \n3) Quit game")
-
             while True:
                 choice = input()
                 if choice.isnumeric():
@@ -538,7 +537,7 @@ def is_cpu():
     playCPU = ' '
     while True:
         playCPU = input("Play against CPU? Y/N: ")
-        if playCPU == 'Y' or playCPU == 'y': 
+        if playCPU == 'Y' or playCPU == 'y':
             return True
         elif playCPU == 'N' or playCPU == 'n':
             return False
