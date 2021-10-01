@@ -16,7 +16,7 @@ class Ship :
     coord_list = [] # list of [x: int,y: int,current: chr]
 
     def __init__(self, ship_num: int, direction):
-        """ defalut constructor
+        """ default constructor
         """
         self.ship_num = ship_num
         self.direction = direction
@@ -41,7 +41,6 @@ class Ship :
         :post
         :return coords in [x, y] format
         """
-        # coord_return = [self.coord_list[position][0], self.coord_list[position][1]]
         return [self.coord_list[position][0], self.coord_list[position][1]]
 
     def change_current(self,coords: [int], new_current: chr):
@@ -83,4 +82,10 @@ class Ship :
                     return self.coord_list[square][2]
 
     def get_num(self):
+        """
+        return ship number
+        :pre
+        :post
+        :return ship_num
+        """
         return self.ship_num
