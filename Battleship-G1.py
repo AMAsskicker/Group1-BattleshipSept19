@@ -184,6 +184,7 @@ def playGame_new():
                     print("\n SHIP PLACE ERROR \n")
                     game_state = "end_game"
                     who_won = "ship_error"
+                clear_screen()
                 if one_human:
                     print("\n CPU PLACING SHIPS \n")
                     cpu_obj.set_ships(second_board, total_ships)
@@ -197,6 +198,7 @@ def playGame_new():
                         print("\n SHIP PLACE ERROR \n")
                         game_state = "end_game"
                         who_won = "ship_error"
+                clear_screen()
                 game_state = "player1"
             case "player1":
                 if printMenu(player1_board, second_board, game_state) == 3:
@@ -212,6 +214,7 @@ def playGame_new():
                 else:
                     game_state = "player2"
                     # pause()
+                    clear_screen()
             case "player2":
                 if one_human:
                     second_board.hit(cpu_obj.make_move(second_board), player1_board)
@@ -234,6 +237,7 @@ def playGame_new():
                 else:
                     game_state = "player1"
                     # pause()
+                    clear_screen()
             case "end_game":
                 announce_winner(who_won)
                 if user_input.play_again():
@@ -533,8 +537,6 @@ def is_cpu():
             return False
         else:
             print("\nInvalid Input")
-
-
 # @Michael do you want to move your cpu code in run down to here?
 # Plan is to remove run as it is now and use the state machine I am working on -AMA
 
@@ -548,6 +550,16 @@ def announce_winner(who_2_announce: string):
     """
     print("W")
     print(who_2_announce)
+
+def clear_screen():
+    """
+    outputs XX empty lines to clear the screen and not expose one players ships to the other
+    :author
+    :pre
+    :post
+    :return
+    """
+    print("CLEAR SCREEN CALLED")
 
 """
 checks python version to see if can run game
