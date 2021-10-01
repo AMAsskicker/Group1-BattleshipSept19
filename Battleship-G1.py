@@ -549,8 +549,8 @@ def announce_winner(who_2_announce: string):
     :post
     :param who_2_announce: who won: player1, player2, cpu, user_exit
     """
-    print("W")
-    print(who_2_announce)
+    print("The winner is: ", who_2_announce)
+    #print(who_2_announce)
 
 def clear_screen():
     """
