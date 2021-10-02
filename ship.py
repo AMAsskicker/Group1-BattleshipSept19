@@ -21,8 +21,9 @@ class Ship(object):
         ship._(_)
 
     :param ship_num: number to assign to ship
-    :type ship_num: int 
-    :param current_value: state of square of ship to assign
+    :type ship_num: int
+    :param direction: direcion ship is placed with respect to first square
+    :type direction: chr
     """
     def __init__(self, ship_num, direction):
         self.ship_num = ship_num
@@ -54,14 +55,19 @@ class Ship(object):
 
         :param position: square of ship, ie ship 2 has 0,1 coords
         :type position: int
+
+        :return [x, y]: ``position`` of ``square``
+        :type [x, y]: int
         """
         return [self.coord_list[position][0], self.coord_list[position][1]]
 
-    def change_current(self,coords: [int], new_current: chr):
+    def change_current(self,coords, new_current: chr):
         """
         changes the stored value of current, ie has been hit
 
         :param coords: coords of "square" to change
+        :type coords: list of int
+
         :return True: if operation was valid
         :return False: operation was unsuccessful
         """
@@ -93,7 +99,8 @@ class Ship(object):
 
         :param coord: list of x, y coords
         :type coord: [int]
-        :return chr of current ship space
+
+        :return chr: current ship space value
         """
         for square in range(self.ship_num):
             if self.coord_list[square][0] == coord[0]:
@@ -104,6 +111,6 @@ class Ship(object):
         """
         return ship number
 
-        :return ship_num
+        :return ship_num: current ship number
         """
         return self.ship_num
