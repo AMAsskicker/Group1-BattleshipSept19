@@ -11,22 +11,35 @@ import string
 ship object for battleship
 
 """
-class Ship :
-    """docstring for Ship."""
+class Ship(object):
+    """
+    Ship object that is placed on game board. stores the x,y coords and if has been hit
 
+    Example::
 
-    def __init__(self, ship_num: int, direction):
-        """ default constructor
-        """
+        ship = Ship()
+        ship._(_)
+
+    :param ship_num: number to assign to ship
+    :type ship_num: int 
+    :param current_value: state of square of ship to assign
+    """
+    def __init__(self, ship_num, direction):
         self.ship_num = ship_num
         self.direction = direction
         self.coord_list = [] # list of [x: int,y: int,current: chr]
 
-    def add_coord(self, coords: [int, int], current_value: chr):
+    def add_coord(self, coords, current_value: chr):
         """
         append to coord_list
-        :pre none
-        :return True: if succsesful, false else
+
+        :param coords: coords of square to change
+        :type coords: list of int
+        :param current_value: new value to pass
+        :type current_value: chr
+
+        :return True: if succsesful
+        :return False: else
         """
         temp = [coords[0], coords[1], current_value]
         try:
@@ -37,19 +50,20 @@ class Ship :
 
     def get_coord(self, position: int):
         """
-        return ship coords
-        :pre
-        :post
-        :return coords in [x, y] format
+        get coords
+
+        :param position: square of ship, ie ship 2 has 0,1 coords
+        :type position: int
         """
         return [self.coord_list[position][0], self.coord_list[position][1]]
 
     def change_current(self,coords: [int], new_current: chr):
         """
         changes the stored value of current, ie has been hit
-        :pre
-        :post
-        :return True: if operation was valid, false else
+
+        :param coords: coords of "square" to change
+        :return True: if operation was valid
+        :return False: operation was unsuccessful
         """
         for square in range(self.ship_num):
             if self.coord_list[square][0] == coords[0]:
@@ -59,9 +73,11 @@ class Ship :
         return False
 
     def is_sunk(self, control: int):
-        """ checks if ship is sunk
-        :pre
-        :post
+        """
+        checks if ship is sunk
+
+        :param control: control for recursive
+        :type control: int
         :return True: if all current is 'X', false else
         """
         if control == self.ship_num:
@@ -71,10 +87,12 @@ class Ship :
                 return True
         return False
 
-    def get_current(self, coord: [int]):
-        """ returns current value of this ship square
-        :pre
-        :post
+    def get_current(self, coord):
+        """
+        returns current value of this ship square
+
+        :param coord: list of x, y coords
+        :type coord: [int]
         :return chr of current ship space
         """
         for square in range(self.ship_num):
@@ -85,8 +103,7 @@ class Ship :
     def get_num(self):
         """
         return ship number
-        :pre
-        :post
+
         :return ship_num
         """
         return self.ship_num
