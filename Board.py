@@ -77,11 +77,11 @@ class Board:
         """
         checks if ship placement is valid
 
-        :param orient:
+        :param orient: direction of ship relative to first ``square``
         :type orient: chr
-        :param start_x:
+        :param start_x: first x coord of ship
         :type start_x: int
-        :param start_y:
+        :param start_y: first y coord of ship
         :type start_y: int
         :param length: length of the ship to check
         :type length: int
@@ -156,7 +156,7 @@ class Board:
         Determines whether entered coordinates hit a ship, and gives
         feedback on whether ship is hit and if a ship is sunk.
 
-        :edit AMA reimpmiment with ship object, some code reused
+        AMA edit reimpmiment with ship object, some code reused
 
         :param coord_list: [X,Y]
         :type coord_list: list of int
