@@ -11,6 +11,7 @@ Welcome to Battleship's documentation!
    :caption: Contents:
 
    ship
+   Board
 
 
 

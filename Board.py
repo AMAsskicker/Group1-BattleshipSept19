@@ -1,16 +1,19 @@
-"""
-Board.py
-"""
+# """
+# Board.py
+# """
 
 from ship import Ship
 
 class Board:
     """Class for creating components of active player and opponent game boards
     and changing or checking the characteristics of the boards and displaying them.
+
+    Example::
+
+        some_board = Board()
+        some_board._(_)
     """
     def __init__(self):
-        """Constructor method
-        """
         # list of ships placed by user
         self.shipObjects = []
 # TODO: WHAT DO WE WANT THE BOARD TO BE?
@@ -71,6 +74,21 @@ class Board:
                     return True
 
     def isShipValid(self, orient, start_x, start_y, length):
+        """
+        checks if ship placement is valid
+
+        :param orient:
+        :type orient: chr
+        :param start_x:
+        :type start_x: int
+        :param start_y:
+        :type start_y: int
+        :param length: length of the ship to check
+        :type length: int
+
+        :return True: if placement is valid
+        :return False: if invalid placement
+        """
         start = 0
         bool = True
         orient = orient.upper();
@@ -97,6 +115,7 @@ class Board:
     def createShip(self, start_x, start_y, orient, length, shipnumber):
         """
         Creates a ship object to place on a game board.
+
         :param start_x: the column index in 2D array for start position for placing a ship
         :type start_x: int
         :param start_y: the row index in a 2D array for start position for placing a ship
@@ -132,15 +151,19 @@ class Board:
         # TODO: POTENTIAL TRY EXECPT TO CHECK DELETE and return a bool
         del temp_ship
 
-    def hit(self, coord_list: [int], compare_board):
+    def hit(self, coord_list, compare_board):
         """
         Determines whether entered coordinates hit a ship, and gives
         feedback on whether ship is hit and if a ship is sunk.
+
         :edit AMA reimpmiment with ship object, some code reused
+
         :param coord_list: [X,Y]
+        :type coord_list: list of int
         :param compare_board:
         :type compare_board: Board
-        :return True: if move is a hit, false else
+        :return True: if move is a hit
+        :return False: else
         """
 # TODO: WORKING,  NEEDS LOTS of TESTING -AMA
 # TODO: HAVE ERROR WHERE CAN MAKE MOVE TO SAME SPOT OVER AND OVER -AMA WILL FIX
@@ -167,6 +190,7 @@ class Board:
         """
         Keeps track of the ships remaining for each player, and
         determines when all ships are sunk for a player, and which player won
+
         :param opponent_board: the opponent's Board object, so it can be compared to self
         :type opponent_board: Board
         """

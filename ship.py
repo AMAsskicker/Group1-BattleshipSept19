@@ -1,9 +1,9 @@
-"""
-ship.py
-
-by; Adam Abernathy (AMA)
-date: sept 30 2021
-"""
+#
+# ship.py
+#
+# by; Adam Abernathy (AMA)
+# date: sept 30 2021
+#
 
 import string
 
@@ -11,7 +11,7 @@ import string
 ship object for battleship
 
 """
-class Ship(object):
+class Ship:
     """
     Ship object that is placed on game board. stores the x,y coords and if has been hit
 
