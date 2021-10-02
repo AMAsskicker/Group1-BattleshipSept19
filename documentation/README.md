@@ -2,6 +2,10 @@
 
 This is a project for EECS 448. The purpose of this project is to build a battleship game.
 
+# UPDATE: EECS448 Project 2 - Battleship
+
+The purpose of this project is to add an AI component and custom addition to the game of battleship.
+
 ## Battleship
 
 Battleship is a two-player, turn-based game where both players secretly place 1 to 6 ships on a 9x10 grid. Each player takes turns to announce where on the opponent's grid they wish to fire. The opponent must announce whether or not one of the ships was hit. The first player to sink all of the opponent's ships wins the game.
@@ -35,11 +39,18 @@ python3 Battleship-G1.py
 - Alice Chen
 - Edina Harsay
 - Mac Hayes
+- Adam Abernathy
+- Morgan Marino
+- Mason Otto
+- Divya Shakamuri
+- Michael Talaga
 
 ## Version History
 
 * 0.1
   * Initial Release
+* 0.2
+  * New Features Added
 
 ## Acknowledgments / Works Cited
 
