@@ -179,8 +179,9 @@ def playGame_new():
                 total_ships = user_input.get_num_ships()
                 print("\n TIME FOR PLAYER 1 TO PLACE THEIR SHIPS \n")
                 if setup_user(player1_board, total_ships):
+                    player1_board.printBoard()
                     print("\n PLAYER 1 HAS SETUP THEIR SHIPS \n")
-                    pause()
+                    clear_screen_2_continue("player1")
                 else:
                     print("\n SHIP PLACE ERROR \n")
                     game_state = "end_game"
@@ -193,13 +194,13 @@ def playGame_new():
                 else:
                     print("\n TIME FOR PLAYER 2 TO PLACE THEIR SHIPS \n")
                     if setup_user(second_board, total_ships):
+                        second_board.printBoard()
                         print("\n PLAYER 2 HAS SETUP THEIR SHIPS \n")
-                        pause()
                     else:
                         print("\n SHIP PLACE ERROR \n")
                         game_state = "end_game"
                         who_won = "ship_error"
-                clear_screen()
+                clear_screen_2_continue("player2")
                 game_state = "player1"
             case "player1":
                 if printMenu(player1_board, second_board, game_state) == 3:
@@ -208,14 +209,15 @@ def playGame_new():
                     continue
                 else:
                     player1_board.hit(user_input.get_move_coord(), second_board)
+                print_current_board(player1_board, second_board, game_state)
                 player1_board.score(second_board)
                 if player1_board.allsunk:
                     who_won = "player1"
                     game_state = "end_game"
                 else:
                     game_state = "player2"
-                    # pause()
-                    clear_screen()
+                    clear_screen_2_continue(game_state)
+
             case "player2":
                 if one_human:
                     second_board.hit(cpu_obj.make_move(second_board), player1_board)
@@ -237,8 +239,7 @@ def playGame_new():
                     game_state = "end_game"
                 else:
                     game_state = "player1"
-                    # pause()
-                    clear_screen()
+                    clear_screen_2_continue(game_state)
             case "end_game":
                 announce_winner(who_won)
                 if user_input.play_again():
@@ -253,64 +254,6 @@ def playGame_new():
                     run_game = False
 #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
-""" method is not commented good and is hard to follow.  Doesn't lend itself to
-adding a cpu player to the game
-think we should implement a state machine, emailed GTA about changing to state machine
-AMA 9-26-2021
-"""
-#  # playGame func will go away when state machine implemented - AMAs
-# def playGame(board1, board2):
-#     """
-#     Asks players to enter the coordinates for shooting at ships,
-#     and then calls the board.hits method to check hits and if sunk, and
-#     calls the the board.score method to keep track of remaining ships.
-#
-#     :param board1: the Board object created for Player 1 by setup method
-#     :type board1: Board
-#     :param board2: the Board object created for Player 2 by setup method
-#     :type board2: Board
-#     """
-#     turn = 1
-#     quit = False
-#     while board1.allsunk == False and board2.allsunk == False and quit == False:
-#         if printMenu(board1, board2, turn) == 3:
-#             quit = True
-#         else:
-#             #check for valid column input
-#             while True:
-#                 x_hit = input("\nWhat column?\n")
-#                 if x_hit.isalpha():
-#                     try:
-#                         x_coord = (ord(x_hit) % 32) - 1
-#                         if x_coord in range (0, 10):
-#                             break
-#                     except (ValueError, TypeError):
-#                         print("Please enter a letter between A-J")
-#                 else:
-#                     print("Please enter a valid column. (A-J)")
-#             #check for valid row input
-#             while True:
-#                 try:
-#                     y_hit = input("\nWhat row?\n")
-#                     if y_hit.isnumeric():
-#                         y_coord = int(y_hit) - 1
-#                         if y_coord in range(0, 10):
-#                             break
-#                         else:
-#                             print("Please enter a number between 1-9.)")
-#                     else:
-#                         print("Please enter a valid row. (1-9)")
-#                 except (ValueError, TypeError):
-#                     print("Please enter a valid row. (1-9)")
-#             coords = [x_coord, y_coord]
-#             if turn%2 == 1:
-#                 board2.hit(coords)
-#                 board2.score(board2)
-#             elif turn%2 == 0:
-#                 board1.hit(coords)
-#                 board1.score(board1)
-#             # turn += 1
-
 def printMenu(board1, board2, turn):
     """
     Print menu items and boards for the players.
@@ -323,17 +266,18 @@ def printMenu(board1, board2, turn):
     :type turn: int
     """
     choice = 0
-    match turn:
-        case "player1":
-            print("MOVES MADE ?? OPPONET BOARD:")
-            board1.printOpp()
-            print("\nPLAYER 1 BOARD:")
-            board1.printBoard()
-        case "player2":
-            print("OPPONENT BOARD:")
-            board2.printOpp()
-            print("\nPLAYER 2/CPU BOARD:")
-            board2.printBoard()
+    print_current_board(board1, board2, turn)
+    # match turn:
+    #     case "player1":
+    #         print("MOVES MADE ?? OPPONET BOARD:")
+    #         board1.printOpp()
+    #         print("\nPLAYER 1 BOARD:")
+    #         board1.printBoard()
+    #     case "player2":
+    #         print("OPPONENT BOARD:")
+    #         board2.printOpp()
+    #         print("\nPLAYER 2/CPU BOARD:")
+    #         board2.printBoard()
     print("\n")
     while choice != 3:
             print("\nPlease select a menu option (1-3):")
@@ -508,14 +452,33 @@ def print_oreient_prompt_inst():
     print('"U" for up from start (vertical ship)\n')
     print('"D" for down from start (vertical ship)\n')
 
-def pause():
+def pause(with_prompt: bool):
     """
     Pauses game until something is typed
-    :author Michael
+    :author Michael & AMA
+    """
+    waited = False
+    if with_prompt:
+        while not waited:
+            wait = input("Press enter to continue...")
+            if len(wait) >= 1 or wait == "":
+                waited = True
+        return (print("\nContinuing...\n"))
+    else:
+        while not waited:
+            wait = input()
+            if len(wait) >= 1 or wait == "":
+                waited = True
+        return (print("\n Continuing... \n"))
+
+def pause(prompt: string):
+    """
+    Pauses game until something is typed
+    :author Michael & AMA (overload)
     """
     waited = False
     while not waited:
-        wait = input("Press enter to continue...")
+        wait = input(prompt)
         if len(wait) >= 1 or wait == "":
             waited = True
     return (print("\nContinuing...\n"))
@@ -529,7 +492,7 @@ def is_cpu():
     :post
     :return :True if using cpu, false else
     """
-    playCPU = ' '
+    # playCPU = ' '
     while True:
         playCPU = input("Play against CPU? Y/N: ")
         if playCPU == 'Y' or playCPU == 'y':
@@ -540,6 +503,14 @@ def is_cpu():
             print("\nInvalid Input")
 # @Michael do you want to move your cpu code in run down to here?
 # Plan is to remove run as it is now and use the state machine I am working on -AMA
+
+def clear_screen_2_continue(turn: string):
+    output = "PLAYER 1'S TURN" if turn == "player2" else "PLAYER 2/CPU'S TURN"
+    pause("PRESS ENTER TO CLEAR THE SCREEN BEFORE " + output)
+    clear_screen()
+    pause("PRESS ENTER TO START " + output)
+
+    # prompt user to press enter to continue next players turn
 
 def announce_winner(who_2_announce: string):
     """
@@ -565,7 +536,25 @@ def clear_screen():
         _ = system('cls')
     else:
         _ = system('clear')
-    
+
+    print("\n")
+
+def print_current_board(board1: Board, board2: Board, turn: string):
+    """
+    prints the current boards on the screen
+    :author moved code from printMenu func -AMA
+    """
+    match turn:
+        case "player1":
+            print("     OPPONET/MOVES MADE BOARD:")
+            board1.printOpp()
+            print("\n         PLAYER 1 BOARD:")
+            board1.printBoard()
+        case "player2":
+            print("         OPPONENT BOARD:")
+            board2.printOpp()
+            print("\n         PLAYER 2/CPU BOARD:")
+            board2.printBoard()
     print("\n")
 
 """
