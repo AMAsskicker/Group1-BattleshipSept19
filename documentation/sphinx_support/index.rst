@@ -10,11 +10,13 @@ Welcome to Battleship's documentation!
    :maxdepth: 10
    :caption: Contents:
 
+   install
    battleship
    Board
    cpu_player
    ship
    user_input
+   support 
 
 
 

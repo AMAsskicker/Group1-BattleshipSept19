@@ -1,3 +1,5 @@
 .DS_Store
 __pycache__/
 documentation/sphinx_support/build/
+Thumbs.db
+doctrees/
