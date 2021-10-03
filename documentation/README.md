@@ -16,7 +16,7 @@ This game is played through the terminal, with each player taking turns to type 
 
 ### Dependencies
 
-* Python 3.x
+* Python 3.10
 
 ### Installing
 
