@@ -7,13 +7,14 @@ Welcome to Battleship's documentation!
 ======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 10
    :caption: Contents:
 
-   Battleship 
+   battleship
    Board
    cpu_player
    ship
+   user_input
 
 
 

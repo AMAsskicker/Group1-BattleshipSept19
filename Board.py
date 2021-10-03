@@ -194,7 +194,7 @@ class Board:
         :param opponent_board: the opponent's Board object, so it can be compared to self
         :type opponent_board: Board
         """
-        print("Player 1 Ships Remaining: " + str(self.points))
+        print("\n Player 1 Ships Remaining: " + str(self.points))
         print("Player 2 Ships Remaining: " + str(opponent_board.points))
 
     # def getCoords(self):

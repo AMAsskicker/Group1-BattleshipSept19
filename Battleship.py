@@ -19,24 +19,28 @@ AMA note: prior authors are noted in documentation/credits.txt
 '''
 class Battleship:
     """
-    battleship game
+    battleship game, responsible for game execution
 
     Example::
+
         battleship = Battleship()
         battleship.run()
     """
     def __init__(self):
         self.number_of_games = 0
 
-    def setup_user(self, setup_board: Board, numberShips):
+    def setup_user(self, setup_board, numberShips):
         """
-        Interacts with player to set up a board with ships for a player
-        :pre board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
-        :post the input board object is modified according to user input
+        Interacts with player to set up a board with ships for a player \n
+        Pre: board objectmust have correct properties; numberShips must be in the proper range, 1 to 6
+        Post: the input board object is modified according to user input \n
+
         :param board: a newly-instantiated blank board object for creating game data for one player
         :type board: Board
         :param numberShips: the number of ships that each player will have for a game
         :type numberShips: int
+        :return True: user setup completed
+        :return False: user was not setup
         """
         setup_board.printBoard() #Print blank board for reference
         shipLenTrack = 1
@@ -108,14 +112,15 @@ class Battleship:
 
     def setup_CPU(self, board, numberShips):
         """
-        Generates CPU board (Designed like setup_user seen above but uses random for placement of ship)
-        :pre board object must have correct properties; numberShips must be in the proper range, 1 to 6
-        :post Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it
+        Generates CPU board (Designed like setup_user seen above but uses random for placement of ship) \n
+        Author: Michael Talaga \n
+        Pre: board object must have correct properties; numberShips must be in the proper range, 1 to 6 \n
+        Post: Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it \n
+
         :param board: a newly-instantiated blank board object for creating game data for CPU
         :type board: Board
         :param numberShips: the number of ships that each player will have for a game
         :type numberShips: int
-        :author Michael Talaga
         """
 
         shipLenTrack = 1
@@ -157,21 +162,14 @@ class Battleship:
             shipLenTrack += 1
         print("CPU has made selections\n")
         #board.printBoard() #Test for CPU board
-        pause()
+        pause("cpu TESTING")
 
-    def playGame_new(self):
+    def run(self):
         """
-        main gameplay state machine
-        approval from TA recived
-        :autor AMA
-        :date sept 27 2021
-        :pre
-        :post
+        Main gameplay state machine. Calls functions as needed \n
+        Autor: AMA Date: sept 27 2021
+
         """
-    ## TODO: will move this to run and implement state machine there,
-    # will proto here to keep project working
-    # AMA 9-27-2021
-    # is working, needs testing -AMA 9-30-2021
         run_game = True
         one_human = False
         game_state = "start"
@@ -184,6 +182,7 @@ class Battleship:
                     player1_board = Board()
                     second_board = Board()
                     cpu_obj = CPU_Player()
+                    user_input = User_Input()
                     if self.is_cpu():
                         one_human = True
                     game_state = "set_ships"
@@ -245,15 +244,12 @@ class Battleship:
                     second_board.score(player1_board)
                     if second_board.allsunk:
                         who_won = "cpu" if one_human else "player2"
-                        # if one_human:
-                        #     who_won = "cpu"
-                        # else:
-                        #     who_won = "player2"
                         game_state = "end_game"
                     else:
                         game_state = "player1"
                         self.clear_screen_2_continue(game_state)
                 case "end_game":
+                    self.number_of_games += 1
                     self.announce_winner(who_won)
                     if user_input.play_again():
                         del player1_board, second_board, cpu_obj
@@ -265,17 +261,16 @@ class Battleship:
                     else:
                         del player1_board, second_board, cpu_obj
                         run_game = False
-                    self.number_of_games += 1
-    #TODO: THINK PROTO IS FINISHED, NEEDS TESTING - AMA 9-29-2021
 
     def printMenu(self, board1, board2, turn):
         """
-        Print menu items and boards for the players.
-        :edit AMA changed if else to match to use state machine
+        Print menu items and boards for the players. \n
+        Edit AMA: changed if else to match to use state machine
+
         :param board1: board from player 1 passed in from playGame method
         :type board1: Board
         :param board2: board for player 2 passed in from playGame method
-        :type board 2: Board
+        :type board2: Board
         :param turn: the turn number, passed in from playGame method
         :type turn: int
         """
@@ -310,117 +305,11 @@ class Battleship:
                     case _:
                         print("Sorry, invalid choice. Please pick again.\n")
 
-    def run(self):
-        """ Starts and ends the game, calling methods as appropriate.
-        :author unknown
-        """
-        # variable for giving option to quit game or play again, once a game is over
-        stopgame = 0
-        while stopgame == 0:
-
-            print('\n*** WELCOME TO BATTLESHIP!! ***\n')
-            isCPU, firstSelection = False, False
-            print("Would you like to play against another player?\n")
-            while not firstSelection:
-                selection = input("Enter '1' to play against a player or '2' to play against a CPU.\n")
-                if selection.isnumeric():
-                    if selection == '1':
-                        firstSelection = True
-                    elif selection == '2':
-                        firstSelection, isCPU = True, True
-                    else:
-                        print("Please enter a 1 or 2.\n")
-                else:
-                    print("Please enter number.\n")
-
-    	# """
-    	# isCPU check added by Michael Talaga that allows user to choose CPU difficulty
-    	# """
-            if isCPU:
-                diffSelected = False
-                print("\nChoose your CPU difficulty.\n")
-                while not diffSelected:
-                    print("1 = Easy\n2 = Medium\n3 = Impossible\n")
-                    difficulty = input("Difficulty:\n")
-                    if difficulty.isnumeric():
-                        difficulty = int(difficulty)
-                        if difficulty in range(1, 4):
-                            diffSelected = True
-                        else:
-                            print("Please choose a difficulty.\n")
-                print("Difficulty selected.\n")
-            print("\n---------------Ship Selection--------------\n")
-
-            choice = 0  # bool for marking acceptable choice for numberShips
-            while choice == 0:
-                print('How many ships per player for this game?\n')
-                numberShips = input('Enter a number from 1 to 6:\n')
-                if numberShips.isnumeric():
-                    ship_num = int(numberShips)
-                    if ship_num in range(1, 7):
-                        choice = 1
-                    else:
-                        print("Please enter a number between 1 and 6!\n")
-                else:
-                    print("Please enter a valid ship number.\n")
-
-            # player 1 board object
-            player1_board = Board()
-            print('\nReady to set up the board for Player 1!\n')
-
-            """ TODO: remove comment
-            2 line comment below is redundant, can look at the func to see what it does and
-            is in the name
-
-            # This step runs the setup method for Player 1. The method modifies
-            # the waterGrid 2D array of boardPlayer1.
-            """
-            setup_user(player1_board, ship_num)
-
-            if isCPU:
-                # CPU board object
-                cpu_board = Board()
-                # setup CPU board
-            # TODO: think need diffent func for cpu setup
-                setup_CPU(cpu_board, ship_num);
-                playGame(player1_board, cpu_board)
-            else:
-                print('\nReady to set up the board for Player 2!\n')
-                player2_board = Board()
-                setup_user(player2_board, ship_num)
-                playGame(player1_board, player2_board)
-
-            """ TODO: Include a different playGame function for CPU? Like playCPU?
-            MT
-            """
-
-            """ TODO: Remove when cpu is implemented
-            print('\nReady to set up the board for Player 2!\n')
-            # This step runs the setup method for Player 2. The method modifies
-            # the waterGrid 2D array of boardPlayer2.
-            setup(boardPlayer2, ship_num)
-            """
-
-            # This now starts the shooting steps, printing printMenu() between each player's shot
-
-            #playGame(player1_board, cpu_board) This can be deleted
-
-            # Once playGame method ends, give players the option to play again rather than exit program.
-            while True:
-                print("\nWould you like to play another game?\n")
-                endgame = input('Enter "Y" for yes, "N" for no:\n')
-                if endgame == "N" or endgame == "n":
-                    stopgame = 1
-                    break
-                elif endgame == 'Y' or endgame == 'y':
-                    break
-                else:
-                    print("\nInvalid Input.")
-
     def print_rules(self):
-        """ removed from printMenu func for readability
-        :author AMA
-        :date sept 24 2021
+        # removed from printMenu func for readability -AMA
+        """
+        Prints rules for user \n
+        Author: AMA Date: sept 24 2021
         """
         print("--------------------------------------------------------------------")
         print("----------------------------------------------------------------------")
@@ -445,9 +334,8 @@ class Battleship:
         print("5) As the great Colonel Sanders once said \"I'm too drunk to taste this fried chicken.\"\n ")
 
     def print_oreient_prompt_inst(self):
-        """ print the user instruciton for ship direction
-        :author AMA
-        :date sept 24 2021
+        """ print the user instruciton for ship direction \n
+        Author: AMA Date: sept 24 2021
         """
         print('What is the orientation of this ship? Enter\n')
         print('"L" for left of start (horizontal ship)\n')
@@ -455,29 +343,13 @@ class Battleship:
         print('"U" for up from start (vertical ship)\n')
         print('"D" for down from start (vertical ship)\n')
 
-    def pause(self, with_prompt: bool):
+    def pause(self, prompt):
         """
-        Pauses game until something is typed
-        :author Michael & AMA
-        """
-        waited = False
-        if with_prompt:
-            while not waited:
-                wait = input("Press enter to continue...")
-                if len(wait) >= 1 or wait == "":
-                    waited = True
-            return (print("\nContinuing...\n"))
-        else:
-            while not waited:
-                wait = input()
-                if len(wait) >= 1 or wait == "":
-                    waited = True
-            return (print("\n Continuing... \n"))
+        Pauses game until something is typed \n
+        Author: Michael & AMA (overload)
 
-    def pause(self, prompt: string):
-        """
-        Pauses game until something is typed
-        :author Michael & AMA (overload)
+        :param prompt: what message to print at input
+        :type prompt: string
         """
         waited = False
         while not waited:
@@ -487,15 +359,13 @@ class Battleship:
         return (print("\nContinuing...\n"))
 
     def is_cpu(self):
-    # finished this function -MXO
         """
-        ask if using cpu as second player
-        :author MXO
-        :pre
-        :post
-        :return :True if using cpu, false else
+        ask if using cpu as second player \n
+        Author: MXO
+
+        :return True: if using cpu
+        :return False: else
         """
-        # playCPU = ' '
         while True:
             playCPU = input("Play against CPU? Y/N: ")
             if playCPU == 'Y' or playCPU == 'y':
@@ -504,10 +374,15 @@ class Battleship:
                 return False
             else:
                 print("\nInvalid Input")
-    # @Michael do you want to move your cpu code in run down to here?
-    # Plan is to remove run as it is now and use the state machine I am working on -AMA
 
-    def clear_screen_2_continue(self, turn: string):
+    def clear_screen_2_continue(self, turn):
+        """
+        clears screen and prints message to user \n
+        Autor: AMA
+
+        :param turn: whos turn just finished
+        :type turn: string
+        """
         output = "PLAYER 1'S TURN" if turn == "player2" else "PLAYER 2/CPU'S TURN"
         self.pause("PRESS ENTER TO CLEAR THE SCREEN BEFORE " + output)
         self.clear_screen()
@@ -515,24 +390,21 @@ class Battleship:
 
         # prompt user to press enter to continue next players turn
 
-    def announce_winner(self, who_2_announce: string):
+    def announce_winner(self, who_2_announce):
         """
-        outputs the winner
-        :author
-        :pre
-        :post
+        outputs the winner \n
+        Author: MXO
+
         :param who_2_announce: who won: player1, player2, cpu, user_exit
+        :type who_2_announce: string
         """
         print("The winner is: ", who_2_announce)
         #print(who_2_announce)
 
     def clear_screen(self):
         """
-        clears terminal/screen window to not show other players board
-        :author MXO
-        :pre
-        :post
-        :return
+        clears terminal/screen window to not show other players board \n
+        Author: MXO
         """
         #this clears the terminal window right to the point to not show the other players board -MXO
         if name == 'nt':
@@ -542,10 +414,17 @@ class Battleship:
 
         print("\n")
 
-    def print_current_board(self, board1: Board, board2: Board, turn: string):
+    def print_current_board(self, board1, board2, turn):
+        # moved code from printMenu func -AMA
         """
         prints the current boards on the screen
-        :author moved code from printMenu func -AMA
+
+        :param board1: Board object holding moves to print
+        :type board1: Board
+        :param board2: Board object holding moves to print
+        :type board2: Board
+        :param turn: active turn player
+        :type turn: string
         """
         match turn:
             case "player1":
@@ -571,12 +450,17 @@ checks python version to see if can run game
 req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
-    user_input = User_Input()
-    battleship = Battleship()
-    battleship.playGame_new()
+    if __name__ == '__main__':
+    #     #*** Instantiate the ExampleModule class:
+    #     example_module = ExampleModule()
+    #     #*** Start ExampleModule:
+    #     example_module.run()
+
+        battleship = Battleship()
+        battleship.run()
     # if version is compatable, start the game
     # run()
-    del user_input
+    # del battleship
 else:
     # prompt user to update python
     print("Please update your python version to 3.10 or greater")

@@ -1,4 +1,7 @@
-battleship Module
+Battleship Module
 =================
 
-.. autofunction:: Battleship.run 
+.. automodule:: Battleship
+  :members:
+  :undoc-members:
+  :show-inheritance:

@@ -1,4 +1,4 @@
-cpu_player Module
+CPU_Player Module
 =================
 
 .. automodule:: cpu_player

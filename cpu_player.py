@@ -2,7 +2,7 @@
 #
 # """
 
-from Board import Board
+# from Board import Board
 import random
 
 """
@@ -38,7 +38,7 @@ class CPU_Player :
         self.cheat = False
         print("cpu created")
 
-    def make_move (self, cpu_board: Board):
+    def make_move (self, cpu_board):
         """ called when it is cpu turn in game.
         By: AMA & MT & ...
 
@@ -93,7 +93,7 @@ class CPU_Player :
         boologna = True
         return boologna;
 
-    def isValid_move (self, game_board: Board, move_2_check):
+    def isValid_move (self, game_board, move_2_check):
         """
         checks if a move has been made to space passed
         By:
@@ -135,13 +135,14 @@ class CPU_Player :
         elif dif == 3:
             self.cheat_percentage = 100
 
-    def set_ships(self, board: Board):
+    def set_ships(self, board):
         """
         sets ships at the start of the game
         :author
         :pre
         :post
         :param board: Board obj to set ships in
+        :type board: Board 
         :return :True ships are set, false else
         """
         boollon = False
