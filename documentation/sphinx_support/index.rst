@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Battleship's documentation!
-======================================
+Welcome to Battleship's Project 2 documentation!
+================================================
 
 .. toctree::
    :maxdepth: 10
@@ -16,7 +16,8 @@ Welcome to Battleship's documentation!
    cpu_player
    ship
    user_input
-   support 
+   support
+   work_cited
 
 
 

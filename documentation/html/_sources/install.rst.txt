@@ -3,13 +3,13 @@
 Installation
 ############
 
-Dependencies
-------------
+Dependencies:
+-------------
 
 Python 3.10
 
-Install
--------
+Install:
+--------
 
 Clone Repo::
 
