@@ -1,5 +1,15 @@
+
+############
 Installation
-============
+############
+
+Dependencies
+------------
+
+Python 3.10
+
+Install
+-------
 
 Clone Repo::
 
