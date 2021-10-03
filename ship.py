@@ -35,7 +35,7 @@ class Ship:
         append to coord_list
 
         :param coords: coords of square to change
-        :type coords: list of int
+        :type coords: list of int, [x, y]
         :param current_value: new value to pass
         :type current_value: chr
 
@@ -53,11 +53,11 @@ class Ship:
         """
         get coords
 
-        :param position: square of ship, ie ship 2 has 0,1 coords
+        :param position: ``square`` of ship, ie ship 2 has 0,1 coords
         :type position: int
 
-        :return [x, y]: ``position`` of ``square``
-        :type [x, y]: int
+        :return _: coords of ``square`` of ship
+        :rtype: list of int, [x, y]
         """
         return [self.coord_list[position][0], self.coord_list[position][1]]
 
@@ -84,7 +84,8 @@ class Ship:
 
         :param control: control for recursive
         :type control: int
-        :return True: if all current is 'X', false else
+        :return True: if all current is 'X'
+        :return False: else
         """
         if control == self.ship_num:
             return True
@@ -97,10 +98,11 @@ class Ship:
         """
         returns current value of this ship square
 
-        :param coord: list of x, y coords
-        :type coord: [int]
+        :param coord: [x, y] of ``square`` to get current value
+        :type coord: list of int, [x, y]
 
-        :return chr: current ship space value
+        :return _: current ship space value
+        :rtype: chr
         """
         for square in range(self.ship_num):
             if self.coord_list[square][0] == coord[0]:
@@ -111,6 +113,7 @@ class Ship:
         """
         return ship number
 
-        :return ship_num: current ship number
+        :return _: current ship number
+        :rtype: int 
         """
         return self.ship_num

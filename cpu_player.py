@@ -20,6 +20,7 @@ class CPU_Player :
     cpu object used to decide moves for battleship
 
     Example::
+
         cpu_obj = CPU_Player()
         cpu_obj._(_)
     """
@@ -39,13 +40,14 @@ class CPU_Player :
         print("cpu created")
 
     def make_move (self, cpu_board):
-        """ called when it is cpu turn in game.
+        """
+        Called when it is cpu turn in game. \n
         By: AMA & MT & ...
 
         :param cpu_board: Board object to use for making move
         :type cpu_board: Board
         :return coords: list/tuple of move to make
-        :rtype: list of int
+        :rtype: list of int, [x, y]
         """
         # check previous for a hits
 
@@ -110,22 +112,22 @@ class CPU_Player :
 
     def add_opponent_coords(self, opp_coords):
         """
-        Adds player 1 coordinates to array to allow for guessing.
-        By: Michael Talaga
+        Adds player 1 coordinates to array to allow for guessing. \n
+        Author: Michael Talaga
 
         :param opp_coords: 2d array of coords
-        :type opp_coords: list of int
+        :type opp_coords: list of int, [x, y]
 
         """
         self.opponent_coords.append(opp_coords)
 
     def set_difficulty(self, dif):
         """
-        Sets difficulty for CPU
-        By: Michael Talaga
+        Sets difficulty for CPU \n
+        Author: Michael Talaga
 
         :param dif: integer from 1-3
-
+        :type dif: int
         """
         self.difficulty = dif
 	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
@@ -137,13 +139,13 @@ class CPU_Player :
 
     def set_ships(self, board):
         """
-        sets ships at the start of the game
-        :author
-        :pre
-        :post
+        sets ships at the start of the game \n
+        Author: xxx Date: xx xx xx
+
         :param board: Board obj to set ships in
-        :type board: Board 
-        :return :True ships are set, false else
+        :type board: Board
+        :return True: ships are set
+        :return False: else
         """
         boollon = False
         return boollon

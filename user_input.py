@@ -1,31 +1,34 @@
-"""
-user_input.py
-
-by; Adam Abernathy (AMA)
-AMA note: most functions were in battleship-g1.py, moved here to condense
-          user input and interacion
-"""
+# """
+# user_input.py
+#
+# by; Adam Abernathy (AMA)
+# AMA note: most functions were in battleship-g1.py, moved here to condense
+#           user input and interacion
+# """
 
 import string
 
-"""
-user input object
-"""
 class User_Input :
-    """docstring for User_Input."""
+    """
+    User Input object used to prompt user for diffent control aspects of the game
+
+    Example::
+
+        user_input = User_Input()
+        user_input._(_)
+    """
 
     def __init__(self):
-        """ default constructor
-        """
         super(User_Input, self).__init__()
 
     def get_num_ships(self):
+        # Author: AMA, code was already in program, moved and slight changes
+        # Date: sept 28 2021
         """
         prompts user for number of ships to use in the game
-        :author AMA, code was already in program, moved and slight changes
-        :date sept 28 2021
-        :pre
-        :return number of ships in the game
+
+        :return _: number of ships in the game
+        :rtype: int
         """
         choice_made = False
         while not choice_made:
@@ -45,12 +48,12 @@ class User_Input :
         return int(num_ships)
 
     def get_move_coord(self):
+        # Author: code already in file just moved, AMA added try except
         """
         prompts user for row col of move
-        :author code already in file just moved, AMA added try except
-        :date
-        :pre
-        :return list of [row, col]
+
+        :return _: ``square`` to try move in
+        :rtype: list of int, [x, y]
         """
         #check for valid column input
         while True:
@@ -84,12 +87,13 @@ class User_Input :
         return coords
 
     def play_again(self):
+        # Author AMA, some code already in project just removed
+        # Date: 9-29-2021
         """
         asks player if they would like to play another game
-        :author AMA, some code already in project just removed
-        :date 9-29-2021
-        :pre
-        :return :True if player wants to play another game, false else
+
+        :return True: if player wants to play another game
+        :return False: else
         """
         selection = False
         while True:

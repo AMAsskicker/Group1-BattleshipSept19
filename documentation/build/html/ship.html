@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ship Module &mdash; Battleship 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Input Module" href="user_input.html" />
+    <link rel="prev" title="CPU_Player Module" href="cpu_player.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Battleship
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="battleship.html">Battleship Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Board.html">Board Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpu_player.html">CPU_Player Module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ship Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_input.html">User Input Module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Battleship</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Ship Module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ship.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-ship">
+<span id="ship-module"></span><h1>Ship Module<a class="headerlink" href="#module-ship" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ship.Ship">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">ship.</span></span><span class="sig-name descname"><span class="pre">Ship</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ship_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Ship object that is placed on game board. stores the x,y coords and if has been hit</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ship</span> <span class="o">=</span> <span class="n">Ship</span><span class="p">()</span>
+<span class="n">ship</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ship_num</strong> (<em>int</em>) – number to assign to ship</p></li>
+<li><p><strong>direction</strong> (<em>chr</em>) – direcion ship is placed with respect to first square</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ship.Ship.add_coord">
+<span class="sig-name descname"><span class="pre">add_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">chr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship.add_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>append to coord_list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords</strong> (<em>list of int</em><em>, </em><em>[</em><em>x</em><em>, </em><em>y</em><em>]</em>) – coords of square to change</p></li>
+<li><p><strong>current_value</strong> (<em>chr</em>) – new value to pass</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return True</dt>
+<dd class="field-even"><p>if succsesful</p>
+</dd>
+<dt class="field-odd">Return False</dt>
+<dd class="field-odd"><p>else</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ship.Ship.change_current">
+<span class="sig-name descname"><span class="pre">change_current</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_current</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">chr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship.change_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>changes the stored value of current, ie has been hit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>coords</strong> (<em>list of int</em>) – coords of “square” to change</p>
+</dd>
+<dt class="field-even">Return True</dt>
+<dd class="field-even"><p>if operation was valid</p>
+</dd>
+<dt class="field-odd">Return False</dt>
+<dd class="field-odd"><p>operation was unsuccessful</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ship.Ship.get_coord">
+<span class="sig-name descname"><span class="pre">get_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship.get_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>get coords</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>position</strong> (<em>int</em>) – <code class="docutils literal notranslate"><span class="pre">square</span></code> of ship, ie ship 2 has 0,1 coords</p>
+</dd>
+<dt class="field-even">Return _</dt>
+<dd class="field-even"><p>coords of <code class="docutils literal notranslate"><span class="pre">square</span></code> of ship</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of int, [x, y]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ship.Ship.get_current">
+<span class="sig-name descname"><span class="pre">get_current</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship.get_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns current value of this ship square</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>coord</strong> (<em>list of int</em><em>, </em><em>[</em><em>x</em><em>, </em><em>y</em><em>]</em>) – [x, y] of <code class="docutils literal notranslate"><span class="pre">square</span></code> to get current value</p>
+</dd>
+<dt class="field-even">Return _</dt>
+<dd class="field-even"><p>current ship space value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>chr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ship.Ship.get_num">
+<span class="sig-name descname"><span class="pre">get_num</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship.get_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>return ship number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return _</dt>
+<dd class="field-odd"><p>current ship number</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ship.Ship.is_sunk">
+<span class="sig-name descname"><span class="pre">is_sunk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ship.Ship.is_sunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks if ship is sunk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>control</strong> (<em>int</em>) – control for recursive</p>
+</dd>
+<dt class="field-even">Return True</dt>
+<dd class="field-even"><p>if all current is ‘X’</p>
+</dd>
+<dt class="field-odd">Return False</dt>
+<dd class="field-odd"><p>else</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cpu_player.html" class="btn btn-neutral float-left" title="CPU_Player Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="user_input.html" class="btn btn-neutral float-right" title="User Input Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, AMA, MT, MXO, DS, MM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
