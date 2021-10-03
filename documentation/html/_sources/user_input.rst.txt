@@ -1,4 +1,4 @@
-User Input Module
+User_Input Module
 =================
 
 .. automodule:: user_input
