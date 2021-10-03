@@ -26,10 +26,15 @@ This game is played through the terminal, with each player taking turns to type 
 ### Executing program
 
 * Navigate to the folder where BattleshipG1.py is located.
-* Run the following command in terminal.
+* Run the following command in terminal for master branch:
 
 ```
 python3 Battleship-G1.py
+```
+* Run the following command in terminal for project 2 branch:
+
+```
+python3 Battleship.py
 ```
 
 ## Authors
@@ -51,6 +56,8 @@ python3 Battleship-G1.py
   * Initial Release
 * 0.2
   * New Features Added
+* 1.0 
+  * Project 2
 
 ## Acknowledgments / Works Cited
 
