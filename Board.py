@@ -63,15 +63,16 @@ class Board:
                 print(self.oppGrid[row][col], " ", end = "")
             print()
 
-    def checkShipOverlap(self, x, y, len, orient):
-        start = 0
-        for i in self.waterGrid[x]:
-            for j in self.waterGrid[y]:
-                if j != 'O' and j != '*':
-                    print("There is already a ship here, please reenter coordinates. ")
-                    return False
-                else:
-                    return True
+    # def checkShipOverlap(self, x, y, len, orient):
+    #     # THIS FUNC ISN'T USED-AMA
+    #     start = 0
+    #     for i in self.waterGrid[x]:
+    #         for j in self.waterGrid[y]:
+    #             if j != 'O' and j != '*':
+    #                 print("There is already a ship here, please reenter coordinates. ")
+    #                 return False
+    #             else:
+    #                 return True
 
     def isShipValid(self, orient, start_x, start_y, length):
         """
@@ -154,13 +155,12 @@ class Board:
     def hit(self, coord_list, compare_board):
         """
         Determines whether entered coordinates hit a ship, and gives
-        feedback on whether ship is hit and if a ship is sunk.
-
-        AMA edit reimpmiment with ship object, some code reused
+        feedback on whether ship is hit and if a ship is sunk. \n
+        AMA Edit: reimpmiment with ship object, some code reused
 
         :param coord_list: [X,Y]
         :type coord_list: list of int
-        :param compare_board:
+        :param compare_board: Board object to check ship placement vs move 
         :type compare_board: Board
         :return True: if move is a hit
         :return False: else
