@@ -14,11 +14,14 @@ cpu player for battleship
 cpu to play against user, contains all the actions of a cpu in the game
 """
 class CPU_Player :
+    """
+    cpu object used to decide moves for battleship
+
+    Example::
+        cpu_obj = CPU_Player()
+        cpu_obj._(_)
+    """
     def __init__ (self):
-        """ defalut constructor
-        :pre
-        :post
-        """
         # list of tuples of previous moves: (x, y)
         # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
         self.previous_moves = []
@@ -34,12 +37,13 @@ class CPU_Player :
         print("cpu created")
 
     def make_move (self, cpu_board: Board):
-        """ called when it is cpu turn in game
-        :author AMA & MT & ...
-        :pre
-        :post
+        """ called when it is cpu turn in game.
+        By: AMA & MT & ...
+
         :param cpu_board: Board object to use for making move
+        :type cpu_board: Board
         :return coords: list/tuple of move to make
+        :rtype: list of int
         """
         # check previous for a hits
 
@@ -78,42 +82,48 @@ class CPU_Player :
 
     def check_previous (self):
         """
-        checks previous move for a hit
-        :author
-        :pre
-        :post
-        :return :True if previous move was a hit, false else
+        checks previous move for a hit.
+        By:
+
+        :return True: if previous move was a hit
+        :return False: else
         """
         boologna = True
         return boologna;
 
-    def isValid_move (self, game_board: Board, move_2_check: [int]):
+    def isValid_move (self, game_board: Board, move_2_check):
         """
         checks if a move has been made to space passed
-        :author
-        :pre
-        :post
+        By:
+
         :param game_board: Board object to check move against
+        :type game_board: Board
         :param move_2_check: list, x,y fomat to check
+        :type move_2_check: list of int
+        :return True: if move is valid
+        :return False: else
         """
         booliever = True
         return booliever
 
     def add_opponent_coords(self, opp_coords):
-        """ Adds player 1 coordinates to array to allow for guessing
-        :pre
-        :post
+        """
+        Adds player 1 coordinates to array to allow for guessing.
+        By: Michael Talaga
+
         :param opp_coords: 2d array of coords
-        :author Michael Talaga
+        :type opp_coords: list of int
+
         """
         self.opponent_coords.append(opp_coords)
 
     def set_difficulty(self, dif):
-        """ Sets difficulty for CPU
-        :pre
-        :post
+        """
+        Sets difficulty for CPU
+        By: Michael Talaga
+
         :param dif: integer from 1-3
-        :author Michael Talaga
+
         """
         self.difficulty = dif
 	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit

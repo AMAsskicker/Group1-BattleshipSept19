@@ -10,8 +10,11 @@ Welcome to Battleship's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   ship
+   Battleship 
    Board
+   cpu_player
+   ship
+
 
 
 
