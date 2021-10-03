@@ -20,8 +20,7 @@ This game is played through the terminal, with each player taking turns to type 
 
 ### Installing
 
-* Clone this file or
-* Download BattleshipG1.py and Board.py and place them in the same folder.
+* Clone this Repo
 
 ### Executing program
 
