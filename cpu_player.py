@@ -1,15 +1,17 @@
+
+#
+# """
+
+from Board import Board
+import random
+
 """
 cpu_player.py
 
 created: sept 25 2021
 by: Adam Abernathy
 
-"""
-
-from Board import Board
-import random
-
-""" description:
+description:
 cpu player for battleship
 cpu to play against user, contains all the actions of a cpu in the game
 """

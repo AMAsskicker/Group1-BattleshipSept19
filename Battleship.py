@@ -13,7 +13,9 @@ Responsible for executing the game.
 
 edited: sept 24 2021
 by: Adam Abernaty (AMA)
-AMA note: no author or createion date when forked ~sept 21 2021
+AMA edit: made class
+AMA note: prior authors are noted in documentation/credits.txt
+
 '''
 
 def setup_user(setup_board: Board, numberShips):
