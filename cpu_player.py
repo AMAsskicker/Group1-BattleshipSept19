@@ -51,15 +51,18 @@ class CPU_Player :
         """
         # check previous for a hits
 
-        #author MT, if statement checks if cheat mode is activated
+        #author MT, if statement checks if cheat mode is activated, it is a little redundant now
         if self.cheat:
-            if (len(self.opponent_coords) > 0):
-                move = self.opponent_coords[0]
-                self.previous_moves.append(move)
-                self.opponent_coords.pop()
+            print(self.opponent_coords)
+            for coord in self.opponent_coords:
+                if coord not in self.previous_moves:
+                    move = coord
+                    self.previous_moves.append(move)
+                    #self.opponent_coords.pop()
+                    break
             else:
                 print("Empty list")
-            
+            print("Move: ", move)
             #Guess from opponent array
             #Remove guess from array
             print("Move made")
@@ -127,7 +130,7 @@ class CPU_Player :
         :type opp_coords: list of int, [x, y]
 
         """
-        self.opponent_coords.append(opp_coords)
+        self.opponent_coords = opp_coords
 
     def set_difficulty(self, dif):
         """
