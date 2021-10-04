@@ -4,6 +4,8 @@
 
 # from Board import Board
 import random
+from ship import Ship
+from Board import Board
 
 """
 cpu_player.py
@@ -74,7 +76,8 @@ class CPU_Player :
             #check below
             #check left
             #check right
-            #almost finished with this -MXO
+            #finished with this -MXO
+            #TODO: Testing (works well so far however duplicate moves can be made)
 
             fired = False
             if self.total_moves == 0:
@@ -90,7 +93,7 @@ class CPU_Player :
                 print(self.opponent_coords)
                 print(self.previous_moves[self.total_moves])
                 
-                if self.previous_moves[self.total_moves] not in self.opponent_coords: #checks if previous move was a miss
+                if  self.previous_moves[self.total_moves] not in self.opponent_coords: #checks if previous move was a miss
                     #fires randomly
                     print("entering else")
                     x_guess = random.randrange(0,10) 
@@ -102,11 +105,8 @@ class CPU_Player :
                     self.total_moves += 1
                     self.previous_moves.append(guess_coord)
                     return guess_coord
-                
                 #this goes up, down, right, left after previous move was a hit
                 #once hit it will strategically destroy the ship
-                #currently fails after it successfully destroys one of the ships
-                #TODO: fix so it will continue firing randomly after ship is destroyed.
                 #-MXO
                 else: 
                     x_guess, y_guess = self.previous_moves[self.total_moves]
@@ -135,6 +135,14 @@ class CPU_Player :
                         self.previous_moves.append(guess_coord)
                         self.total_moves += 1
                         return guess_coord
+                    x_guess = random.randrange(0,10) 
+                    y_guess = random.randrange(0, 9)
+                    guess_coord = [x_guess, y_guess]
+                    fired = True
+                    print("first cpu move")
+                    self.total_moves += 1
+                    self.previous_moves.append(guess_coord)
+                    return guess_coord
             # TODO: remove later
             print("previous checked")
         # if hit look around hit for other moves
@@ -163,6 +171,20 @@ class CPU_Player :
         # increment move
         #self.total_moves += 1;
 
+    def sank_ship (self):
+        """
+        checks if previous move sank a ship
+        By:
+
+        :return True: if previous move was a sink
+        :return False: else
+        """
+
+        if self.is_sunk(0):
+            print("ENTERING IS SUNK DEF")
+            return True
+        else:
+            return False
 
     def check_previous (self):
         """
