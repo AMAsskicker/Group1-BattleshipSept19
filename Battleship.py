@@ -185,7 +185,7 @@ class Battleship:
                     user_input = User_Input()
                     if self.is_cpu():
                         one_human = True
-                        difficulty = self.get_difficulty()
+                        difficulty = user_input.get_difficulty()
                     game_state = "set_ships"
                 case "set_ships":
                     total_ships = user_input.get_num_ships()
@@ -200,7 +200,7 @@ class Battleship:
                         who_won = "ship_error"
                     # self.clear_screen()
                     if one_human:
-                        cpu_obj.add_opponent_coords(player1_board.getCoords)
+                        cpu_obj.add_opponent_coords(player1_board.getCoords())
                         cpu_obj.set_difficulty(difficulty)
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
@@ -246,7 +246,7 @@ class Battleship:
                             second_board.hit(user_input.get_move_coord(), player1_board)
                     self.print_current_board(player1_board, second_board, game_state)
                     second_board.score(player1_board)
-                    if second_board.allsunk:
+                    if second_board.allsunk: #Shouldn't this be the opposite? MT
                         who_won = "cpu" if one_human else "player2"
                         game_state = "end_game"
                     else:
@@ -378,27 +378,6 @@ class Battleship:
                 return False
             else:
                 print("\nInvalid Input")
-
-    def get_difficulty(self):
-        """
-        Sets difficulty for CPU \n
-        Author: Michael Talaga
-
-        :param none
-        :type dif: int
-        :return int between 1 and 3
-        """
-        print("\nPlease choose CPU difficulty.\n")
-        while True:
-            dif = input("CPU Difficulty - (1 = easy, 2 = medium, 3 = impossible):")
-            if dif.isnumeric():
-                dif = int(dif)
-                if dif >= 1 and dif <= 3:
-                    return dif
-                else:
-                    print("Please enter a number between 1 and 3.\n")
-            else:
-                print("Please enter a number")
 
     def clear_screen_2_continue(self, turn):
         """
