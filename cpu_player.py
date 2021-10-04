@@ -4,8 +4,6 @@
 
 # from Board import Board
 import random
-from ship import Ship
-from Board import Board
 
 """
 cpu_player.py
@@ -170,21 +168,6 @@ class CPU_Player :
             print("MOVE MADE")
         # increment move
         #self.total_moves += 1;
-
-    def sank_ship (self):
-        """
-        checks if previous move sank a ship
-        By:
-
-        :return True: if previous move was a sink
-        :return False: else
-        """
-
-        if self.is_sunk(0):
-            print("ENTERING IS SUNK DEF")
-            return True
-        else:
-            return False
 
     def check_previous (self):
         """
