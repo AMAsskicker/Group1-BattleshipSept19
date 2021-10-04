@@ -202,4 +202,12 @@ class Board:
         Author MT
         Returns player coordinates as 2d array
         """
-        return self.shipObjects
+        coordinates = []
+        workingCoord = []
+        for ship in self.shipObjects:
+            coords = ship.get_raw_coords()
+            for coord in coords:
+                workingCoord = coord
+                coordinates.append(workingCoord)
+                #print(workingCoord)
+        return coordinates
