@@ -68,17 +68,78 @@ class CPU_Player :
             print("Move made")
             self.total_moves += 1;
             return move #return early if cheat mode is activated
-
-        if self.check_previous(): #for medium dif
+        if self.check_previous: #for medium dif
             # can prob do all these checks with one function
             #check above
             #check below
             #check left
             #check right
 
+            #these two following lines put the recent move in the list for previous moces and prints that previous move
+            #self.previous_moves.append(guess_coord)
+            #print(self.previous_moves[self.total_moves])
+
+            fired = False
+            if self.total_moves == 0:
+                x_guess = random.randrange(0,10) 
+                y_guess = random.randrange(0, 9)
+                guess_coord = [x_guess, y_guess]
+                fired = True
+                print("first cpu move")
+                self.total_moves += 1
+                self.previous_moves.append(guess_coord)
+                return guess_coord
+            while not fired:
+                print(self.opponent_coords)
+                print(self.previous_moves[self.total_moves])
+                
+                if self.previous_moves[self.total_moves] not in self.opponent_coords: #checks if previous move was a miss
+                    #fires randomly
+                    print("entering else")
+                    x_guess = random.randrange(0,10) 
+                    y_guess = random.randrange(0, 9)
+                    guess_coord = [x_guess, y_guess]
+                    if guess_coord not in self.previous_moves:
+                        fired = True
+                        print("fired is true")
+                    self.total_moves += 1
+                    self.previous_moves.append(guess_coord)
+                    return guess_coord
+                
+                #this goes up, down, right, left after previous move was a hit
+                #once hit it will strategically destroy the ship
+                #currently fails after it successfully destroys one of the ships
+                #TODO: fix so it will continue firing randomly after ship is destroyed.
+                #-MXO
+                else: 
+                    x_guess, y_guess = self.previous_moves[self.total_moves]
+                    print (x_guess, ", ", y_guess)
+                    guess_coord = [x_guess, y_guess + 1] #fires up
+                    if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
+                        fired = True
+                        self.previous_moves.append(guess_coord)
+                        self.total_moves += 1
+                        return guess_coord
+                    guess_coord = [x_guess, y_guess - 1] #fires down
+                    if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
+                        fired = True
+                        self.previous_moves.append(guess_coord)
+                        self.total_moves += 1
+                        return guess_coord
+                    guess_coord = [x_guess + 1, y_guess] #fires right
+                    if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
+                        fired = True
+                        self.previous_moves.append(guess_coord)
+                        self.total_moves += 1
+                        return guess_coord
+                    guess_coord = [x_guess - 1, y_guess] #fires left
+                    if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
+                        fired = True
+                        self.previous_moves.append(guess_coord)
+                        self.total_moves += 1
+                        return guess_coord
             # TODO: remove later
             print("previous checked")
-
         # if hit look around hit for other moves
         # make move
         else:
@@ -103,7 +164,7 @@ class CPU_Player :
             # TODO: remove later
             print("MOVE MADE")
         # increment move
-        self.total_moves += 1;
+        #self.total_moves += 1;
 
 
     def check_previous (self):
@@ -115,7 +176,7 @@ class CPU_Player :
         :return False: else
         """
         boologna = False
-        return boologna;
+        return boologna
 
     def isValid_move (self, game_board, move_2_check):
         """
@@ -153,7 +214,9 @@ class CPU_Player :
         """
         self.difficulty = dif
         if dif == 3:
-            self.cheat = True 
+            self.cheat = True
+        if dif == 2:
+            self.check_previous = True 
     
     #def set_ships(self, board):
     #TODO: Can be deleted? MT
