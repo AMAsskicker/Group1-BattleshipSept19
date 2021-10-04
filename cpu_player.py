@@ -74,10 +74,7 @@ class CPU_Player :
             #check below
             #check left
             #check right
-
-            #these two following lines put the recent move in the list for previous moces and prints that previous move
-            #self.previous_moves.append(guess_coord)
-            #print(self.previous_moves[self.total_moves])
+            #almost finished with this -MXO
 
             fired = False
             if self.total_moves == 0:
