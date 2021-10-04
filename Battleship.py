@@ -107,7 +107,7 @@ class Battleship:
                     print("There is already a ship here, please reenter coordinates. ")
                     valid = False
             shipLenTrack += 1
-        # playerCoordinates = setup_board.getCoords() #2d Array of player coordinates
+        #playerCoordinates = setup_board.getCoords() #2d Array of player coordinates
         return valid
 
     def setup_CPU(self, board, numberShips):
@@ -185,6 +185,7 @@ class Battleship:
                     user_input = User_Input()
                     if self.is_cpu():
                         one_human = True
+                        difficulty = self.get_difficulty()
                     game_state = "set_ships"
                 case "set_ships":
                     total_ships = user_input.get_num_ships()
@@ -199,6 +200,8 @@ class Battleship:
                         who_won = "ship_error"
                     # self.clear_screen()
                     if one_human:
+                        cpu_obj.add_opponent_coords(player1_board.getCoords)
+                        cpu_obj.set_difficulty(difficulty)
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
                         print("CPU Ships Placed")
@@ -375,6 +378,27 @@ class Battleship:
                 return False
             else:
                 print("\nInvalid Input")
+
+    def get_difficulty(self):
+        """
+        Sets difficulty for CPU \n
+        Author: Michael Talaga
+
+        :param none
+        :type dif: int
+        :return int between 1 and 3
+        """
+        print("\nPlease choose CPU difficulty.\n")
+        while True:
+            dif = input("CPU Difficulty - (1 = easy, 2 = medium, 3 = impossible):")
+            if dif.isnumeric():
+                dif = int(dif)
+                if dif >= 1 and dif <= 3:
+                    return dif
+                else:
+                    print("Please enter a number between 1 and 3.\n")
+            else:
+                print("Please enter a number")
 
     def clear_screen_2_continue(self, turn):
         """
