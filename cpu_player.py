@@ -66,10 +66,10 @@ class CPU_Player :
             #Guess from opponent array
             #Remove guess from array
             print("Move made")
+            self.total_moves += 1;
             return move #return early if cheat mode is activated
 
-
-        if check_previous():
+        if self.check_previous(): #for medium dif
             # can prob do all these checks with one function
             #check above
             #check below
@@ -83,8 +83,19 @@ class CPU_Player :
         # make move
         else:
             # if no hit, random number
+            fired = False
+            while not fired:
+                x_guess = random.randrange(0,10) 
+                y_guess = random.randrange(0, 9)
+                guess_coord = [x_guess, y_guess]
+                if guess_coord not in self.previous_moves:
+                    fired = True
+                
+
             # TODO: remove later
             print("move to some random") # statifiy compiler
+            self.total_moves += 1;
+            return guess_coord
         # check for previous move There
         # act accordingly
 
@@ -103,7 +114,7 @@ class CPU_Player :
         :return True: if previous move was a hit
         :return False: else
         """
-        boologna = True
+        boologna = False
         return boologna;
 
     def isValid_move (self, game_board, move_2_check):
