@@ -130,13 +130,10 @@ class CPU_Player :
         :type dif: int
         """
         self.difficulty = dif
-	#TODO: Will later change this as instructions state medium difficulty is only different from easy based on if a ship has been hit
-	#Will likely change this to a boolean to indicate if the CPU will cheat or not for the hard difficulty
-        if dif == 2:
-            self.cheat_percentage = 15
-        elif dif == 3:
-            self.cheat_percentage = 100
-
+        if dif == 3:
+            self.cheat = True
+        
+    
     def set_ships(self, board):
         """
         sets ships at the start of the game \n
@@ -149,3 +146,58 @@ class CPU_Player :
         """
         boollon = False
         return boollon
+
+    def set_ships(self, board, numberShips):
+        """
+        Generates CPU board (Designed like setup_user seen above but uses random for placement of ship) \n
+        Author: Michael Talaga \n
+        Pre: board object must have correct properties; numberShips must be in the proper range, 1 to 6 \n
+        Post: Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it \n
+
+        :param board: a newly-instantiated blank board object for creating game data for CPU
+        :type board: Board
+        :param numberShips: the number of ships that each player will have for a game
+        :type numberShips: int
+        """
+        completed = False
+        shipLenTrack = 1
+        orientationArray = ['L', 'R', 'U', 'D']
+        for ship in range(numberShips):
+            valid, oriented = False, False
+
+            while not valid:
+
+                orientation = orientationArray[random.randrange(0,4)] #Choose rand orientation
+
+                start_x_num = random.randrange(0,10) #choose rand x start point
+
+                start_y_num = random.randrange(0, 9) #choose rand y start point
+
+                #Orientation validation
+
+                match orientation:
+                    case 'L':
+                        if (start_x_num - shipLenTrack >= 0):
+                            oriented = True
+                    case 'R':
+                        if (start_x_num + shipLenTrack <= 10):
+                            oriented = True
+                    case 'U':
+                        if (start_y_num - shipLenTrack >= 0):
+                            oriented = True
+                    case 'D':
+                        if (start_y_num + shipLenTrack <= 9):
+                            oriented = True
+
+                if ((oriented) and (board.isShipValid(orientation, start_x_num, start_y_num, ship + 1))):
+                    board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
+                    valid = True
+                else:
+                    print("Calculating")
+                    valid = False
+
+            shipLenTrack += 1
+        completed = True
+        return completed
+        #board.printBoard() #Test for CPU board
+        #pause("cpu TESTING")    
