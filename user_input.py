@@ -110,3 +110,24 @@ class User_Input :
             except (ValueError, TypeError):
                 print("\nInvalid Input.")
         return selection
+
+    def get_difficulty(self):
+        """
+        Sets difficulty for CPU \n
+        Author: Michael Talaga
+
+        :param none
+        :type dif: int
+        :return int between 1 and 3
+        """
+        print("\nPlease choose CPU difficulty.\n")
+        while True:
+            dif = input("CPU Difficulty - (1 = easy, 2 = medium, 3 = impossible): ")
+            if dif.isnumeric():
+                dif = int(dif)
+                if dif >= 1 and dif <= 3:
+                    return dif
+                else:
+                    print("Please enter a number between 1 and 3.\n")
+            else:
+                print("Please enter a number")
