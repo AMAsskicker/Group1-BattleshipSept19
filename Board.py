@@ -197,8 +197,9 @@ class Board:
         print("\n Player 1 Ships Remaining: " + str(self.points))
         print("Player 2 Ships Remaining: " + str(opponent_board.points))
 
-    # def getCoords(self):
-    #     """
-    #     Returns player coordinates
-    #     """
-    #     return self.shipObjects
+    def getCoords(self):
+        """
+        Author MT
+        Returns player coordinates as 2d array
+        """
+        return self.shipObjects
