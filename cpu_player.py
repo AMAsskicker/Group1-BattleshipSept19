@@ -34,7 +34,7 @@ class CPU_Player :
         self.current_move = (99, 99);
         # track the totoal moves made, for parsing previous moves
         self.total_moves = 0;
-        #Difficulty for CPU with 1 as default for easy (2 for med, 3 for hard)
+        #Difficulty for CPU with 1 for easy, 2 for med, 3 for hard. 0 gets changed by set difficulty
         self.difficulty = 1;
         self.cheat = False
         print("cpu created")
@@ -53,9 +53,17 @@ class CPU_Player :
 
         #author MT, if statement checks if cheat mode is activated
         if self.cheat:
+            if (len(self.opponent_coords) > 0):
+                move = self.opponent_coords[0]
+                self.previous_moves.append(move)
+                self.opponent_coords.pop()
+            else:
+                print("Empty list")
+            
             #Guess from opponent array
             #Remove guess from array
             print("Move made")
+            return move #return early if cheat mode is activated
 
 
         if check_previous():
@@ -126,15 +134,15 @@ class CPU_Player :
         Sets difficulty for CPU \n
         Author: Michael Talaga
 
-        :param dif: integer from 1-3
+        :param none
         :type dif: int
         """
         self.difficulty = dif
         if dif == 3:
-            self.cheat = True
-        
+            self.cheat = True 
     
-    def set_ships(self, board):
+    #def set_ships(self, board):
+    #TODO: Can be deleted? MT
         """
         sets ships at the start of the game \n
         Author: xxx Date: xx xx xx
@@ -144,8 +152,8 @@ class CPU_Player :
         :return True: ships are set
         :return False: else
         """
-        boollon = False
-        return boollon
+        #boollon = False
+        #return boollon
 
     def set_ships(self, board, numberShips):
         """
