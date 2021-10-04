@@ -244,9 +244,10 @@ class Battleship:
                             continue
                         else:
                             second_board.hit(user_input.get_move_coord(), player1_board)
+                    #TODO: only print board if another player is playing
                     self.print_current_board(player1_board, second_board, game_state)
                     second_board.score(player1_board)
-                    if second_board.allsunk: #Shouldn't this be the opposite? MT
+                    if second_board.allsunk: 
                         who_won = "cpu" if one_human else "player2"
                         game_state = "end_game"
                     else:
