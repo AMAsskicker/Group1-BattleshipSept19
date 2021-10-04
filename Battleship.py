@@ -110,60 +110,6 @@ class Battleship:
         #playerCoordinates = setup_board.getCoords() #2d Array of player coordinates
         return valid
 
-    def setup_CPU(self, board, numberShips):
-        """
-        Generates CPU board (Designed like setup_user seen above but uses random for placement of ship) \n
-        Author: Michael Talaga \n
-        Pre: board object must have correct properties; numberShips must be in the proper range, 1 to 6 \n
-        Post: Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it \n
-
-        :param board: a newly-instantiated blank board object for creating game data for CPU
-        :type board: Board
-        :param numberShips: the number of ships that each player will have for a game
-        :type numberShips: int
-        """
-
-        shipLenTrack = 1
-        orientationArray = ['L', 'R', 'U', 'D']
-        for ship in range(numberShips):
-            valid, oriented = False, False
-
-            while not valid:
-
-                orientation = orientationArray[random.randrange(0,4)] #Choose rand orientation
-
-                start_x_num = random.randrange(0,10) #choose rand x start point
-
-                start_y_num = random.randrange(0, 9) #choose rand y start point
-
-                #Orientation validation
-
-                match orientation:
-                    case 'L':
-                        if (start_x_num - shipLenTrack >= 0):
-                            oriented = True
-                    case 'R':
-                        if (start_x_num + shipLenTrack <= 10):
-                            oriented = True
-                    case 'U':
-                        if (start_y_num - shipLenTrack >= 0):
-                            oriented = True
-                    case 'D':
-                        if (start_y_num + shipLenTrack <= 9):
-                            oriented = True
-
-                if ((oriented) and (board.isShipValid(orientation, start_x_num, start_y_num, ship + 1))):
-                    board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
-                    valid = True
-                else:
-                    print("Calculating")
-                    valid = False
-
-            shipLenTrack += 1
-        print("CPU has made selections\n")
-        #board.printBoard() #Test for CPU board
-        pause("cpu TESTING")
-
     def run(self):
         """
         Main gameplay state machine. Calls functions as needed \n
