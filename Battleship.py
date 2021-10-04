@@ -202,6 +202,7 @@ class Battleship:
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
                         print("CPU Ships Placed")
+                        self.pause("PRESS ENTER TO CONTINUE...")
                     else:
                         print("\n TIME FOR PLAYER 2 TO PLACE THEIR SHIPS \n")
                         if self.setup_user(second_board, total_ships):
