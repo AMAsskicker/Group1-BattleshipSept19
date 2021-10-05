@@ -27,7 +27,7 @@ class Battleship:
         battleship.run()
 
     :param number_of_games: number of games played
-    :type number_of_games: int 
+    :type number_of_games: int
     """
     def __init__(self):
         self.number_of_games = 0
@@ -173,7 +173,9 @@ class Battleship:
                         game_state = "end_game"
                         continue
                     else:
-                        player1_board.hit(user_input.get_move_coord(), second_board)
+                        if not player1_board.hit(user_input.get_move_coord(), second_board):
+                            print("\n ALREADY MOVED THERE! PLEASE GUESS AGAIN \n")
+                            continue
                     self.print_current_board(player1_board, second_board, game_state)
                     player1_board.score(second_board)
                     if player1_board.allsunk:
@@ -184,7 +186,8 @@ class Battleship:
                         game_state = "player2"
                 case "player2":
                     if one_human:
-                        second_board.hit(cpu_obj.make_move(second_board, player1_board), player1_board)
+                        if not second_board.hit(cpu_obj.make_move(second_board, player1_board), player1_board):
+                            continue
                         print("CPU HAS MADE A MOVE")
                     else:
                         if self.printMenu(player1_board, second_board, game_state) == 3:
@@ -381,15 +384,15 @@ class Battleship:
         """
         match turn:
             case "player1":
-                print("     OPPONET/MOVES MADE BOARD:")
+                print("             MOVES MADE")
                 board1.printOpp()
-                print("\n         PLAYER 1 BOARD:")
+                print("\n         PLAYER 1 BOARD")
                 board1.printBoard()
                 # print("\n")
             case "player2":
-                print("         OPPONENT BOARD:")
+                print("             MOVES MADE")
                 board2.printOpp()
-                print("\n         PLAYER 2/CPU BOARD:")
+                print("\n         PLAYER 2/CPU BOARD")
                 board2.printBoard()
                 # print("\n")
 
