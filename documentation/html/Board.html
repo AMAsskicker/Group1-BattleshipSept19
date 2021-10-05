@@ -92,7 +92,7 @@ and changing or checking the characteristics of the boards and displaying them.<
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shipObjects</strong> (<a class="reference internal" href="ship.html#ship.Ship" title="ship.Ship"><em>Ship</em></a>) – <code class="docutils literal notranslate"><span class="pre">Ships</span></code> placed by user/cpu</p></li>
 <li><p><strong>waterGrid</strong> (<em>list of list</em>) – 2D player ships &amp; opponent guess here</p></li>
-<li><p><strong>oppGrid</strong> (<em>list of list</em>) – 2D player guess here</p></li>
+<li><p><strong>guess_grid</strong> (<em>list of list</em>) – 2D player guess here</p></li>
 <li><p><strong>points</strong> – number ships remaining</p></li>
 <li><p><strong>allsunk</strong> (<em>bool</em>) – True: all ships sunk, False: else</p></li>
 </ul>
@@ -172,7 +172,7 @@ because it uses the waterGrid 2D array for printing data.</p>
 <span class="sig-name descname"><span class="pre">printOpp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.printOpp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints the opponent player’s game board with a border to mark coordinates
 (A-J for columns and 1-9 for rows). The printed board hides all the ships
-because it uses the oppGrid 2D array for printing data.</p>
+because it uses the guess_grid 2D array for printing data.</p>
 </dd></dl>
 
 <dl class="py method">

@@ -209,22 +209,6 @@ class CPU_Player :
 
         if control > some_num:
             return [0, 0]
-        return False
-
-    def isValid_move (self, game_board, move_2_check):
-        """
-        checks if a move has been made to space passed \n
-        By: DS
-
-        :param game_board: Board object to check move against
-        :type game_board: Board
-        :param move_2_check: list, x,y fomat to check
-        :type move_2_check: list of int
-        :return True: if move is valid
-        :return False: else
-        """
-        booliever = True
-        return booliever
 
 # TODO: WILL BE REMOVED
     # def add_opponent_coords(self, opp_coords):
