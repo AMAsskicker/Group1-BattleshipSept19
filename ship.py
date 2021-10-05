@@ -49,7 +49,7 @@ class Ship:
 
         try:
             self.coord_list.append(temp)
-            self.raw_coords.append([coords[0], coords[1]]) #Added by MT
+            # self.raw_coords.append([coords[0], coords[1]]) #Added by MT
             return True
         except IndexError:
             return False
