@@ -160,7 +160,7 @@ class Board:
 
         :param coord_list: [X,Y]
         :type coord_list: list of int
-        :param compare_board: Board object to check ship placement vs move 
+        :param compare_board: Board object to check ship placement vs move
         :type compare_board: Board
         :return True: if move is a hit
         :return False: else
@@ -195,7 +195,7 @@ class Board:
         :type opponent_board: Board
         """
         print("\n Player 1 Ships Remaining: " + str(self.points))
-        print("Player 2 Ships Remaining: " + str(opponent_board.points))
+        print(" Player 2 Ships Remaining: " + str(opponent_board.points))
 
     def getCoords(self):
         """
