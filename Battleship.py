@@ -25,6 +25,9 @@ class Battleship:
 
         battleship = Battleship()
         battleship.run()
+
+    :param number_of_games: number of games played
+    :type number_of_games: int 
     """
     def __init__(self):
         self.number_of_games = 0

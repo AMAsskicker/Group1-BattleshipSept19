@@ -22,18 +22,24 @@ class CPU_Player :
 
         cpu_obj = CPU_Player()
         cpu_obj._(_)
+
+    :param previous_moves:
+    :type previous_moves: list of coords, [[x, y]]
+    :param total_moves: track the totoal moves made, for parsing previous moves
+    :type total_moves: int
+    :param difficulty: difficulty for CPU with 1 for easy, 2 for med, 3 for hard. 0 gets changed by set difficulty
+    :type difficulty: int
+    :param cheat: True: if cheat is activated, False: else
+    :type cheat: bool
     """
     def __init__ (self):
-        # list of tuples of previous moves: (x, y)
         # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
         self.previous_moves = []
         #Keep coordinates for player 1
-# opponent_coords are already int the board object, why do we need 2 places? -AMA
+# REMOVED, previous stated issues -AMA
         # self.opponent_coords = []
-        self.current_move = []
-        # track the totoal moves made, for parsing previous moves
+        # self.current_move = [] #UNUSED
         self.total_moves = 0;
-        #Difficulty for CPU with 1 for easy, 2 for med, 3 for hard. 0 gets changed by set difficulty
         self.difficulty = 1;
         self.cheat = False
         print("cpu created")
@@ -192,7 +198,7 @@ class CPU_Player :
     def check_previous (self, control):
         """
         checks previous move for a hit then returns move accordingly \n
-        By: MXO & DS & MM 
+        By: MXO & DS & MM
 
         :param control: recursive control variable
         :type control: int

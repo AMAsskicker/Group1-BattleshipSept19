@@ -12,6 +12,16 @@ class Board:
 
         some_board = Board()
         some_board._(_)
+
+    :param shipObjects: ``Ships`` placed by user/cpu
+    :type shipObjects: Ship
+    :param waterGrid: 2D player ships & opponent guess here
+    :type waterGrid: list of list
+    :param oppGrid: 2D player guess here
+    :type oppGrid: list of list
+    :param points: number ships remaining
+    :param allsunk: True: all ships sunk, False: else
+    :type allsunk: bool
     """
     def __init__(self):
         # list of ships placed by user
