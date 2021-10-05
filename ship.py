@@ -24,12 +24,14 @@ class Ship:
     :type ship_num: int
     :param direction: direcion ship is placed with respect to first square
     :type direction: chr
+    :param coord_list: list of [x: int, y: int, current: chr]
+    :type coord_list: list of list
     """
     def __init__(self, ship_num, direction):
         self.ship_num = ship_num
         self.direction = direction
         self.coord_list = [] # list of [x: int,y: int,current: chr]
-        self.raw_coords = [] # list of [x: int, y: int] added by MT
+        # self.raw_coords = [] # list of [x: int, y: int] added by MT
 
     def add_coord(self, coords, current_value: chr):
         """
@@ -44,7 +46,7 @@ class Ship:
         :return False: else
         """
         temp = [coords[0], coords[1], current_value]
-        
+
         try:
             self.coord_list.append(temp)
             self.raw_coords.append([coords[0], coords[1]]) #Added by MT
@@ -63,14 +65,14 @@ class Ship:
         :rtype: list of int, [x, y]
         """
         return [self.coord_list[position][0], self.coord_list[position][1]]
-    
-    def get_raw_coords(self):
-        """
-        :Author MT
-        :param none
-        :return 2d array of ship coords as [x, y]
-        """
-        return self.raw_coords
+# REMOVED redundant -AMA
+    # def get_raw_coords(self):
+    #     """
+    #     :Author MT
+    #     :param none
+    #     :return 2d array of ship coords as [x, y]
+    #     """
+    #     return self.raw_coords
 
     def change_current(self,coords, new_current: chr):
         """
@@ -125,6 +127,6 @@ class Ship:
         return ship number
 
         :return _: current ship number
-        :rtype: int 
+        :rtype: int
         """
         return self.ship_num

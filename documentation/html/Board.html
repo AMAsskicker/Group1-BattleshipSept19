@@ -45,6 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cpu_player.html">CPU_Player Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ship.html">Ship Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_input.html">User_Input Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scoreboard.html">Scoreboard Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="work_cited.html">Works Cited</a></li>
 </ul>
@@ -86,6 +87,17 @@ and changing or checking the characteristics of the boards and displaying them.<
 <span class="n">some_board</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shipObjects</strong> (<a class="reference internal" href="ship.html#ship.Ship" title="ship.Ship"><em>Ship</em></a>) – <code class="docutils literal notranslate"><span class="pre">Ships</span></code> placed by user/cpu</p></li>
+<li><p><strong>waterGrid</strong> (<em>list of list</em>) – 2D player ships &amp; opponent guess here</p></li>
+<li><p><strong>oppGrid</strong> (<em>list of list</em>) – 2D player guess here</p></li>
+<li><p><strong>points</strong> – number ships remaining</p></li>
+<li><p><strong>allsunk</strong> (<em>bool</em>) – True: all ships sunk, False: else</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="Board.Board.createShip">
 <span class="sig-name descname"><span class="pre">createShip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shipnumber</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Board.Board.createShip" title="Permalink to this definition">¶</a></dt>

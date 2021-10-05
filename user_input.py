@@ -116,9 +116,8 @@ class User_Input :
         Sets difficulty for CPU \n
         Author: Michael Talaga
 
-        :param none
-        :type dif: int
-        :return int between 1 and 3
+        :return dif: user selected difficulty
+        :rtype: int ``range(1,4)``
         """
         print("\nPlease choose CPU difficulty.\n")
         while True:
