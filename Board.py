@@ -176,7 +176,7 @@ class Board:
         :return False: else
         """
 # TODO: WORKING,  NEEDS LOTS of TESTING -AMA
-# FIXED: move in same space, NEEDS MORE TESTING -AMA 
+# FIXED: move in same space, NEEDS MORE TESTING -AMA
         test_case = {'X', 'M'}
         if self.guess_grid[coord_list[1]][coord_list[0]] in test_case:
             # print("ALREADY MADE MOVE THERE")
@@ -211,17 +211,18 @@ class Board:
         print("\n Player 1 Ships Remaining: " + str(self.points))
         print(" Player 2 Ships Remaining: " + str(opponent_board.points))
 
-    # def getCoords(self):
-    #     """
-    #     Author MT
-    #     Returns player coordinates as 2d array
-    #     """
-    #     coordinates = []
-    #     workingCoord = []
-    #     for ship in self.shipObjects:
-    #         coords = ship.get_raw_coords()
-    #         for coord in coords:
-    #             workingCoord = coord
-    #             coordinates.append(workingCoord)
-    #             #print(workingCoord)
-    #     return coordinates
+    def getCoords(self):
+        """
+        Author MT
+        :return _: players ship coordinates as 2d array
+        :rtype: list of coords 
+        """
+        coordinates = []
+        workingCoord = []
+        for ship in self.shipObjects:
+            coords = ship.get_raw_coords()
+            for coord in coords:
+                workingCoord = coord
+                coordinates.append(workingCoord)
+                #print(workingCoord)
+        return coordinates

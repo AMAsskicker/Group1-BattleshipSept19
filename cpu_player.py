@@ -64,10 +64,9 @@ class CPU_Player :
             # print(self.opponent_coords)
             print(p1_board.shipObjects)
             # for coord in self.opponent_coords:
-            for coord in p1_board.shipObjects:
+            for coord in p1_board.getCoords():
                 if coord not in self.previous_moves:
-                    move = coord
-                    self.previous_moves.append(move)
+                    self.previous_moves.append(coord)
                     #self.opponent_coords.pop()
                     break
             else:
