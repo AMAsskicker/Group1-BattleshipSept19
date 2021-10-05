@@ -151,7 +151,7 @@ class Battleship:
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
                         print("CPU Ships Placed")
-                        self.pause("PRESS ENTER TO CONTINUE...")
+                        # self.pause("PRESS ENTER TO CONTINUE...")
                     else:
                         print("\n TIME FOR PLAYER 2 TO PLACE THEIR SHIPS \n")
                         if self.setup_user(second_board, total_ships):
@@ -190,10 +190,9 @@ class Battleship:
                             continue
                         else:
                             second_board.hit(user_input.get_move_coord(), player1_board)
-                    #TODO: only print board if another player is playing
-                    self.print_current_board(player1_board, second_board, game_state)
+                            self.print_current_board(player1_board, second_board, game_state)
                     second_board.score(player1_board)
-                    if second_board.allsunk: 
+                    if second_board.allsunk:
                         who_won = "cpu" if one_human else "player2"
                         game_state = "end_game"
                     else:
