@@ -146,9 +146,8 @@ class Battleship:
                         who_won = "ship_error"
                     # self.clear_screen()
                     if one_human:
-                        # TODO: WHY NOT JUST PASS THE WHOLE BOARD, NO NEED TO TRY TO
-                        # KEEP TRACK IN TWO DIFFRENT PLACES -AMA
-                        cpu_obj.add_opponent_coords(player1_board.getCoords())
+                        # REMOVED was causing issues and redundant -AMA
+                        # cpu_obj.add_opponent_coords(player1_board.getCoords())
                         cpu_obj.set_difficulty(difficulty)
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
@@ -182,7 +181,7 @@ class Battleship:
                         game_state = "player2"
                 case "player2":
                     if one_human:
-                        second_board.hit(cpu_obj.make_move(second_board), player1_board)
+                        second_board.hit(cpu_obj.make_move(second_board, player1_board), player1_board)
                         print("CPU HAS MADE A MOVE")
                     else:
                         if self.printMenu(player1_board, second_board, game_state) == 3:
