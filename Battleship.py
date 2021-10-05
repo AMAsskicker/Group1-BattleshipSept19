@@ -146,12 +146,14 @@ class Battleship:
                         who_won = "ship_error"
                     # self.clear_screen()
                     if one_human:
+                        # TODO: WHY NOT JUST PASS THE WHOLE BOARD, NO NEED TO TRY TO
+                        # KEEP TRACK IN TWO DIFFRENT PLACES -AMA
                         cpu_obj.add_opponent_coords(player1_board.getCoords())
                         cpu_obj.set_difficulty(difficulty)
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
                         print("CPU Ships Placed")
-                        # self.pause("PRESS ENTER TO CONTINUE...")
+                        self.pause("PRESS ENTER TO CONTINUE...")
                     else:
                         print("\n TIME FOR PLAYER 2 TO PLACE THEIR SHIPS \n")
                         if self.setup_user(second_board, total_ships):
@@ -161,7 +163,7 @@ class Battleship:
                             print("\n SHIP PLACE ERROR \n")
                             game_state = "end_game"
                             who_won = "ship_error"
-                    self.clear_screen_2_continue("player2")
+                        self.clear_screen_2_continue("player2")
                     game_state = "player1"
                 case "player1":
                     if self.printMenu(player1_board, second_board, game_state) == 3:
@@ -176,9 +178,8 @@ class Battleship:
                         who_won = "player1"
                         game_state = "end_game"
                     else:
-                        game_state = "player2"
                         self.clear_screen_2_continue(game_state)
-
+                        game_state = "player2"
                 case "player2":
                     if one_human:
                         second_board.hit(cpu_obj.make_move(second_board), player1_board)
@@ -196,8 +197,8 @@ class Battleship:
                         who_won = "cpu" if one_human else "player2"
                         game_state = "end_game"
                     else:
-                        game_state = "player1"
                         self.clear_screen_2_continue(game_state)
+                        game_state = "player1"
                 case "end_game":
                     self.number_of_games += 1
                     self.announce_winner(who_won)
