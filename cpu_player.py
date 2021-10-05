@@ -30,8 +30,7 @@ class CPU_Player :
         self.previous_moves = []
         #Keep coordinates for player 1
         self.opponent_coords = []
-        self.previous_moves.append((99, 99));
-        self.current_move = (99, 99);
+        self.current_move = []
         # track the totoal moves made, for parsing previous moves
         self.total_moves = 0;
         #Difficulty for CPU with 1 for easy, 2 for med, 3 for hard. 0 gets changed by set difficulty
@@ -68,6 +67,7 @@ class CPU_Player :
             print("Move made")
             self.total_moves += 1;
             return move #return early if cheat mode is activated
+
         if self.check_previous: #for medium dif
             # can prob do all these checks with one function
             #check above
@@ -79,7 +79,7 @@ class CPU_Player :
 
             fired = False
             if self.total_moves == 0:
-                x_guess = random.randrange(0,10) 
+                x_guess = random.randrange(0,10)
                 y_guess = random.randrange(0, 9)
                 guess_coord = [x_guess, y_guess]
                 fired = True
@@ -90,11 +90,11 @@ class CPU_Player :
             while not fired:
                 print(self.opponent_coords)
                 print(self.previous_moves[self.total_moves])
-                
+
                 if  self.previous_moves[self.total_moves] not in self.opponent_coords: #checks if previous move was a miss
                     #fires randomly
                     print("entering else")
-                    x_guess = random.randrange(0,10) 
+                    x_guess = random.randrange(0,10)
                     y_guess = random.randrange(0, 9)
                     guess_coord = [x_guess, y_guess]
                     if guess_coord not in self.previous_moves:
@@ -106,7 +106,7 @@ class CPU_Player :
                 #this goes up, down, right, left after previous move was a hit
                 #once hit it will strategically destroy the ship
                 #-MXO
-                else: 
+                else:
                     x_guess, y_guess = self.previous_moves[self.total_moves]
                     print (x_guess, ", ", y_guess)
                     guess_coord = [x_guess, y_guess + 1] #fires up
@@ -133,7 +133,7 @@ class CPU_Player :
                         self.previous_moves.append(guess_coord)
                         self.total_moves += 1
                         return guess_coord
-                    x_guess = random.randrange(0,10) 
+                    x_guess = random.randrange(0,10)
                     y_guess = random.randrange(0, 9)
                     guess_coord = [x_guess, y_guess]
                     fired = True
@@ -149,12 +149,12 @@ class CPU_Player :
             # if no hit, random number
             fired = False
             while not fired:
-                x_guess = random.randrange(0,10) 
+                x_guess = random.randrange(0,10)
                 y_guess = random.randrange(0, 9)
                 guess_coord = [x_guess, y_guess]
                 if guess_coord not in self.previous_moves:
                     fired = True
-                
+
 
             # TODO: remove later
             print("move to some random") # statifiy compiler
@@ -218,8 +218,8 @@ class CPU_Player :
         if dif == 3:
             self.cheat = True
         if dif == 2:
-            self.check_previous = True 
-    
+            self.check_previous = True
+
     #def set_ships(self, board):
     #TODO: Can be deleted? MT
         """
@@ -287,4 +287,4 @@ class CPU_Player :
         completed = True
         return completed
         #board.printBoard() #Test for CPU board
-        #pause("cpu TESTING")    
+        #pause("cpu TESTING")
