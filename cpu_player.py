@@ -39,7 +39,8 @@ class CPU_Player :
 # REMOVED, previous stated issues -AMA
         # self.opponent_coords = []
         # self.current_move = [] #UNUSED
-        self.total_moves = 0;
+# REMOVED: tracking in board for the scoreboard -AMA
+        # self.total_moves = 0;
         self.difficulty = 1;
         self.cheat = False
         print("cpu created")
@@ -75,7 +76,7 @@ class CPU_Player :
             #Guess from opponent array
             #Remove guess from array
             print("Move made")
-            self.total_moves += 1;
+            # self.total_moves += 1;
             return move #return early if cheat mode is activated
 
         if self.check_previous: # THIS NEVER GETS EXECUTED -AMA
@@ -88,21 +89,21 @@ class CPU_Player :
             #finished with this -MXO
             #TODO: Testing (works well so far however duplicate moves can be made)
             fired = False
-            if self.total_moves == 0:
+            if cpu_board.total_guess == 0:
                 # x_guess = random.randrange(0,10)
                 # y_guess = random.randrange(0, 9)
                 # guess_coord = [x_guess, y_guess]
                 guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                 fired = True
                 print("first cpu move")
-                self.total_moves += 1
+                # self.total_moves += 1
                 self.previous_moves.append(guess_coord)
                 return guess_coord
             while not fired:
                 # print(self.opponent_coords)
-                print(p1_board.shipObjects)
+                # print(p1_board.shipObjects)
                 # FIXED IndexError BELOW -AMA
-                print(self.previous_moves[self.total_moves - 1])
+                print(self.previous_moves[cpu_board.total_guess - 1])
                 # checks if previous move was a miss
                 # FIXED IndexError with removing index, check everything -AMA
                 # opponent_coords IS NOT TRACKING CORRECTLY, NEED TO REMOVE. -AMA
@@ -117,7 +118,7 @@ class CPU_Player :
                     if guess_coord not in self.previous_moves:
                         fired = True
                         print("fired is true")
-                    self.total_moves += 1
+                    # self.total_moves += 1
                     self.previous_moves.append(guess_coord)
                     return guess_coord
 
@@ -183,7 +184,7 @@ class CPU_Player :
 
             # TODO: remove later
             print("move to some random") # statifiy compiler
-            self.total_moves += 1;
+            # self.total_moves += 1;
             return guess_coord
         # check for previous move There
         # act accordingly

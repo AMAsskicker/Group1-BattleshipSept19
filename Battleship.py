@@ -113,6 +113,7 @@ class Battleship:
                         break
                 if setup_board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
                     setup_board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
+                    setup_board.printBoard()
                     print("   SHIP PLACED")
                     valid = True
                 else:

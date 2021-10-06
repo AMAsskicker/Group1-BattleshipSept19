@@ -54,7 +54,7 @@ class Scoreboard(object):
         """
         self.print_top_bot()
         print(self.print_player(is_cpu))
-        print(" || Ships Remaining  "+str(p1_ships)+" | | Ships Remaining  "+str(p2_ships)+" ||")
+        print(" || Ships Remaining  "+str(p2_ships)+" | | Ships Remaining  "+str(p1_ships)+" ||")
         print(self.format_hits(p1_hits, p2_hits))
         print(self.format_shots(p1_shots, p2_shots))
         print(self.format_games(p1_games, p2_games))

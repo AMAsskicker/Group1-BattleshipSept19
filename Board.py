@@ -183,7 +183,7 @@ class Board:
         """
 # TODO: WORKING,  NEEDS LOTS of TESTING -AMA
 # FIXED: move in same space, NEEDS MORE TESTING -AMA
-# ADDED: hit and total guess tracking, NEEDS MORE TESTING -AMA 
+# ADDED: hit and total guess tracking, NEEDS MORE TESTING -AMA
         test_case = {'X', 'M'}
         if self.guess_grid[coord_list[1]][coord_list[0]] in test_case:
             # print("ALREADY MADE MOVE THERE")
