@@ -124,6 +124,7 @@ class Board:
                     if self.waterGrid[start_y - start][start_x] not in checkArray:
                         bool = False
                 case 'D':
+# TODO: GETTING ERROR HERE: IndexError: list index out of range.  -AMA 
                     if self.waterGrid[start_y + start][start_x] not in checkArray:
                         bool = False
             start += 1
