@@ -402,8 +402,17 @@ class Battleship:
         :param who_2_announce: who won: player1, player2, cpu, user_exit
         :type who_2_announce: string
         """
-        print("The winner is: ", who_2_announce)
-        #print(who_2_announce)
+        match who_2_announce:
+            case "player1":
+                output_str = "Player 1"
+            case "player2":
+                output_str = "Player 2"
+            case "cpu":
+                output_str = "CPU"
+            case "user_exit":
+                print("USER HAS QUIT THE GAME")
+                return False
+        print("The winner is: ", output_str)
 
     def clear_screen(self):
         """
