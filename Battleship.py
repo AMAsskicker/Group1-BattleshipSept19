@@ -2,6 +2,7 @@
 from Board import *
 from cpu_player import CPU_Player
 from user_input import User_Input
+from scoreboard import Scoreboard
 from os import system, name
 # libs
 import string
@@ -26,11 +27,14 @@ class Battleship:
         battleship = Battleship()
         battleship.run()
 
-    :param number_of_games: number of games played
-    :type number_of_games: int
+    :param number_p1_wins: total p1 wins for program runtime
+    :type number_p1_wins: int
+    :param number_p2_wins: total p2 wins for program runtime
+    :type number_p2_wins: int
     """
     def __init__(self):
-        self.number_of_games = 0
+        self.number_p1_wins = 0
+        self.number_p2_wins = 0
 
     def setup_user(self, setup_board, numberShips):
         """
@@ -120,7 +124,7 @@ class Battleship:
 
         """
         run_game = True
-        one_human = False
+        # one_human = False
         game_state = "start"
         who_won = "none"
         # STATE MACHINE
@@ -132,8 +136,11 @@ class Battleship:
                     second_board = Board()
                     cpu_obj = CPU_Player()
                     user_input = User_Input()
-                    if self.is_cpu():
-                        one_human = True
+                    scoreboard = Scoreboard()
+                    one_human = self.is_cpu()
+                    # if self.is_cpu():
+                    #     one_human = True
+                    if one_human:
                         difficulty = user_input.get_difficulty()
                     game_state = "set_ships"
                 case "set_ships":
@@ -177,11 +184,21 @@ class Battleship:
                             print("\n ALREADY MOVED THERE! PLEASE GUESS AGAIN \n")
                             continue
                     self.print_current_board(player1_board, second_board, game_state)
-                    player1_board.score(second_board)
+                    # player1_board.score(second_board)
                     if player1_board.allsunk:
+                        self.number_p1_wins += 1
                         who_won = "player1"
                         game_state = "end_game"
                     else:
+                        scoreboard.printScoreboard( one_human,
+                                                    player1_board.points,
+                                                    player1_board.hits,
+                                                    player1_board.total_guess,
+                                                    self.number_p1_wins,
+                                                    second_board.points,
+                                                    second_board.hits,
+                                                    second_board.total_guess,
+                                                    self.number_p2_wins);
                         self.clear_screen_2_continue(game_state)
                         game_state = "player2"
                 case "player2":
@@ -197,18 +214,37 @@ class Battleship:
                         else:
                             second_board.hit(user_input.get_move_coord(), player1_board)
                             self.print_current_board(player1_board, second_board, game_state)
-                    second_board.score(player1_board)
+                    # second_board.score(player1_board)
                     if second_board.allsunk:
+                        self.number_p2_wins += 1
                         who_won = "cpu" if one_human else "player2"
                         game_state = "end_game"
                     else:
+                        scoreboard.printScoreboard( one_human,
+                                                    player1_board.points,
+                                                    player1_board.hits,
+                                                    player1_board.total_guess,
+                                                    self.number_p1_wins,
+                                                    second_board.points,
+                                                    second_board.hits,
+                                                    second_board.total_guess,
+                                                    self.number_p2_wins);
                         self.clear_screen_2_continue(game_state)
                         game_state = "player1"
                 case "end_game":
-                    self.number_of_games += 1
+                    print("              *****FINAL SCORE*****")
+                    scoreboard.printScoreboard( one_human,
+                                                player1_board.points,
+                                                player1_board.hits,
+                                                player1_board.total_guess,
+                                                self.number_p1_wins,
+                                                second_board.points,
+                                                second_board.hits,
+                                                second_board.total_guess,
+                                                self.number_p2_wins);
                     self.announce_winner(who_won)
                     if user_input.play_again():
-                        del player1_board, second_board, cpu_obj
+                        del player1_board, second_board, cpu_obj, scoreboard
                         try:
                             print(cpu_obj.difficulty)
                         except (NameError):

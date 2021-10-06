@@ -20,6 +20,10 @@ class Board:
     :param guess_grid: 2D player guess here
     :type guess_grid: list of list
     :param points: number ships remaining
+    :param total_guess: total shots taken
+    :type total_guess: int
+    :param hits: total hits in game
+    :type hits: int
     :param allsunk: True: all ships sunk, False: else
     :type allsunk: bool
     """
@@ -33,6 +37,8 @@ class Board:
         # initialize board to be all '*'\
         self.guess_grid = [['*' for col in range(10)] for row in range(9)]
         self.points = 0
+        self.hits = 0
+        self.total_guess = 0
         self.allsunk = False
 
     def printBoard(self):
@@ -177,6 +183,7 @@ class Board:
         """
 # TODO: WORKING,  NEEDS LOTS of TESTING -AMA
 # FIXED: move in same space, NEEDS MORE TESTING -AMA
+# ADDED: hit and total guess tracking, NEEDS MORE TESTING -AMA 
         test_case = {'X', 'M'}
         if self.guess_grid[coord_list[1]][coord_list[0]] in test_case:
             # print("ALREADY MADE MOVE THERE")
@@ -189,6 +196,8 @@ class Board:
                         compare_board.shipObjects[ship].change_current(coord_list, 'X')
                         self.guess_grid[coord_list[1]][coord_list[0]] = 'X'
                         compare_board.waterGrid[coord_list[1]][coord_list[0]] = 'X'
+                        self.hits += 1
+                        self.total_guess += 1
                         print("\n HIT! \n")
                         if compare_board.shipObjects[ship].is_sunk(0):
                             print("Ship is sunk!")
@@ -197,6 +206,7 @@ class Board:
                         return True
         self.guess_grid[coord_list[1]][coord_list[0]] = 'M'
         compare_board.waterGrid[coord_list[1]][coord_list[0]] = 'M'
+        self.total_guess += 1
         print("\n MISS! \n")
         return True
 
@@ -215,7 +225,7 @@ class Board:
         """
         Author MT
         :return _: players ship coordinates as 2d array
-        :rtype: list of coords 
+        :rtype: list of coords
         """
         coordinates = []
         workingCoord = []
