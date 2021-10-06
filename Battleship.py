@@ -81,34 +81,39 @@ class Battleship:
                         print("That's not a valid option! Please enter a number from 1 through 9.")
                 #check for valid orientation
                 while True:
-                    self.print_oreient_prompt_inst()
-                    orientInput = input()
-                    if orientInput.upper() in orientation:
-                        match orientInput.upper():
-                            case 'L':
-                                if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
-                            case 'R':
-                                if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
-                            case 'U':
-                                if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
-                            case 'D':
-                                if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
+                    if ship > 0:
+                        self.print_oreient_prompt_inst()
+                        orientInput = input()
+                        if orientInput.upper() in orientation:
+                            match orientInput.upper():
+                                case 'L':
+                                    if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                                case 'R':
+                                    if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                                case 'U':
+                                    if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                                case 'D':
+                                    if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                        else:
+                            print("Invalid direction for ship.")
                     else:
-                        print("Invalid direction for ship.")
+                        orientInput = 'L'
+                        break
                 if setup_board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
                     setup_board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
+                    print("   SHIP PLACED")
                     valid = True
                 else:
                     print("There is already a ship here, please reenter coordinates. ")
@@ -124,7 +129,6 @@ class Battleship:
 
         """
         run_game = True
-        # one_human = False
         game_state = "start"
         who_won = "none"
         # STATE MACHINE
@@ -138,8 +142,6 @@ class Battleship:
                     user_input = User_Input()
                     scoreboard = Scoreboard()
                     one_human = self.is_cpu()
-                    # if self.is_cpu():
-                    #     one_human = True
                     if one_human:
                         difficulty = user_input.get_difficulty()
                     game_state = "set_ships"
@@ -149,7 +151,10 @@ class Battleship:
                     if self.setup_user(player1_board, total_ships):
                         player1_board.printBoard()
                         print("\n PLAYER 1 HAS SETUP THEIR SHIPS \n")
-                        self.clear_screen_2_continue("player1")
+                        if one_human:
+                            self.pause("PRESS ENTER TO CONTINUE...")
+                        else:
+                            self.clear_screen_2_continue("player1")
                     else:
                         print("\n SHIP PLACE ERROR \n")
                         game_state = "end_game"
@@ -168,11 +173,11 @@ class Battleship:
                         if self.setup_user(second_board, total_ships):
                             second_board.printBoard()
                             print("\n PLAYER 2 HAS SETUP THEIR SHIPS \n")
+                            self.clear_screen_2_continue("player2")
                         else:
                             print("\n SHIP PLACE ERROR \n")
                             game_state = "end_game"
                             who_won = "ship_error"
-                        self.clear_screen_2_continue("player2")
                     game_state = "player1"
                 case "player1":
                     if self.printMenu(player1_board, second_board, game_state) == 3:
@@ -199,7 +204,10 @@ class Battleship:
                                                     second_board.hits,
                                                     second_board.total_guess,
                                                     self.number_p2_wins);
-                        self.clear_screen_2_continue(game_state)
+                        if one_human:
+                            self.pause("PRESS ENTER TO START CPU TURN.")
+                        else:
+                            self.clear_screen_2_continue(game_state)
                         game_state = "player2"
                 case "player2":
                     if one_human:
@@ -229,7 +237,10 @@ class Battleship:
                                                     second_board.hits,
                                                     second_board.total_guess,
                                                     self.number_p2_wins);
-                        self.clear_screen_2_continue(game_state)
+                        if one_human:
+                            self.pause(" PRESS ENTER TO START PLAYER 1 TURN")
+                        else:
+                            self.clear_screen_2_continue(game_state)
                         game_state = "player1"
                 case "end_game":
                     print("              *****FINAL SCORE*****")
@@ -338,7 +349,7 @@ class Battleship:
     def pause(self, prompt):
         """
         Pauses game until something is typed \n
-        Author: Michael & AMA (overload)
+        Author: Michael & AMA
 
         :param prompt: what message to print at input
         :type prompt: string
