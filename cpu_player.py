@@ -25,8 +25,6 @@ class CPU_Player :
 
     :param previous_moves:
     :type previous_moves: list of coords, [[x, y]]
-    :param total_moves: track the totoal moves made, for parsing previous moves
-    :type total_moves: int
     :param difficulty: difficulty for CPU with 1 for easy, 2 for med, 3 for hard. 0 gets changed by set difficulty
     :type difficulty: int
     :param cheat: True: if cheat is activated, False: else
@@ -35,17 +33,10 @@ class CPU_Player :
     def __init__ (self):
         # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
         self.previous_moves = []
-        #Keep coordinates for player 1
-# REMOVED, previous stated issues -AMA
-        # self.opponent_coords = []
-        # self.current_move = [] #UNUSED
-# REMOVED: tracking in board for the scoreboard -AMA
-        # self.total_moves = 0;
-        self.difficulty = 1;
+        self.difficulty = 0
         self.cheat = False
         print("cpu created")
 
-# TODO: ADDED 2nd Board, remove opponent_coords -AMA
     def make_move (self, cpu_board, p1_board):
         """
         Called when it is cpu turn in game. \n
@@ -59,16 +50,12 @@ class CPU_Player :
         :rtype: list of int, [x, y]
         """
         # check previous for a hits
-
         #author MT, if statement checks if cheat mode is activated, it is a little redundant now
         if self.cheat:
-            # print(self.opponent_coords)
             print(p1_board.shipObjects)
-            # for coord in self.opponent_coords:
             for coord in p1_board.getCoords():
                 if coord not in self.previous_moves:
                     self.previous_moves.append(coord)
-                    #self.opponent_coords.pop()
                     break
             else:
                 print("Empty list")
@@ -76,10 +63,9 @@ class CPU_Player :
             #Guess from opponent array
             #Remove guess from array
             print("Move made")
-            # self.total_moves += 1;
             return move #return early if cheat mode is activated
 
-        if self.check_previous: # THIS NEVER GETS EXECUTED -AMA
+        if self.difficulty == 2:
             # can prob do all these checks with one function
             #check above
             #check below
@@ -90,35 +76,21 @@ class CPU_Player :
             #TODO: Testing (works well so far however duplicate moves can be made)
             fired = False
             if cpu_board.total_guess == 0:
-                # x_guess = random.randrange(0,10)
-                # y_guess = random.randrange(0, 9)
-                # guess_coord = [x_guess, y_guess]
                 guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                 fired = True
                 print("first cpu move")
-                # self.total_moves += 1
                 self.previous_moves.append(guess_coord)
                 return guess_coord
             while not fired:
-                # print(self.opponent_coords)
-                # print(p1_board.shipObjects)
-                # FIXED IndexError BELOW -AMA
                 print(self.previous_moves[cpu_board.total_guess - 1])
                 # checks if previous move was a miss
-                # FIXED IndexError with removing index, check everything -AMA
-                # opponent_coords IS NOT TRACKING CORRECTLY, NEED TO REMOVE. -AMA
-                # if self.previous_moves[self.total_moves] not in self.opponent_coords:
-                if  self.previous_moves not in p1_board.shipObjects:
+                if  self.previous_moves not in p1_board.shipObjects.getCoords:
                     #fires randomly
                     print("entering else")
-                    # x_guess = random.randrange(0,10)
-                    # y_guess = random.randrange(0, 9)
-                    # guess_coord = [x_guess, y_guess]
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     if guess_coord not in self.previous_moves:
                         fired = True
                         print("fired is true")
-                    # self.total_moves += 1
                     self.previous_moves.append(guess_coord)
                     return guess_coord
 
@@ -128,43 +100,31 @@ class CPU_Player :
                 #-MXO
                 else:
                     # TODO: assining a list to what youre using as an int  -AMA
-                    x_guess, y_guess = self.previous_moves[self.total_moves]
+                    x_guess, y_guess = self.previous_moves[cpu_board.total_guess]
                     print (x_guess, ", ", y_guess)
                     guess_coord = [x_guess, y_guess + 1] #fires up
-                    # if (guess_coord not in self.previous_moves and guess_coord in self.opponent_coords):
                     if (guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects):
                         fired = True
                         self.previous_moves.append(guess_coord)
-                        self.total_moves += 1
                         return guess_coord
                     guess_coord = [x_guess, y_guess - 1] #fires down
-                    # if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
                     if guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects:
                         fired = True
                         self.previous_moves.append(guess_coord)
-                        self.total_moves += 1
                         return guess_coord
                     guess_coord = [x_guess + 1, y_guess] #fires right
-                    # if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
                     if guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects:
                         fired = True
                         self.previous_moves.append(guess_coord)
-                        self.total_moves += 1
                         return guess_coord
                     guess_coord = [x_guess - 1, y_guess] #fires left
-                    # if guess_coord not in self.previous_moves and guess_coord in self.opponent_coords:
                     if guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects:
                         fired = True
                         self.previous_moves.append(guess_coord)
-                        self.total_moves += 1
                         return guess_coord
-                    # x_guess = random.randrange(0,10)
-                    # y_guess = random.randrange(0, 9)
-                    # guess_coord = [x_guess, y_guess]
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     fired = True
                     print("first cpu move")
-                    self.total_moves += 1
                     self.previous_moves.append(guess_coord)
                     return guess_coord
             # TODO: remove later
@@ -184,16 +144,10 @@ class CPU_Player :
 
             # TODO: remove later
             print("move to some random") # statifiy compiler
-            # self.total_moves += 1;
             return guess_coord
-        # check for previous move There
-        # act accordingly
-
-        if True:
-            # TODO: remove later
-            print("MOVE MADE")
-        # increment move
-        #self.total_moves += 1;
+        # if True:
+        #     # TODO: remove later
+        #     print("MOVE MADE")
 
     def check_previous (self, control):
         """
@@ -210,17 +164,6 @@ class CPU_Player :
         if control > some_num:
             return [0, 0]
 
-# TODO: WILL BE REMOVED
-    # def add_opponent_coords(self, opp_coords):
-    #     """
-    #     Adds player 1 coordinates to array to allow for guessing. \n
-    #     Author: Michael Talaga
-    #
-    #     :param opp_coords: 2d array of coords
-    #     :type opp_coords: list of int, [x, y]
-    #     """
-    #     self.opponent_coords = opp_coords
-
     def set_difficulty(self, dif):
         """
         Sets difficulty for CPU \n
@@ -232,8 +175,6 @@ class CPU_Player :
         self.difficulty = dif
         if dif == 3:
             self.cheat = True
-        if dif == 2:
-            self.check_previous = True
 
     def set_ships(self, board, numberShips):
         """
