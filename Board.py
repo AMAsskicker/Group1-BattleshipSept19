@@ -106,29 +106,32 @@ class Board:
         :return True: if placement is valid
         :return False: if invalid placement
         """
-        start = 0
-        bool = True
+        bool_rtn = True
         orient = orient.upper();
         # Added a check array to shorten if statements MT
-        checkArray = [' ', 'O', '*', '1', '2', '3', '4', '5']
-        while start < length:
-        # changed to match-case from if-else AMA 9-26-2021
-            match orient:
-                case 'L':
-                    if self.waterGrid[start_y][start_x - start] not in checkArray:
-                        bool = False
-                case 'R':
-                    if self.waterGrid[start_y][start_x + start]not in checkArray:
-                        bool = False
-                case 'U':
-                    if self.waterGrid[start_y - start][start_x] not in checkArray:
-                        bool = False
-                case 'D':
-# TODO: GETTING ERROR HERE: IndexError: list index out of range.  -AMA 
-                    if self.waterGrid[start_y + start][start_x] not in checkArray:
-                        bool = False
-            start += 1
-        return bool
+        checkArray = [' ', 'O', '*', '1', '2', '3', '4', '5', 6]
+        for start in range(length):
+            try:
+                # changed to match-case from if-else AMA 9-26-2021
+                match orient:
+# TODO: maybe FIXED: need to test more.  added try except for the match statement,
+# was getting an index error.  also change to for loop
+# TODO: NEEDS MORE TESTING TO SEE IF ANY OF MY FIXES BROKE SOMETHING ELSE. -AMA
+                    case 'L':
+                        if self.waterGrid[start_y][start_x - start] not in checkArray:
+                            bool_rtn = False
+                    case 'R':
+                        if self.waterGrid[start_y][start_x + start] not in checkArray:
+                            bool_rtn = False
+                    case 'U':
+                        if self.waterGrid[start_y - start][start_x] not in checkArray:
+                            bool_rtn = False
+                    case 'D':
+                        if self.waterGrid[start_y + start][start_x] not in checkArray:
+                            bool_rtn = False
+            except (IndexError):
+                bool_rtn = False
+        return bool_rtn
 
     def createShip(self, start_x, start_y, orient, length, shipnumber):
         """
