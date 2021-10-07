@@ -45,6 +45,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cpu_player.html">CPU_Player Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ship.html">Ship Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_input.html">User_Input Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scoreboard.html">Scoreboard Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="work_cited.html">Works Cited</a></li>
 </ul>
@@ -85,6 +86,14 @@
 <span class="n">battleship</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>number_p1_wins</strong> (<em>int</em>) – total p1 wins for program runtime</p></li>
+<li><p><strong>number_p2_wins</strong> (<em>int</em>) – total p2 wins for program runtime</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="Battleship.Battleship.announce_winner">
 <span class="sig-name descname"><span class="pre">announce_winner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">who_2_announce</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Battleship.Battleship.announce_winner" title="Permalink to this definition">¶</a></dt>
@@ -135,7 +144,7 @@
 <dt class="sig sig-object py" id="Battleship.Battleship.pause">
 <span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Battleship.Battleship.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pauses game until something is typed</p>
-<p>Author: Michael &amp; AMA (overload)</p>
+<p>Author: Michael &amp; AMA</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>prompt</strong> (<em>string</em>) – what message to print at input</p>
@@ -193,23 +202,6 @@
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Battleship.Battleship.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main gameplay state machine. Calls functions as needed</p>
 <p>Autor: AMA Date: sept 27 2021</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Battleship.Battleship.setup_CPU">
-<span class="sig-name descname"><span class="pre">setup_CPU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberShips</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Battleship.Battleship.setup_CPU" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates CPU board (Designed like setup_user seen above but uses random for placement of ship)</p>
-<p>Author: Michael Talaga</p>
-<p>Pre: board object must have correct properties; numberShips must be in the proper range, 1 to 6</p>
-<p>Post: Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – a newly-instantiated blank board object for creating game data for CPU</p></li>
-<li><p><strong>numberShips</strong> (<em>int</em>) – the number of ships that each player will have for a game</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">

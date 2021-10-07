@@ -24,6 +24,10 @@ class Ship:
     :type ship_num: int
     :param direction: direcion ship is placed with respect to first square
     :type direction: chr
+    :param coord_list: list of [x: int, y: int, current: chr]
+    :type coord_list: list of list
+    :param raw_coords: list of [x: int, y: int]
+    :type raw_coords: list of coords
     """
     def __init__(self, ship_num, direction):
         self.ship_num = ship_num
@@ -44,7 +48,7 @@ class Ship:
         :return False: else
         """
         temp = [coords[0], coords[1], current_value]
-        
+
         try:
             self.coord_list.append(temp)
             self.raw_coords.append([coords[0], coords[1]]) #Added by MT
@@ -63,12 +67,12 @@ class Ship:
         :rtype: list of int, [x, y]
         """
         return [self.coord_list[position][0], self.coord_list[position][1]]
-    
+
     def get_raw_coords(self):
-        """
-        :Author MT
-        :param none
-        :return 2d array of ship coords as [x, y]
+        """ Author: MT
+
+        :return _: 2d array of ship coords as [x, y]
+        :rtype: list of coords, [[x, y]]
         """
         return self.raw_coords
 
@@ -125,6 +129,6 @@ class Ship:
         return ship number
 
         :return _: current ship number
-        :rtype: int 
+        :rtype: int
         """
         return self.ship_num

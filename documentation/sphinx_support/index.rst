@@ -16,6 +16,7 @@ Welcome to Battleship's Project 2 documentation!
    cpu_player
    ship
    user_input
+   scoreboard
    support
    work_cited
 

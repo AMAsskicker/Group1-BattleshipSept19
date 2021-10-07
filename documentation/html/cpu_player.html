@@ -45,6 +45,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">CPU_Player Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ship.html">Ship Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_input.html">User_Input Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scoreboard.html">Scoreboard Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="work_cited.html">Works Cited</a></li>
 </ul>
@@ -85,62 +86,44 @@
 <span class="n">cpu_obj</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="py method">
-<dt class="sig sig-object py" id="cpu_player.CPU_Player.add_opponent_coords">
-<span class="sig-name descname"><span class="pre">add_opponent_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opp_coords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.add_opponent_coords" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds player 1 coordinates to array to allow for guessing.</p>
-<p>Author: Michael Talaga</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>opp_coords</strong> (<em>list of int</em><em>, </em><em>[</em><em>x</em><em>, </em><em>y</em><em>]</em>) – 2d array of coords</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cpu_player.CPU_Player.check_previous">
-<span class="sig-name descname"><span class="pre">check_previous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.check_previous" title="Permalink to this definition">¶</a></dt>
-<dd><p>checks previous move for a hit.
-By:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return True</dt>
-<dd class="field-odd"><p>if previous move was a hit</p>
-</dd>
-<dt class="field-even">Return False</dt>
-<dd class="field-even"><p>else</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cpu_player.CPU_Player.isValid_move">
-<span class="sig-name descname"><span class="pre">isValid_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game_board</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">move_2_check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.isValid_move" title="Permalink to this definition">¶</a></dt>
-<dd><p>checks if a move has been made to space passed
-By:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>game_board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – Board object to check move against</p></li>
-<li><p><strong>move_2_check</strong> (<em>list of int</em>) – list, x,y fomat to check</p></li>
+<li><p><strong>previous_moves</strong> (<em>list of coords</em><em>, </em><em>[</em><em>[</em><em>x</em><em>, </em><em>y</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>difficulty</strong> (<em>int</em>) – difficulty for CPU with 1 for easy, 2 for med, 3 for hard. 0 gets changed by set difficulty</p></li>
+<li><p><strong>cheat</strong> (<em>bool</em>) – True: if cheat is activated, False: else</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return True</dt>
-<dd class="field-even"><p>if move is valid</p>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cpu_player.CPU_Player.check_previous">
+<span class="sig-name descname"><span class="pre">check_previous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">control</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.check_previous" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks previous move for a hit then returns move accordingly</p>
+<p>By: MXO &amp; DS &amp; MM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>control</strong> (<em>int</em>) – recursive control variable</p>
 </dd>
-<dt class="field-odd">Return False</dt>
-<dd class="field-odd"><p>else</p>
+<dt class="field-even">Return _</dt>
+<dd class="field-even"><p>move to make</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of int, [x, y]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cpu_player.CPU_Player.make_move">
-<span class="sig-name descname"><span class="pre">make_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpu_board</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.make_move" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">make_move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpu_board</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p1_board</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.make_move" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when it is cpu turn in game.</p>
 <p>By: AMA &amp; MT &amp; …</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>cpu_board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – Board object to use for making move</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cpu_board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – Board object to use for making move</p></li>
+<li><p><strong>p1_board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – player 1 board to read data from</p></li>
+</ul>
 </dd>
 <dt class="field-even">Return coords</dt>
 <dd class="field-even"><p>list/tuple of move to make</p>
@@ -158,25 +141,24 @@ By:</p>
 <p>Author: Michael Talaga</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dif</strong> (<em>int</em>) – integer from 1-3</p>
+<dd class="field-odd"><p><strong>dif</strong> (<em>int</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cpu_player.CPU_Player.set_ships">
-<span class="sig-name descname"><span class="pre">set_ships</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.set_ships" title="Permalink to this definition">¶</a></dt>
-<dd><p>sets ships at the start of the game</p>
-<p>Author: xxx Date: xx xx xx</p>
+<span class="sig-name descname"><span class="pre">set_ships</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">board</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numberShips</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cpu_player.CPU_Player.set_ships" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates CPU board (Designed like setup_user seen above but uses random for placement of ship)</p>
+<p>Author: Michael Talaga</p>
+<p>Pre: board object must have correct properties; numberShips must be in the proper range, 1 to 6</p>
+<p>Post: Ships are created if the ship location and orientation satisfies the boundaries and collision requirements, and then CPU board object will have the ships included on it</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – Board obj to set ships in</p>
-</dd>
-<dt class="field-even">Return True</dt>
-<dd class="field-even"><p>ships are set</p>
-</dd>
-<dt class="field-odd">Return False</dt>
-<dd class="field-odd"><p>else</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>board</strong> (<a class="reference internal" href="Board.html#Board.Board" title="Board.Board"><em>Board</em></a>) – a newly-instantiated blank board object for creating game data for CPU</p></li>
+<li><p><strong>numberShips</strong> (<em>int</em>) – the number of ships that each player will have for a game</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

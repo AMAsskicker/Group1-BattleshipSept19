@@ -2,6 +2,7 @@
 from Board import *
 from cpu_player import CPU_Player
 from user_input import User_Input
+from scoreboard import Scoreboard
 from os import system, name
 # libs
 import string
@@ -25,9 +26,15 @@ class Battleship:
 
         battleship = Battleship()
         battleship.run()
+
+    :param number_p1_wins: total p1 wins for program runtime
+    :type number_p1_wins: int
+    :param number_p2_wins: total p2 wins for program runtime
+    :type number_p2_wins: int
     """
     def __init__(self):
-        self.number_of_games = 0
+        self.number_p1_wins = 0
+        self.number_p2_wins = 0
 
     def setup_user(self, setup_board, numberShips):
         """
@@ -74,34 +81,40 @@ class Battleship:
                         print("That's not a valid option! Please enter a number from 1 through 9.")
                 #check for valid orientation
                 while True:
-                    self.print_oreient_prompt_inst()
-                    orientInput = input()
-                    if orientInput.upper() in orientation:
-                        match orientInput.upper():
-                            case 'L':
-                                if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
-                            case 'R':
-                                if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
-                            case 'U':
-                                if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
-                            case 'D':
-                                if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
-                                    break
-                                else:
-                                    print("The ship will not fit here!")
+                    if ship > 0:
+                        self.print_oreient_prompt_inst()
+                        orientInput = input()
+                        if orientInput.upper() in orientation:
+                            match orientInput.upper():
+                                case 'L':
+                                    if ((ship - 1 <= start_x_num) and (start_x_num - shipLenTrack >= 0)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                                case 'R':
+                                    if ((ship + start_x_num <= 10) and (start_x_num + shipLenTrack <= 10)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                                case 'U':
+                                    if ((ship - 1 <= start_y_num) and (start_y_num - shipLenTrack >= 0)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                                case 'D':
+                                    if ((ship + start_y_num <= 9) and (start_y_num + shipLenTrack <= 9)):
+                                        break
+                                    else:
+                                        print("The ship will not fit here!")
+                        else:
+                            print("Invalid direction for ship.")
                     else:
-                        print("Invalid direction for ship.")
+                        orientInput = 'L'
+                        break
                 if setup_board.isShipValid(orientInput, start_x_num, start_y_num, ship + 1):
                     setup_board.createShip(start_x_num, start_y_num, orientInput, ship + 1, ship + 1)
+                    setup_board.printBoard()
+                    print("   SHIP PLACED")
                     valid = True
                 else:
                     print("There is already a ship here, please reenter coordinates. ")
@@ -117,7 +130,6 @@ class Battleship:
 
         """
         run_game = True
-        one_human = False
         game_state = "start"
         who_won = "none"
         # STATE MACHINE
@@ -129,8 +141,9 @@ class Battleship:
                     second_board = Board()
                     cpu_obj = CPU_Player()
                     user_input = User_Input()
-                    if self.is_cpu():
-                        one_human = True
+                    scoreboard = Scoreboard()
+                    one_human = self.is_cpu()
+                    if one_human:
                         difficulty = user_input.get_difficulty()
                     game_state = "set_ships"
                 case "set_ships":
@@ -139,14 +152,18 @@ class Battleship:
                     if self.setup_user(player1_board, total_ships):
                         player1_board.printBoard()
                         print("\n PLAYER 1 HAS SETUP THEIR SHIPS \n")
-                        self.clear_screen_2_continue("player1")
+                        if one_human:
+                            self.pause("PRESS ENTER TO CONTINUE...")
+                        else:
+                            self.clear_screen_2_continue("player1")
                     else:
                         print("\n SHIP PLACE ERROR \n")
                         game_state = "end_game"
                         who_won = "ship_error"
                     # self.clear_screen()
                     if one_human:
-                        cpu_obj.add_opponent_coords(player1_board.getCoords())
+                        # REMOVED was causing issues and redundant -AMA
+                        # cpu_obj.add_opponent_coords(player1_board.getCoords())
                         cpu_obj.set_difficulty(difficulty)
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
@@ -157,11 +174,11 @@ class Battleship:
                         if self.setup_user(second_board, total_ships):
                             second_board.printBoard()
                             print("\n PLAYER 2 HAS SETUP THEIR SHIPS \n")
+                            self.clear_screen_2_continue("player2")
                         else:
                             print("\n SHIP PLACE ERROR \n")
                             game_state = "end_game"
                             who_won = "ship_error"
-                    self.clear_screen_2_continue("player2")
                     game_state = "player1"
                 case "player1":
                     if self.printMenu(player1_board, second_board, game_state) == 3:
@@ -169,19 +186,34 @@ class Battleship:
                         game_state = "end_game"
                         continue
                     else:
-                        player1_board.hit(user_input.get_move_coord(), second_board)
+                        if not player1_board.hit(user_input.get_move_coord(), second_board):
+                            print("\n ALREADY MOVED THERE! PLEASE GUESS AGAIN \n")
+                            continue
                     self.print_current_board(player1_board, second_board, game_state)
-                    player1_board.score(second_board)
+                    # player1_board.score(second_board)
                     if player1_board.allsunk:
+                        self.number_p1_wins += 1
                         who_won = "player1"
                         game_state = "end_game"
                     else:
+                        scoreboard.printScoreboard( one_human,
+                                                    player1_board.points,
+                                                    player1_board.hits,
+                                                    player1_board.total_guess,
+                                                    self.number_p1_wins,
+                                                    second_board.points,
+                                                    second_board.hits,
+                                                    second_board.total_guess,
+                                                    self.number_p2_wins);
+                        if one_human:
+                            self.pause("PRESS ENTER TO START CPU TURN.")
+                        else:
+                            self.clear_screen_2_continue(game_state)
                         game_state = "player2"
-                        self.clear_screen_2_continue(game_state)
-
                 case "player2":
                     if one_human:
-                        second_board.hit(cpu_obj.make_move(second_board), player1_board)
+                        if not second_board.hit(cpu_obj.make_move(second_board, player1_board), player1_board):
+                            continue
                         print("CPU HAS MADE A MOVE")
                     else:
                         if self.printMenu(player1_board, second_board, game_state) == 3:
@@ -190,20 +222,41 @@ class Battleship:
                             continue
                         else:
                             second_board.hit(user_input.get_move_coord(), player1_board)
-                    #TODO: only print board if another player is playing
-                    self.print_current_board(player1_board, second_board, game_state)
-                    second_board.score(player1_board)
-                    if second_board.allsunk: 
+                            self.print_current_board(player1_board, second_board, game_state)
+                    # second_board.score(player1_board)
+                    if second_board.allsunk:
+                        self.number_p2_wins += 1
                         who_won = "cpu" if one_human else "player2"
                         game_state = "end_game"
                     else:
+                        scoreboard.printScoreboard( one_human,
+                                                    player1_board.points,
+                                                    player1_board.hits,
+                                                    player1_board.total_guess,
+                                                    self.number_p1_wins,
+                                                    second_board.points,
+                                                    second_board.hits,
+                                                    second_board.total_guess,
+                                                    self.number_p2_wins);
+                        if one_human:
+                            self.pause(" PRESS ENTER TO START PLAYER 1 TURN")
+                        else:
+                            self.clear_screen_2_continue(game_state)
                         game_state = "player1"
-                        self.clear_screen_2_continue(game_state)
                 case "end_game":
-                    self.number_of_games += 1
+                    print("              *****FINAL SCORE*****")
+                    scoreboard.printScoreboard( one_human,
+                                                player1_board.points,
+                                                player1_board.hits,
+                                                player1_board.total_guess,
+                                                self.number_p1_wins,
+                                                second_board.points,
+                                                second_board.hits,
+                                                second_board.total_guess,
+                                                self.number_p2_wins);
                     self.announce_winner(who_won)
                     if user_input.play_again():
-                        del player1_board, second_board, cpu_obj
+                        del player1_board, second_board, cpu_obj, scoreboard
                         try:
                             print(cpu_obj.difficulty)
                         except (NameError):
@@ -297,7 +350,7 @@ class Battleship:
     def pause(self, prompt):
         """
         Pauses game until something is typed \n
-        Author: Michael & AMA (overload)
+        Author: Michael & AMA
 
         :param prompt: what message to print at input
         :type prompt: string
@@ -349,8 +402,17 @@ class Battleship:
         :param who_2_announce: who won: player1, player2, cpu, user_exit
         :type who_2_announce: string
         """
-        print("The winner is: ", who_2_announce)
-        #print(who_2_announce)
+        match who_2_announce:
+            case "player1":
+                output_str = "Player 1"
+            case "player2":
+                output_str = "Player 2"
+            case "cpu":
+                output_str = "CPU"
+            case "user_exit":
+                print("USER HAS QUIT THE GAME")
+                return False
+        print("The winner is: ", output_str)
 
     def clear_screen(self):
         """
@@ -379,15 +441,15 @@ class Battleship:
         """
         match turn:
             case "player1":
-                print("     OPPONET/MOVES MADE BOARD:")
+                print("             MOVES MADE")
                 board1.printOpp()
-                print("\n         PLAYER 1 BOARD:")
+                print("\n         PLAYER 1 BOARD")
                 board1.printBoard()
                 # print("\n")
             case "player2":
-                print("         OPPONENT BOARD:")
+                print("             MOVES MADE")
                 board2.printOpp()
-                print("\n         PLAYER 2/CPU BOARD:")
+                print("\n         PLAYER 2/CPU BOARD")
                 board2.printBoard()
                 # print("\n")
 

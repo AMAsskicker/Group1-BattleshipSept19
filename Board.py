@@ -12,6 +12,20 @@ class Board:
 
         some_board = Board()
         some_board._(_)
+
+    :param shipObjects: ``Ships`` placed by user/cpu
+    :type shipObjects: Ship
+    :param waterGrid: 2D player ships & opponent guess here
+    :type waterGrid: list of list
+    :param guess_grid: 2D player guess here
+    :type guess_grid: list of list
+    :param points: number ships remaining
+    :param total_guess: total shots taken
+    :type total_guess: int
+    :param hits: total hits in game
+    :type hits: int
+    :param allsunk: True: all ships sunk, False: else
+    :type allsunk: bool
     """
     def __init__(self):
         # list of ships placed by user
@@ -21,8 +35,10 @@ class Board:
         # initialize board to be all ' '
         self.waterGrid = [[' ' for col in range(10)] for row in range(9)]
         # initialize board to be all '*'\
-        self.oppGrid = [['*' for col in range(10)] for row in range(9)]
+        self.guess_grid = [['*' for col in range(10)] for row in range(9)]
         self.points = 0
+        self.hits = 0
+        self.total_guess = 0
         self.allsunk = False
 
     def printBoard(self):
@@ -48,7 +64,7 @@ class Board:
         """
         Prints the opponent player's game board with a border to mark coordinates
         (A-J for columns and 1-9 for rows). The printed board hides all the ships
-        because it uses the oppGrid 2D array for printing data.
+        because it uses the guess_grid 2D array for printing data.
         """
         topOfBoard = [' ', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
         # print top of board
@@ -60,7 +76,7 @@ class Board:
         for row in range(9):
             print(row+1, " ", end = " ")
             for col in range(10):
-                print(self.oppGrid[row][col], " ", end = "")
+                print(self.guess_grid[row][col], " ", end = "")
             print()
 
     # def checkShipOverlap(self, x, y, len, orient):
@@ -108,6 +124,7 @@ class Board:
                     if self.waterGrid[start_y - start][start_x] not in checkArray:
                         bool = False
                 case 'D':
+# TODO: GETTING ERROR HERE: IndexError: list index out of range.  -AMA 
                     if self.waterGrid[start_y + start][start_x] not in checkArray:
                         bool = False
             start += 1
@@ -160,31 +177,39 @@ class Board:
 
         :param coord_list: [X,Y]
         :type coord_list: list of int
-        :param compare_board: Board object to check ship placement vs move 
+        :param compare_board: Board object to check ship placement vs move
         :type compare_board: Board
         :return True: if move is a hit
         :return False: else
         """
 # TODO: WORKING,  NEEDS LOTS of TESTING -AMA
-# TODO: HAVE ERROR WHERE CAN MAKE MOVE TO SAME SPOT OVER AND OVER -AMA WILL FIX
+# FIXED: move in same space, NEEDS MORE TESTING -AMA
+# ADDED: hit and total guess tracking, NEEDS MORE TESTING -AMA
+        test_case = {'X', 'M'}
+        if self.guess_grid[coord_list[1]][coord_list[0]] in test_case:
+            # print("ALREADY MADE MOVE THERE")
+            return False
         for ship in range(len(compare_board.shipObjects)):
             control = compare_board.shipObjects[ship].get_num()
             for square in range(control):
                 if compare_board.shipObjects[ship].get_coord(square) == coord_list:
                     if compare_board.shipObjects[ship].get_current(coord_list) == control:
                         compare_board.shipObjects[ship].change_current(coord_list, 'X')
-                        self.oppGrid[coord_list[1]][coord_list[0]] = 'X'
+                        self.guess_grid[coord_list[1]][coord_list[0]] = 'X'
                         compare_board.waterGrid[coord_list[1]][coord_list[0]] = 'X'
+                        self.hits += 1
+                        self.total_guess += 1
                         print("\n HIT! \n")
                         if compare_board.shipObjects[ship].is_sunk(0):
                             print("Ship is sunk!")
                             self.points -= 1
                             self.allsunk = True if self.points == 0 else False
                         return True
-        self.oppGrid[coord_list[1]][coord_list[0]] = 'M'
+        self.guess_grid[coord_list[1]][coord_list[0]] = 'M'
         compare_board.waterGrid[coord_list[1]][coord_list[0]] = 'M'
+        self.total_guess += 1
         print("\n MISS! \n")
-        return False
+        return True
 
     def score(self, opponent_board):
         """
@@ -195,12 +220,13 @@ class Board:
         :type opponent_board: Board
         """
         print("\n Player 1 Ships Remaining: " + str(self.points))
-        print("Player 2 Ships Remaining: " + str(opponent_board.points))
+        print(" Player 2 Ships Remaining: " + str(opponent_board.points))
 
     def getCoords(self):
         """
         Author MT
-        Returns player coordinates as 2d array
+        :return _: players ship coordinates as 2d array
+        :rtype: list of coords
         """
         coordinates = []
         workingCoord = []

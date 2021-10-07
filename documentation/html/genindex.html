@@ -42,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cpu_player.html">CPU_Player Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ship.html">Ship Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_input.html">User_Input Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scoreboard.html">Scoreboard Module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="work_cited.html">Works Cited</a></li>
 </ul>
@@ -93,8 +94,6 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="cpu_player.html#cpu_player.CPU_Player.add_opponent_coords">add_opponent_coords() (cpu_player.CPU_Player method)</a>
-</li>
       <li><a href="battleship.html#Battleship.Battleship.announce_winner">announce_winner() (Battleship.Battleship method)</a>
 </li>
   </ul></td>
@@ -160,13 +159,19 @@
 </li>
       <li><a href="ship.html#ship.Ship.get_current">get_current() (ship.Ship method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="user_input.html#user_input.User_Input.get_difficulty">get_difficulty() (user_input.User_Input method)</a>
+</li>
       <li><a href="user_input.html#user_input.User_Input.get_move_coord">get_move_coord() (user_input.User_Input method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ship.html#ship.Ship.get_num">get_num() (ship.Ship method)</a>
 </li>
       <li><a href="user_input.html#user_input.User_Input.get_num_ships">get_num_ships() (user_input.User_Input method)</a>
+</li>
+      <li><a href="ship.html#ship.Ship.get_raw_coords">get_raw_coords() (ship.Ship method)</a>
+</li>
+      <li><a href="Board.html#Board.Board.getCoords">getCoords() (Board.Board method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -184,13 +189,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="battleship.html#Battleship.Battleship.is_cpu">is_cpu() (Battleship.Battleship method)</a>
 </li>
-      <li><a href="ship.html#ship.Ship.is_sunk">is_sunk() (ship.Ship method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="Board.html#Board.Board.isShipValid">isShipValid() (Board.Board method)</a>
+      <li><a href="ship.html#ship.Ship.is_sunk">is_sunk() (ship.Ship method)</a>
 </li>
-      <li><a href="cpu_player.html#cpu_player.CPU_Player.isValid_move">isValid_move() (cpu_player.CPU_Player method)</a>
+      <li><a href="Board.html#Board.Board.isShipValid">isShipValid() (Board.Board method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -209,6 +212,8 @@
         <li><a href="Board.html#module-Board">Board</a>
 </li>
         <li><a href="cpu_player.html#module-cpu_player">cpu_player</a>
+</li>
+        <li><a href="scoreboard.html#module-scoreboard">scoreboard</a>
 </li>
         <li><a href="ship.html#module-ship">ship</a>
 </li>
@@ -239,6 +244,8 @@
 </li>
       <li><a href="Board.html#Board.Board.printOpp">printOpp() (Board.Board method)</a>
 </li>
+      <li><a href="scoreboard.html#scoreboard.Scoreboard.printScoreboard">printScoreboard() (scoreboard.Scoreboard method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -255,14 +262,21 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="Board.html#Board.Board.score">score() (Board.Board method)</a>
 </li>
+      <li>
+    scoreboard
+
+      <ul>
+        <li><a href="scoreboard.html#module-scoreboard">module</a>
+</li>
+      </ul></li>
+      <li><a href="scoreboard.html#scoreboard.Scoreboard">Scoreboard (class in scoreboard)</a>
+</li>
       <li><a href="cpu_player.html#cpu_player.CPU_Player.set_difficulty">set_difficulty() (cpu_player.CPU_Player method)</a>
-</li>
-      <li><a href="cpu_player.html#cpu_player.CPU_Player.set_ships">set_ships() (cpu_player.CPU_Player method)</a>
-</li>
-      <li><a href="battleship.html#Battleship.Battleship.setup_CPU">setup_CPU() (Battleship.Battleship method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="cpu_player.html#cpu_player.CPU_Player.set_ships">set_ships() (cpu_player.CPU_Player method)</a>
+</li>
       <li><a href="battleship.html#Battleship.Battleship.setup_user">setup_user() (Battleship.Battleship method)</a>
 </li>
       <li>
