@@ -1,9 +1,9 @@
 Accounting:
           9/20  9/21  9/22  9/23  9/24  9/25  9/26  9/27  9/28  9/29  9/30  10/1  10/2  10/3  10/4  10/5  10/6  10/7  10/8  10/9  10/10
-Adam:
+Adam:			     1     1		5	    3     3     3    0.5    6     1
 Divya:
 Mason:
-Michael:
+Michael:			   0.5          5					 3.5                    0.2
 Morgan:     .5                                                                      2     1
 
 Estimate of person-hours: 40
