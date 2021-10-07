@@ -50,20 +50,22 @@ class CPU_Player :
         :rtype: list of int, [x, y]
         """
         # check previous for a hits
-        #author MT, if statement checks if cheat mode is activated, it is a little redundant now
+        #if statement checks if cheat mode is activated, it is a little redundant now
         if self.cheat:
-            print(p1_board.shipObjects)
+            #print(p1_board.shipObjects)
+            guess_coord = []
             for coord in p1_board.getCoords():
                 if coord not in self.previous_moves:
                     self.previous_moves.append(coord)
+                    guess_coord = coord
                     break
-            else:
+            else: #This should never be the case
                 print("Empty list")
-            print("Move: ", move)
+            #print("Move: ", move)
             #Guess from opponent array
             #Remove guess from array
-            print("Move made")
-            return move #return early if cheat mode is activated
+            #print("Move made")
+            return guess_coord #return early if cheat mode is activated
 
         if self.difficulty == 2:
             # can prob do all these checks with one function
