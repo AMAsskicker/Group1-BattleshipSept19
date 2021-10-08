@@ -4,7 +4,7 @@ Adam:			                   1     1		       5	         3     3     3    0.5    6 
 Divya:                                               0.5                           1           1
 Mason:
 Michael:			   0.5          5					 3.5                    0.2
-Morgan:     .5                                                                      2     1
+Morgan:     .5                                                                      2     1                 .5   3
 
 Estimate of person-hours: 40
   The reason why we guessed that the project completion would take us 40 hours is because Project 1 took about 40 hours. Although this is project is less of a monumental burden (a.k.a. starting from scratch to build a several hundred lined code), we still need to factor in time to understand and interpret the previous group's code, add two major elements, and make a seamless transition between the previous group's code and ours.
