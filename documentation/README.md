@@ -22,6 +22,10 @@ This game is played through the terminal, with each player taking turns to type 
 
 * Clone this Repo
 
+### Code Documentation
+
+* README.html
+
 ### Executing program
 
 * Navigate to the folder where BattleshipG1.py is located.
@@ -53,7 +57,7 @@ python3 Battleship.py
 
 * 0.1
   * Initial Release
-* 1.0 
+* 1.0
   * Project 2
 
 ## Acknowledgments / Works Cited
