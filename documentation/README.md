@@ -53,8 +53,6 @@ python3 Battleship.py
 
 * 0.1
   * Initial Release
-* 0.2
-  * New Features Added
 * 1.0 
   * Project 2
 
