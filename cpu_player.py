@@ -80,7 +80,7 @@ class CPU_Player :
             if cpu_board.total_guess == 0:
                 guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                 fired = True
-                print("first cpu move")
+                #print("first cpu move")
                 self.previous_moves.append(guess_coord)
                 return guess_coord
             while not fired:
@@ -88,11 +88,9 @@ class CPU_Player :
                 # checks if previous move was a miss
                 if  self.previous_moves not in p1_board.shipObjects.getCoords:
                     #fires randomly
-                    print("entering else")
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     if guess_coord not in self.previous_moves:
                         fired = True
-                        print("fired is true")
                     self.previous_moves.append(guess_coord)
                     return guess_coord
 
@@ -126,13 +124,9 @@ class CPU_Player :
                         return guess_coord
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     fired = True
-                    print("first cpu move")
+                    #print("first cpu move")
                     self.previous_moves.append(guess_coord)
                     return guess_coord
-            # TODO: remove later
-            print("previous checked")
-        # if hit look around hit for other moves
-        # make move
         else:
             # if no hit, random number
             fired = False
@@ -145,7 +139,7 @@ class CPU_Player :
 
 
             # TODO: remove later
-            print("move to some random") # statifiy compiler
+            #print("move to some random") # statifiy compiler
             return guess_coord
         # if True:
         #     # TODO: remove later
