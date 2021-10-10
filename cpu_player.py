@@ -87,7 +87,7 @@ class CPU_Player :
             while not fired:
                 print(self.previous_moves[cpu_board.total_guess-1])
                 # checks if previous move was a miss
-                if  self.previous_moves not in p1_board.getCoords():#.shipObjects.getCoords:
+                if  self.previous_moves[cpu_board.total_guess-1] not in p1_board.getCoords():#.shipObjects.getCoords:
                     #fires randomly
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     if guess_coord not in self.previous_moves:
@@ -102,6 +102,7 @@ class CPU_Player :
                 else:
                     # TODO: assining a list to what youre using as an int  -AMA
                     x_guess, y_guess = self.previous_moves[cpu_board.total_guess-1]
+                    print(cpu_board.total_guess-1)
                     print (x_guess, ", ", y_guess)
                     guess_coord = [x_guess, y_guess + 1] #fires up
                     if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
