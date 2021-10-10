@@ -3,6 +3,7 @@
 # """
 
 import random
+from ship import Ship
 
 """
 cpu_player.py
@@ -40,7 +41,7 @@ class CPU_Player :
     def make_move (self, cpu_board, p1_board):
         """
         Called when it is cpu turn in game. \n
-        By: AMA & MT & ...
+        By: AMA & MT & MXO
 
         :param cpu_board: Board object to use for making move
         :type cpu_board: Board
@@ -73,7 +74,7 @@ class CPU_Player :
             #check below
             #check left
             #check right
-
+            print("DIFFICULTY 2")
             #finished with this -MXO
             #TODO: Testing (works well so far however duplicate moves can be made)
             fired = False
@@ -84,9 +85,9 @@ class CPU_Player :
                 self.previous_moves.append(guess_coord)
                 return guess_coord
             while not fired:
-                print(self.previous_moves[cpu_board.total_guess - 1])
+                print(self.previous_moves[cpu_board.total_guess-1])
                 # checks if previous move was a miss
-                if  self.previous_moves not in p1_board.shipObjects.getCoords:
+                if  self.previous_moves not in p1_board.getCoords():#.shipObjects.getCoords:
                     #fires randomly
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     if guess_coord not in self.previous_moves:
@@ -100,25 +101,25 @@ class CPU_Player :
                 #-MXO
                 else:
                     # TODO: assining a list to what youre using as an int  -AMA
-                    x_guess, y_guess = self.previous_moves[cpu_board.total_guess]
+                    x_guess, y_guess = self.previous_moves[cpu_board.total_guess-1]
                     print (x_guess, ", ", y_guess)
                     guess_coord = [x_guess, y_guess + 1] #fires up
-                    if (guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects):
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [x_guess, y_guess - 1] #fires down
-                    if guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects:
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [x_guess + 1, y_guess] #fires right
-                    if guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects:
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [x_guess - 1, y_guess] #fires left
-                    if guess_coord not in self.previous_moves and guess_coord in p1_board.shipObjects:
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
