@@ -74,7 +74,7 @@ class CPU_Player :
             #check below
             #check left
             #check right
-            print("DIFFICULTY 2")
+            #print("DIFFICULTY 2")
             #finished with this -MXO
             #TODO: Testing (works well so far however duplicate moves can be made)
             fired = False
@@ -102,8 +102,8 @@ class CPU_Player :
                 else:
                     # TODO: assining a list to what youre using as an int  -AMA
                     x_guess, y_guess = self.previous_moves[cpu_board.total_guess-1]
-                    print(cpu_board.total_guess-1)
-                    print (x_guess, ", ", y_guess)
+                    #print(cpu_board.total_guess-1)
+                    #print (x_guess, ", ", y_guess)
                     guess_coord = [x_guess, y_guess + 1] #fires up
                     if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
                         fired = True
