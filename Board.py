@@ -30,8 +30,6 @@ class Board:
     def __init__(self):
         # list of ships placed by user
         self.shipObjects = []
-# TODO: WHAT DO WE WANT THE BOARD TO BE?
-#  THE 'O' WAS REALLY BUSY -AMA
         # initialize board to be all ' '
         self.waterGrid = [[' ' for col in range(10)] for row in range(9)]
         # initialize board to be all '*'\
@@ -207,7 +205,7 @@ class Board:
 
     def getCoords(self):
         """
-        Author MT
+        Autho MT
         :return _: players ship coordinates as 2d array
         :rtype: list of coords
         """
