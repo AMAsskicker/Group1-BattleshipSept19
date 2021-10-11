@@ -162,8 +162,6 @@ class Battleship:
                         who_won = "ship_error"
                     # self.clear_screen()
                     if one_human:
-                        # REMOVED was causing issues and redundant -AMA
-                        # cpu_obj.add_opponent_coords(player1_board.getCoords())
                         cpu_obj.set_difficulty(difficulty)
                         print("\n CPU PLACING SHIPS \n")
                         cpu_obj.set_ships(second_board, total_ships)
@@ -464,16 +462,8 @@ req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
     if __name__ == '__main__':
-    #     #*** Instantiate the ExampleModule class:
-    #     example_module = ExampleModule()
-    #     #*** Start ExampleModule:
-    #     example_module.run()
-
         battleship = Battleship()
         battleship.run()
-    # if version is compatable, start the game
-    # run()
-    # del battleship
 else:
     # prompt user to update python
     print("Please update your python version to 3.10 or greater")

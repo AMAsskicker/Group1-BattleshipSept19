@@ -53,7 +53,6 @@ class CPU_Player :
         # check previous for a hits
         #if statement checks if cheat mode is activated, it is a little redundant now
         if self.cheat:
-            #print(p1_board.shipObjects)
             guess_coord = []
             for coord in p1_board.getCoords():
                 if coord not in self.previous_moves:
@@ -62,19 +61,9 @@ class CPU_Player :
                     break
             else: #This should never be the case
                 print("Empty list")
-            #print("Move: ", move)
-            #Guess from opponent array
-            #Remove guess from array
-            #print("Move made")
             return guess_coord #return early if cheat mode is activated
 
         if self.difficulty == 2:
-            # can prob do all these checks with one function
-            #check above
-            #check below
-            #check left
-            #check right
-            #print("DIFFICULTY 2")
             #finished with this -MXO
             #TODO: Testing (works well so far however duplicate moves can be made)
             fired = False
@@ -85,17 +74,15 @@ class CPU_Player :
                 self.previous_moves.append(guess_coord)
                 return guess_coord
             while not fired:
-                print(self.previous_moves[cpu_board.total_guess-1])
+                # print(self.previous_moves[cpu_board.total_guess-1])
                 # checks if previous move was a miss
-                if  self.previous_moves[cpu_board.total_guess-1] not in p1_board.getCoords():#.shipObjects.getCoords:
+                if  self.previous_moves[cpu_board.total_guess-1] not in p1_board.getCoords():
                     #fires randomly
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     if guess_coord not in self.previous_moves:
                         fired = True
                     self.previous_moves.append(guess_coord)
                     return guess_coord
-
-            # TODO: @MXO @DS @MM move all this to check_previous() -AMA
                 #this goes up, down, right, left after previous move was a hit
                 #once hit it will strategically destroy the ship
                 #-MXO
@@ -110,23 +97,22 @@ class CPU_Player :
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [x_guess, y_guess - 1] #fires down
-                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [x_guess + 1, y_guess] #fires right
-                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [x_guess - 1, y_guess] #fires left
-                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
+                    if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():
                         fired = True
                         self.previous_moves.append(guess_coord)
                         return guess_coord
                     guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                     fired = True
-                    #print("first cpu move")
                     self.previous_moves.append(guess_coord)
                     return guess_coord
         else:
@@ -138,29 +124,22 @@ class CPU_Player :
                 guess_coord = [x_guess, y_guess]
                 if guess_coord not in self.previous_moves:
                     fired = True
-
-
-            # TODO: remove later
-            #print("move to some random") # statifiy compiler
             return guess_coord
-        # if True:
-        #     # TODO: remove later
-        #     print("MOVE MADE")
 
-    def check_previous (self, control):
-        """
-        checks previous move for a hit then returns move accordingly \n
-        By: MXO & DS & MM
-
-        :param control: recursive control variable
-        :type control: int
-        :return _: move to make
-        :rtype: list of int, [x, y]
-        """
-        # reference ship.is_sunk() if needed
-
-        if control > some_num:
-            return [0, 0]
+    # def check_previous (self, control):
+    #     """
+    #     checks previous move for a hit then returns move accordingly \n
+    #     By: MXO & DS & MM
+    #
+    #     :param control: recursive control variable
+    #     :type control: int
+    #     :return _: move to make
+    #     :rtype: list of int, [x, y]
+    #     """
+    #     # reference ship.is_sunk() if needed
+    #
+    #     if control > some_num:
+    #         return [0, 0]
 
     def set_difficulty(self, dif):
         """
@@ -191,17 +170,11 @@ class CPU_Player :
         orientationArray = ['L', 'R', 'U', 'D']
         for ship in range(numberShips):
             valid, oriented = False, False
-
             while not valid:
-
                 orientation = orientationArray[random.randrange(0,4)] #Choose rand orientation
-
                 start_x_num = random.randrange(0,10) #choose rand x start point
-
                 start_y_num = random.randrange(0, 9) #choose rand y start point
-
                 #Orientation validation
-
                 match orientation:
                     case 'L':
                         if (start_x_num - shipLenTrack >= 0):
@@ -215,16 +188,12 @@ class CPU_Player :
                     case 'D':
                         if (start_y_num + shipLenTrack <= 9):
                             oriented = True
-
                 if ((oriented) and (board.isShipValid(orientation, start_x_num, start_y_num, ship + 1))):
                     board.createShip(start_x_num, start_y_num, orientation, ship + 1, ship + 1)
                     valid = True
                 else:
                     print("Calculating")
                     valid = False
-
             shipLenTrack += 1
         completed = True
         return completed
-        #board.printBoard() #Test for CPU board
-        #pause("cpu TESTING")

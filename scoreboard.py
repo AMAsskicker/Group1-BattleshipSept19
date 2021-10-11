@@ -21,15 +21,8 @@ class Scoreboard(object):
     def __init__(self):
         super(Scoreboard, self).__init__()
 
-    def __str__(self):
-        # self.printScoreboard(True, 1, 2, 3, 4, 5, 6, 7, 8)
-        # self.printScoreboard(True, 1, 12, 11, 14, 2, 16, 17, 18)
-        # self.printScoreboard(True, 1, 2, 13, 4, 6, 16, 7, 18)
-        self.printScoreboard(False, 1, 12, 3, 14, 6, 6, 17, 8)
-
     def printScoreboard(self, is_cpu, p1_ships, p1_hits, p1_shots, p1_games,
                         p2_ships, p2_hits, p2_shots, p2_games):
-        # TODO: read a board & battleship object
         """
         prints the whole scoreboard, calls functions as needed
 
@@ -140,18 +133,11 @@ req_version = (3,10)
 curr_version = sys.version_info
 if curr_version >= req_version:
     if __name__ == '__main__':
-    #     #*** Instantiate the ExampleModule class:
-    #     example_module = ExampleModule()
-    #     #*** Start ExampleModule:
-    #     example_module.run()
 
         test = Scoreboard()
         print(test)
         # test.printScoreboard(True, 1, 2, 3, 4, 5, 6, 7, 8)
 
-    # if version is compatable, start the game
-    # run()
-    # del battleship
 else:
     # prompt user to update python
     print("Please update your python version to 3.10 or greater")

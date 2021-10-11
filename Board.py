@@ -79,17 +79,6 @@ class Board:
                 print(self.guess_grid[row][col], " ", end = "")
             print()
 
-    # def checkShipOverlap(self, x, y, len, orient):
-    #     # THIS FUNC ISN'T USED-AMA
-    #     start = 0
-    #     for i in self.waterGrid[x]:
-    #         for j in self.waterGrid[y]:
-    #             if j != 'O' and j != '*':
-    #                 print("There is already a ship here, please reenter coordinates. ")
-    #                 return False
-    #             else:
-    #                 return True
-
     def isShipValid(self, orient, start_x, start_y, length):
         """
         checks if ship placement is valid
@@ -114,9 +103,6 @@ class Board:
             try:
                 # changed to match-case from if-else AMA 9-26-2021
                 match orient:
-# TODO: maybe FIXED: need to test more.  added try except for the match statement,
-# was getting an index error.  also change to for loop
-# TODO: NEEDS MORE TESTING TO SEE IF ANY OF MY FIXES BROKE SOMETHING ELSE. -AMA
                     case 'L':
                         if self.waterGrid[start_y][start_x - start] not in checkArray:
                             bool_rtn = False
@@ -151,7 +137,6 @@ class Board:
         orient = orient.upper();
         # making ship class obj
         temp_ship = Ship(shipnumber, orient)
-# TODO: NEEDS TESTING -AMA
         for start in range(length):
             match orient:
                 case 'L':
@@ -166,10 +151,8 @@ class Board:
                 case 'D':
                     self.waterGrid[start_y + start][start_x] = shipnumber
                     temp_ship.add_coord([start_x, start_y + start], shipnumber)
-        # TODO:  try except here -AMA
         self.shipObjects.append(temp_ship)
         self.points += 1
-        # TODO: POTENTIAL TRY EXECPT TO CHECK DELETE and return a bool
         del temp_ship
 
     def hit(self, coord_list, compare_board):
@@ -185,9 +168,6 @@ class Board:
         :return True: if move is a hit
         :return False: else
         """
-# TODO: WORKING,  NEEDS LOTS of TESTING -AMA
-# FIXED: move in same space, NEEDS MORE TESTING -AMA
-# ADDED: hit and total guess tracking, NEEDS MORE TESTING -AMA
         test_case = {'X', 'M'}
         if self.guess_grid[coord_list[1]][coord_list[0]] in test_case:
             # print("ALREADY MADE MOVE THERE")
