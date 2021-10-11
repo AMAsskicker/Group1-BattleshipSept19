@@ -32,7 +32,6 @@ class CPU_Player :
     :type cheat: bool
     """
     def __init__ (self):
-        # MAY NOT NEED THIS AS BOARD CAN TRACK MOVES - AMA
         self.previous_moves = []
         self.difficulty = 0
         self.cheat = False
@@ -64,17 +63,14 @@ class CPU_Player :
             return guess_coord #return early if cheat mode is activated
 
         if self.difficulty == 2:
-            #finished with this -MXO
-            #TODO: Testing (works well so far however duplicate moves can be made)
+            #works well so far however duplicate moves can be made
             fired = False
             if cpu_board.total_guess == 0:
                 guess_coord = [random.randrange(0,10), random.randrange(0, 9)]
                 fired = True
-                #print("first cpu move")
                 self.previous_moves.append(guess_coord)
                 return guess_coord
             while not fired:
-                # print(self.previous_moves[cpu_board.total_guess-1])
                 # checks if previous move was a miss
                 if  self.previous_moves[cpu_board.total_guess-1] not in p1_board.getCoords():
                     #fires randomly
@@ -87,10 +83,7 @@ class CPU_Player :
                 #once hit it will strategically destroy the ship
                 #-MXO
                 else:
-                    # TODO: assining a list to what youre using as an int  -AMA
                     x_guess, y_guess = self.previous_moves[cpu_board.total_guess-1]
-                    #print(cpu_board.total_guess-1)
-                    #print (x_guess, ", ", y_guess)
                     guess_coord = [x_guess, y_guess + 1] #fires up
                     if guess_coord not in self.previous_moves and guess_coord in p1_board.getCoords():#.shipObjects):
                         fired = True
@@ -136,7 +129,6 @@ class CPU_Player :
     #     :return _: move to make
     #     :rtype: list of int, [x, y]
     #     """
-    #     # reference ship.is_sunk() if needed
     #
     #     if control > some_num:
     #         return [0, 0]
